@@ -1,0 +1,6 @@
+tower_type,bullet_speed,bullet_damage,cooldown,range_radius,BaseCost,upgrade_cost_level 2,upgrade_cost_level 3
+Stove_Cannon,250,3.0,3.0,75,30,150,150
+Chilli_Launcher,400,1.0,0.2,80,20,100,100
+Garlic_Barrier,0,0,5.0,120,100,200,200
+Pepper_Grinder,300,1.8,2.5,180,40,80,160
+Ice_Chiller,250,0.5,60,100,150,130,130

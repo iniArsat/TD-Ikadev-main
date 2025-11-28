@@ -1,0 +1,45 @@
+[gd_scene load_steps=5 format=3 uid="uid://dr4umurxrl66h"]
+
+[ext_resource type="Script" uid="uid://dnepi04ynwh4r" path="res://script/Main.gd" id="1_xwcet"]
+[ext_resource type="Script" uid="uid://dj4gx2hi8oi4o" path="res://script/path_spawner.gd" id="4_fc0e3"]
+[ext_resource type="PackedScene" uid="uid://ccx2lk3eayihd" path="res://scene/ui_placement.tscn" id="4_xwcet"]
+[ext_resource type="PackedScene" uid="uid://djmcpbdho8mfs" path="res://scene/base_area.tscn" id="5_p1ry8"]
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_xwcet")
+
+[node name="PathSpawner" type="Node2D" parent="."]
+script = ExtResource("4_fc0e3")
+
+[node name="Timer" type="Timer" parent="PathSpawner"]
+autostart = true
+
+[node name="Placement" type="Node2D" parent="."]
+
+[node name="UI_Placement" parent="Placement" instance=ExtResource("4_xwcet")]
+position = Vector2(270, 498)
+
+[node name="UI_Placement2" parent="Placement" instance=ExtResource("4_xwcet")]
+position = Vector2(870, 414)
+
+[node name="UI_Placement3" parent="Placement" instance=ExtResource("4_xwcet")]
+position = Vector2(528, 274)
+
+[node name="Tower" type="Node2D" parent="."]
+
+[node name="coin_label" type="Label" parent="."]
+offset_left = 946.0
+offset_top = 12.0
+offset_right = 986.0
+offset_bottom = 35.0
+
+[node name="health_label" type="Label" parent="."]
+offset_left = 727.0
+offset_top = 8.0
+offset_right = 767.0
+offset_bottom = 31.0
+
+[node name="Base_Area" parent="." instance=ExtResource("5_p1ry8")]
+position = Vector2(40, 31)
+
+[connection signal="timeout" from="PathSpawner/Timer" to="PathSpawner" method="_on_timer_timeout"]

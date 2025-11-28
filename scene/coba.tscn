@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://b7yhtdgoa4x40"]
+
+[ext_resource type="PackedScene" uid="uid://d2i5gjafy7xtx" path="res://scene/tower_a.tscn" id="1_y0sly"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="TowerA" parent="." instance=ExtResource("1_y0sly")]
+position = Vector2(397, 175)
+bullet_scene = null

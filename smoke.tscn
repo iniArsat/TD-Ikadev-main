@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3 uid="uid://d1lfhm24gjo3u"]
+
+[ext_resource type="Texture2D" uid="uid://bigo1yjukepcj" path="res://asset/asap_firaun.png" id="2_o88gx"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sl1eh"]
+size = Vector2(116, 72)
+
+[node name="SmokeEffect" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(1, -1)
+scale = Vector2(1.65193, 1.65193)
+texture = ExtResource("2_o88gx")
+
+[node name="Area2D" type="Area2D" parent="."]
+scale = Vector2(42.7224, 42.7224)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(1, -5)
+shape = SubResource("RectangleShape2D_sl1eh")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_body_exited"]

@@ -1,0 +1,940 @@
+[gd_scene load_steps=9 format=3 uid="uid://cmd7nt2wyncqn"]
+
+[ext_resource type="Script" uid="uid://bgac42ixedltt" path="res://script/main_menu.gd" id="1_3er1b"]
+[ext_resource type="Texture2D" uid="uid://dwghhwpbdd1gl" path="res://asset/towerDefense_tile250.png" id="2_sepwh"]
+[ext_resource type="Texture2D" uid="uid://d1ig5rmkg7xln" path="res://asset/towerDefense_tile249.png" id="3_14wem"]
+[ext_resource type="Texture2D" uid="uid://bws4wkddkjgs6" path="res://asset/towerDefense_tile245.png" id="4_2atga"]
+[ext_resource type="Texture2D" uid="uid://x8ceoolmw32l" path="res://asset/towerDefense_tile246.png" id="5_by01r"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rhts7"]
+bg_color = Color(0.211765, 0.211765, 0.211765, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_06t4h"]
+bg_color = Color(0.211765, 0.211765, 0.211765, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dclss"]
+bg_color = Color(0.211765, 0.211765, 0.211765, 1)
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_3er1b")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -311.5
+offset_right = 311.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0.281187, 0.281187, 0.281187, 1)
+theme_override_font_sizes/font_size = 100
+text = "RECIPE WAR"
+
+[node name="Button_Setting" type="Button" parent="."]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 0
+offset_left = 1130.0
+offset_top = 28.0
+offset_right = 1254.0
+offset_bottom = 128.0
+theme_override_font_sizes/font_size = 30
+text = "Settings"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -276.0
+offset_top = -148.0
+offset_right = 277.0
+offset_bottom = -48.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 50
+
+[node name="Button_Upgrade" type="Button" parent="HBoxContainer"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Upgrade
+"
+
+[node name="Button_Encyclopedia" type="Button" parent="HBoxContainer"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Encyclopedia
+"
+
+[node name="Button_Start" type="Button" parent="."]
+custom_minimum_size = Vector2(300, 100)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = -110.0
+offset_right = 150.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 30
+text = "Start"
+
+[node name="Button_Credit" type="Button" parent="."]
+custom_minimum_size = Vector2(300, 100)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_right = 150.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 30
+text = "Credit
+"
+
+[node name="Button_Exit" type="Button" parent="."]
+custom_minimum_size = Vector2(300, 100)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = 111.0
+offset_right = 150.0
+offset_bottom = 211.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 30
+text = "Exit
+"
+
+[node name="Panel_Upgrade" type="Panel" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -450.0
+offset_top = -183.0
+offset_right = 450.0
+offset_bottom = 317.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(450, 0)
+theme_override_styles/panel = SubResource("StyleBoxFlat_rhts7")
+
+[node name="Label" type="Label" parent="Panel_Upgrade"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -93.5
+offset_top = 10.0
+offset_right = 93.5
+offset_bottom = 65.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 40
+text = "UPGRADE"
+horizontal_alignment = 1
+
+[node name="Close_Upgrade" type="Button" parent="Panel_Upgrade"]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 0
+offset_left = 839.0
+offset_top = 1.0
+offset_right = 899.0
+offset_bottom = 61.0
+theme_override_font_sizes/font_size = 35
+text = "X"
+
+[node name="ColorRect" type="ColorRect" parent="Panel_Upgrade"]
+visible = false
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -61.0
+offset_top = 1.0
+offset_right = -1.0
+offset_bottom = 61.0
+grow_horizontal = 0
+color = Color(0, 1, 1, 1)
+
+[node name="FlowContainer" type="FlowContainer" parent="Panel_Upgrade"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -350.0
+offset_top = -156.0
+offset_right = 350.0
+offset_bottom = 200.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(350, 0)
+theme_override_constants/h_separation = 25
+theme_override_constants/v_separation = 25
+
+[node name="ColorRect" type="ColorRect" parent="Panel_Upgrade/FlowContainer"]
+custom_minimum_size = Vector2(335, 100)
+layout_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="Panel_Upgrade/FlowContainer/ColorRect"]
+custom_minimum_size = Vector2(75, 75)
+layout_mode = 0
+offset_left = 17.0
+offset_top = 14.0
+offset_right = 92.0
+offset_bottom = 89.0
+color = Color(0.347817, 0.347817, 0.347817, 1)
+
+[node name="Label" type="Label" parent="Panel_Upgrade/FlowContainer/ColorRect"]
+layout_mode = 0
+offset_left = 109.0
+offset_top = 17.0
+offset_right = 216.0
+offset_bottom = 40.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "TOWER NAME"
+
+[node name="Label2" type="Label" parent="Panel_Upgrade/FlowContainer/ColorRect"]
+layout_mode = 0
+offset_left = 109.0
+offset_top = 63.0
+offset_right = 216.0
+offset_bottom = 86.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "COST : 100"
+
+[node name="Button" type="Button" parent="Panel_Upgrade/FlowContainer/ColorRect"]
+layout_mode = 0
+offset_left = 257.0
+offset_top = 58.0
+offset_right = 327.0
+offset_bottom = 88.0
+text = "BUY
+"
+
+[node name="ColorRect2" type="ColorRect" parent="Panel_Upgrade/FlowContainer"]
+custom_minimum_size = Vector2(335, 100)
+layout_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="Panel_Upgrade/FlowContainer/ColorRect2"]
+custom_minimum_size = Vector2(75, 75)
+layout_mode = 0
+offset_left = 17.0
+offset_top = 14.0
+offset_right = 92.0
+offset_bottom = 89.0
+color = Color(0.347817, 0.347817, 0.347817, 1)
+
+[node name="Label" type="Label" parent="Panel_Upgrade/FlowContainer/ColorRect2"]
+layout_mode = 0
+offset_left = 109.0
+offset_top = 17.0
+offset_right = 216.0
+offset_bottom = 40.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "TOWER NAME"
+
+[node name="Label2" type="Label" parent="Panel_Upgrade/FlowContainer/ColorRect2"]
+layout_mode = 0
+offset_left = 109.0
+offset_top = 63.0
+offset_right = 216.0
+offset_bottom = 86.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "COST : 100"
+
+[node name="Button" type="Button" parent="Panel_Upgrade/FlowContainer/ColorRect2"]
+layout_mode = 0
+offset_left = 257.0
+offset_top = 58.0
+offset_right = 327.0
+offset_bottom = 88.0
+text = "BUY
+"
+
+[node name="ColorRect3" type="ColorRect" parent="Panel_Upgrade/FlowContainer"]
+custom_minimum_size = Vector2(335, 100)
+layout_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="Panel_Upgrade/FlowContainer/ColorRect3"]
+custom_minimum_size = Vector2(75, 75)
+layout_mode = 0
+offset_left = 17.0
+offset_top = 14.0
+offset_right = 92.0
+offset_bottom = 89.0
+color = Color(0.347817, 0.347817, 0.347817, 1)
+
+[node name="Label" type="Label" parent="Panel_Upgrade/FlowContainer/ColorRect3"]
+layout_mode = 0
+offset_left = 109.0
+offset_top = 17.0
+offset_right = 216.0
+offset_bottom = 40.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "TOWER NAME"
+
+[node name="Label2" type="Label" parent="Panel_Upgrade/FlowContainer/ColorRect3"]
+layout_mode = 0
+offset_left = 109.0
+offset_top = 63.0
+offset_right = 216.0
+offset_bottom = 86.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "COST : 100"
+
+[node name="Button" type="Button" parent="Panel_Upgrade/FlowContainer/ColorRect3"]
+layout_mode = 0
+offset_left = 257.0
+offset_top = 58.0
+offset_right = 327.0
+offset_bottom = 88.0
+text = "BUY
+"
+
+[node name="ColorRect4" type="ColorRect" parent="Panel_Upgrade/FlowContainer"]
+custom_minimum_size = Vector2(335, 100)
+layout_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="Panel_Upgrade/FlowContainer/ColorRect4"]
+custom_minimum_size = Vector2(75, 75)
+layout_mode = 0
+offset_left = 17.0
+offset_top = 14.0
+offset_right = 92.0
+offset_bottom = 89.0
+color = Color(0.347817, 0.347817, 0.347817, 1)
+
+[node name="Label" type="Label" parent="Panel_Upgrade/FlowContainer/ColorRect4"]
+layout_mode = 0
+offset_left = 109.0
+offset_top = 17.0
+offset_right = 216.0
+offset_bottom = 40.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "TOWER NAME"
+
+[node name="Label2" type="Label" parent="Panel_Upgrade/FlowContainer/ColorRect4"]
+layout_mode = 0
+offset_left = 109.0
+offset_top = 63.0
+offset_right = 216.0
+offset_bottom = 86.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "COST : 100"
+
+[node name="Button" type="Button" parent="Panel_Upgrade/FlowContainer/ColorRect4"]
+layout_mode = 0
+offset_left = 257.0
+offset_top = 58.0
+offset_right = 327.0
+offset_bottom = 88.0
+text = "BUY
+"
+
+[node name="ColorRect5" type="ColorRect" parent="Panel_Upgrade/FlowContainer"]
+custom_minimum_size = Vector2(335, 100)
+layout_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="Panel_Upgrade/FlowContainer/ColorRect5"]
+custom_minimum_size = Vector2(75, 75)
+layout_mode = 0
+offset_left = 17.0
+offset_top = 14.0
+offset_right = 92.0
+offset_bottom = 89.0
+color = Color(0.347817, 0.347817, 0.347817, 1)
+
+[node name="Label" type="Label" parent="Panel_Upgrade/FlowContainer/ColorRect5"]
+layout_mode = 0
+offset_left = 109.0
+offset_top = 17.0
+offset_right = 216.0
+offset_bottom = 40.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "TOWER NAME"
+
+[node name="Label2" type="Label" parent="Panel_Upgrade/FlowContainer/ColorRect5"]
+layout_mode = 0
+offset_left = 109.0
+offset_top = 63.0
+offset_right = 216.0
+offset_bottom = 86.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "COST : 100"
+
+[node name="Button" type="Button" parent="Panel_Upgrade/FlowContainer/ColorRect5"]
+layout_mode = 0
+offset_left = 257.0
+offset_top = 58.0
+offset_right = 327.0
+offset_bottom = 88.0
+text = "BUY
+"
+
+[node name="ColorRect6" type="ColorRect" parent="Panel_Upgrade/FlowContainer"]
+custom_minimum_size = Vector2(335, 100)
+layout_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="Panel_Upgrade/FlowContainer/ColorRect6"]
+custom_minimum_size = Vector2(75, 75)
+layout_mode = 0
+offset_left = 17.0
+offset_top = 14.0
+offset_right = 92.0
+offset_bottom = 89.0
+color = Color(0.347817, 0.347817, 0.347817, 1)
+
+[node name="Label" type="Label" parent="Panel_Upgrade/FlowContainer/ColorRect6"]
+layout_mode = 0
+offset_left = 109.0
+offset_top = 17.0
+offset_right = 216.0
+offset_bottom = 40.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "TOWER NAME"
+
+[node name="Label2" type="Label" parent="Panel_Upgrade/FlowContainer/ColorRect6"]
+layout_mode = 0
+offset_left = 109.0
+offset_top = 63.0
+offset_right = 216.0
+offset_bottom = 86.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "COST : 100"
+
+[node name="Button" type="Button" parent="Panel_Upgrade/FlowContainer/ColorRect6"]
+layout_mode = 0
+offset_left = 257.0
+offset_top = 58.0
+offset_right = 327.0
+offset_bottom = 88.0
+text = "BUY
+"
+
+[node name="Panel_Credit" type="Panel" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -450.0
+offset_top = -183.0
+offset_right = 450.0
+offset_bottom = 317.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(450, 0)
+theme_override_styles/panel = SubResource("StyleBoxFlat_rhts7")
+
+[node name="Label" type="Label" parent="Panel_Credit"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -86.0
+offset_right = 86.0
+offset_bottom = 69.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 50
+text = "CREDIT"
+
+[node name="Close_Upgrade" type="Button" parent="Panel_Credit"]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 0
+offset_left = 839.0
+offset_top = 1.0
+offset_right = 899.0
+offset_bottom = 61.0
+theme_override_font_sizes/font_size = 35
+text = "X"
+
+[node name="Panel_Settings" type="Panel" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -450.0
+offset_top = -183.0
+offset_right = 450.0
+offset_bottom = 317.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(450, 0)
+theme_override_styles/panel = SubResource("StyleBoxFlat_06t4h")
+
+[node name="Label" type="Label" parent="Panel_Settings"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -86.0
+offset_right = 86.0
+offset_bottom = 69.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 50
+text = "SETTINGS"
+
+[node name="Quit_Game" type="Button" parent="Panel_Settings"]
+custom_minimum_size = Vector2(200, 75)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -142.0
+offset_top = -109.0
+offset_right = 142.0
+offset_bottom = -32.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 50
+text = "QUIT GAME"
+
+[node name="Close_Settings" type="Button" parent="Panel_Settings"]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 0
+offset_left = 839.0
+offset_top = 1.0
+offset_right = 899.0
+offset_bottom = 61.0
+theme_override_font_sizes/font_size = 35
+text = "X"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel_Settings"]
+layout_mode = 0
+offset_left = 102.0
+offset_top = 132.0
+offset_right = 802.0
+offset_bottom = 232.0
+theme_override_constants/separation = 30
+
+[node name="ColorRect" type="ColorRect" parent="Panel_Settings/VBoxContainer"]
+custom_minimum_size = Vector2(700, 90)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Panel_Settings/VBoxContainer/ColorRect"]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 8.0
+offset_right = 182.0
+offset_bottom = 77.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 50
+text = "MUSIC"
+
+[node name="HSlider" type="HSlider" parent="Panel_Settings/VBoxContainer/ColorRect"]
+custom_minimum_size = Vector2(420, 0)
+layout_mode = 0
+offset_left = 250.0
+offset_top = 35.0
+offset_right = 670.0
+offset_bottom = 51.0
+max_value = 1.0
+step = 0.01
+value = 1.0
+
+[node name="ColorRect2" type="ColorRect" parent="Panel_Settings/VBoxContainer"]
+custom_minimum_size = Vector2(700, 90)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Panel_Settings/VBoxContainer/ColorRect2"]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 8.0
+offset_right = 182.0
+offset_bottom = 77.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 50
+text = "SFX"
+
+[node name="HSlider" type="HSlider" parent="Panel_Settings/VBoxContainer/ColorRect2"]
+custom_minimum_size = Vector2(420, 0)
+layout_mode = 0
+offset_left = 250.0
+offset_top = 35.0
+offset_right = 670.0
+offset_bottom = 51.0
+
+[node name="Panel_Encyclopedia" type="Panel" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -450.0
+offset_top = -183.0
+offset_right = 450.0
+offset_bottom = 317.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(450, 0)
+theme_override_styles/panel = SubResource("StyleBoxFlat_dclss")
+
+[node name="Panel_Tower" type="Panel" parent="Panel_Encyclopedia"]
+visible = false
+layout_mode = 0
+offset_left = 20.0
+offset_top = 96.0
+offset_right = 870.0
+offset_bottom = 446.0
+
+[node name="FlowContainer" type="FlowContainer" parent="Panel_Encyclopedia/Panel_Tower"]
+layout_mode = 0
+offset_left = 26.0
+offset_top = 30.0
+offset_right = 76.0
+offset_bottom = 320.0
+scale = Vector2(10.88, 1)
+theme_override_constants/h_separation = 3
+theme_override_constants/v_separation = 25
+
+[node name="Button_Chilli" type="Button" parent="Panel_Encyclopedia/Panel_Tower/FlowContainer"]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+
+[node name="TowerDefenseTile250" type="Sprite2D" parent="Panel_Encyclopedia/Panel_Tower/FlowContainer/Button_Chilli"]
+position = Vector2(3.86029, 40)
+scale = Vector2(0.04, 0.38)
+texture = ExtResource("2_sepwh")
+
+[node name="Button_StoveCannon" type="Button" parent="Panel_Encyclopedia/Panel_Tower/FlowContainer"]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+
+[node name="TowerDefenseTile251" type="Sprite2D" parent="Panel_Encyclopedia/Panel_Tower/FlowContainer/Button_StoveCannon"]
+position = Vector2(4.44118, 40)
+scale = Vector2(0.04, 0.38)
+texture = ExtResource("3_14wem")
+
+[node name="Button3" type="Button" parent="Panel_Encyclopedia/Panel_Tower/FlowContainer"]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+
+[node name="Button4" type="Button" parent="Panel_Encyclopedia/Panel_Tower/FlowContainer"]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+
+[node name="Button5" type="Button" parent="Panel_Encyclopedia/Panel_Tower/FlowContainer"]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+
+[node name="Button6" type="Button" parent="Panel_Encyclopedia/Panel_Tower/FlowContainer"]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+
+[node name="Button7" type="Button" parent="Panel_Encyclopedia/Panel_Tower/FlowContainer"]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+
+[node name="Button8" type="Button" parent="Panel_Encyclopedia/Panel_Tower/FlowContainer"]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+
+[node name="Button9" type="Button" parent="Panel_Encyclopedia/Panel_Tower/FlowContainer"]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+
+[node name="Button10" type="Button" parent="Panel_Encyclopedia/Panel_Tower/FlowContainer"]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+
+[node name="Button11" type="Button" parent="Panel_Encyclopedia/Panel_Tower/FlowContainer"]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+
+[node name="Button12" type="Button" parent="Panel_Encyclopedia/Panel_Tower/FlowContainer"]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+
+[node name="Panel_Chilli" type="Panel" parent="Panel_Encyclopedia/Panel_Tower"]
+custom_minimum_size = Vector2(300, 300)
+layout_mode = 0
+offset_left = 531.0
+offset_top = 28.0
+offset_right = 831.0
+offset_bottom = 328.0
+
+[node name="ColorRect" type="ColorRect" parent="Panel_Encyclopedia/Panel_Tower/Panel_Chilli"]
+layout_mode = 0
+offset_left = 76.0
+offset_top = 17.0
+offset_right = 226.0
+offset_bottom = 167.0
+
+[node name="TowerDefenseTile250" type="Sprite2D" parent="Panel_Encyclopedia/Panel_Tower/Panel_Chilli"]
+position = Vector2(150, 94)
+texture = ExtResource("2_sepwh")
+
+[node name="Label" type="Label" parent="Panel_Encyclopedia/Panel_Tower/Panel_Chilli"]
+layout_mode = 0
+offset_left = 82.0
+offset_top = 191.0
+offset_right = 221.0
+offset_bottom = 214.0
+text = "CHILLI LAUNCHER"
+horizontal_alignment = 1
+
+[node name="Panel_StoveCannon" type="Panel" parent="Panel_Encyclopedia/Panel_Tower"]
+visible = false
+custom_minimum_size = Vector2(300, 300)
+layout_mode = 0
+offset_left = 531.0
+offset_top = 28.0
+offset_right = 831.0
+offset_bottom = 328.0
+
+[node name="ColorRect" type="ColorRect" parent="Panel_Encyclopedia/Panel_Tower/Panel_StoveCannon"]
+layout_mode = 0
+offset_left = 76.0
+offset_top = 17.0
+offset_right = 226.0
+offset_bottom = 167.0
+
+[node name="TowerDefenseTile250" type="Sprite2D" parent="Panel_Encyclopedia/Panel_Tower/Panel_StoveCannon"]
+position = Vector2(150, 94)
+texture = ExtResource("3_14wem")
+
+[node name="Label" type="Label" parent="Panel_Encyclopedia/Panel_Tower/Panel_StoveCannon"]
+layout_mode = 0
+offset_left = 82.0
+offset_top = 191.0
+offset_right = 221.0
+offset_bottom = 214.0
+text = "STOVE CANNON"
+horizontal_alignment = 1
+
+[node name="Panel_Enemies" type="Panel" parent="Panel_Encyclopedia"]
+visible = false
+layout_mode = 0
+offset_left = 20.0
+offset_top = 96.0
+offset_right = 870.0
+offset_bottom = 446.0
+
+[node name="FlowContainer" type="FlowContainer" parent="Panel_Encyclopedia/Panel_Enemies"]
+layout_mode = 0
+offset_left = 26.0
+offset_top = 30.0
+offset_right = 76.0
+offset_bottom = 320.0
+scale = Vector2(10.88, 1)
+theme_override_constants/h_separation = 3
+theme_override_constants/v_separation = 25
+
+[node name="Button_Greaserat" type="Button" parent="Panel_Encyclopedia/Panel_Enemies/FlowContainer"]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+
+[node name="TowerDefenseTile250" type="Sprite2D" parent="Panel_Encyclopedia/Panel_Enemies/FlowContainer/Button_Greaserat"]
+position = Vector2(3.86029, 40)
+scale = Vector2(0.04, 0.38)
+texture = ExtResource("4_2atga")
+
+[node name="Button_Squirelfire" type="Button" parent="Panel_Encyclopedia/Panel_Enemies/FlowContainer"]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+
+[node name="TowerDefenseTile251" type="Sprite2D" parent="Panel_Encyclopedia/Panel_Enemies/FlowContainer/Button_Squirelfire"]
+position = Vector2(4.07353, 40)
+scale = Vector2(0.04, 0.38)
+texture = ExtResource("5_by01r")
+
+[node name="Button3" type="Button" parent="Panel_Encyclopedia/Panel_Enemies/FlowContainer"]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+
+[node name="Button4" type="Button" parent="Panel_Encyclopedia/Panel_Enemies/FlowContainer"]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+
+[node name="Button5" type="Button" parent="Panel_Encyclopedia/Panel_Enemies/FlowContainer"]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+
+[node name="Button6" type="Button" parent="Panel_Encyclopedia/Panel_Enemies/FlowContainer"]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+
+[node name="Button7" type="Button" parent="Panel_Encyclopedia/Panel_Enemies/FlowContainer"]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+
+[node name="Button8" type="Button" parent="Panel_Encyclopedia/Panel_Enemies/FlowContainer"]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+
+[node name="Button9" type="Button" parent="Panel_Encyclopedia/Panel_Enemies/FlowContainer"]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+
+[node name="Button10" type="Button" parent="Panel_Encyclopedia/Panel_Enemies/FlowContainer"]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+
+[node name="Button11" type="Button" parent="Panel_Encyclopedia/Panel_Enemies/FlowContainer"]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+
+[node name="Button12" type="Button" parent="Panel_Encyclopedia/Panel_Enemies/FlowContainer"]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+
+[node name="Panel_GreaseRat" type="Panel" parent="Panel_Encyclopedia/Panel_Enemies"]
+custom_minimum_size = Vector2(300, 300)
+layout_mode = 0
+offset_left = 531.0
+offset_top = 28.0
+offset_right = 831.0
+offset_bottom = 328.0
+
+[node name="ColorRect" type="ColorRect" parent="Panel_Encyclopedia/Panel_Enemies/Panel_GreaseRat"]
+layout_mode = 0
+offset_left = 76.0
+offset_top = 17.0
+offset_right = 226.0
+offset_bottom = 167.0
+
+[node name="TowerDefenseTile250" type="Sprite2D" parent="Panel_Encyclopedia/Panel_Enemies/Panel_GreaseRat"]
+position = Vector2(150, 94)
+texture = ExtResource("4_2atga")
+
+[node name="Label" type="Label" parent="Panel_Encyclopedia/Panel_Enemies/Panel_GreaseRat"]
+layout_mode = 0
+offset_left = 82.0
+offset_top = 191.0
+offset_right = 221.0
+offset_bottom = 214.0
+text = "Grease Rat"
+horizontal_alignment = 1
+
+[node name="Panel_SquirelFire" type="Panel" parent="Panel_Encyclopedia/Panel_Enemies"]
+visible = false
+custom_minimum_size = Vector2(300, 300)
+layout_mode = 0
+offset_left = 531.0
+offset_top = 28.0
+offset_right = 831.0
+offset_bottom = 328.0
+
+[node name="ColorRect" type="ColorRect" parent="Panel_Encyclopedia/Panel_Enemies/Panel_SquirelFire"]
+layout_mode = 0
+offset_left = 76.0
+offset_top = 17.0
+offset_right = 226.0
+offset_bottom = 167.0
+
+[node name="TowerDefenseTile250" type="Sprite2D" parent="Panel_Encyclopedia/Panel_Enemies/Panel_SquirelFire"]
+position = Vector2(150, 94)
+texture = ExtResource("5_by01r")
+
+[node name="Label" type="Label" parent="Panel_Encyclopedia/Panel_Enemies/Panel_SquirelFire"]
+layout_mode = 0
+offset_left = 82.0
+offset_top = 191.0
+offset_right = 221.0
+offset_bottom = 214.0
+text = "Squirel Fire"
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="Panel_Encyclopedia"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -86.0
+offset_right = 86.0
+offset_bottom = 69.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 50
+text = "ENCYCLOPEDIA"
+
+[node name="Close_Upgrade" type="Button" parent="Panel_Encyclopedia"]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 0
+offset_left = 839.0
+offset_top = 1.0
+offset_right = 899.0
+offset_bottom = 61.0
+theme_override_font_sizes/font_size = 35
+text = "X"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel_Encyclopedia"]
+layout_mode = 0
+offset_left = 75.0
+offset_top = 171.0
+offset_right = 425.0
+offset_bottom = 371.0
+theme_override_constants/separation = 40
+
+[node name="Button_Tower" type="Button" parent="Panel_Encyclopedia/HBoxContainer"]
+custom_minimum_size = Vector2(350, 200)
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "TOWER"
+
+[node name="Button_Enemies" type="Button" parent="Panel_Encyclopedia/HBoxContainer"]
+custom_minimum_size = Vector2(350, 200)
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "ENEMIES"
+
+[connection signal="pressed" from="Button_Setting" to="." method="_on_button_setting_pressed"]
+[connection signal="pressed" from="HBoxContainer/Button_Upgrade" to="." method="_on_button_upgrade_pressed"]
+[connection signal="pressed" from="HBoxContainer/Button_Encyclopedia" to="." method="_on_button_encyclopedia_pressed"]
+[connection signal="pressed" from="Button_Start" to="." method="_on_button_start_pressed"]
+[connection signal="pressed" from="Button_Credit" to="." method="_on_button_credit_pressed"]
+[connection signal="pressed" from="Button_Exit" to="." method="_on_button_exit_pressed"]
+[connection signal="pressed" from="Panel_Upgrade/Close_Upgrade" to="." method="_on_close_upgrade_pressed"]
+[connection signal="pressed" from="Panel_Credit/Close_Upgrade" to="." method="_on_close_upgrade_pressed"]
+[connection signal="pressed" from="Panel_Settings/Close_Settings" to="." method="_on_close_upgrade_pressed"]
+[connection signal="value_changed" from="Panel_Settings/VBoxContainer/ColorRect/HSlider" to="." method="_on_slider_bgm_value_changed"]
+[connection signal="pressed" from="Panel_Encyclopedia/Close_Upgrade" to="." method="_on_close_upgrade_pressed"]
+[connection signal="pressed" from="Panel_Encyclopedia/HBoxContainer/Button_Tower" to="." method="_on_button_tower_pressed"]
+[connection signal="pressed" from="Panel_Encyclopedia/HBoxContainer/Button_Enemies" to="." method="_on_button_enemies_pressed"]
