@@ -267,7 +267,7 @@ func apply_upgrade_stats():
 		2:
 			match tower_type:
 				"Stove_Cannon":
-					bullet_damage *= 1.5
+					bullet_damage += 1.0
 					range_radius *= 1.2
 					cooldown *= 0.9
 				"Chilli_Launcher":

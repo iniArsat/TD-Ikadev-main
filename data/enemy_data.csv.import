@@ -1,15 +1,3 @@
 [remap]
 
-importer="csv_translation"
-type="Translation"
-uid="uid://y2hmrvyota6s"
-valid=false
-
-[deps]
-
-source_file="res://data/enemy_data.csv"
-
-[params]
-
-compress=true
-delimiter=0
+importer="keep"

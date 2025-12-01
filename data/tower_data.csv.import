@@ -1,15 +1,3 @@
 [remap]
 
-importer="csv_translation"
-type="Translation"
-uid="uid://uc1gp2ofnefv"
-valid=false
-
-[deps]
-
-source_file="res://data/tower_data.csv"
-
-[params]
-
-compress=true
-delimiter=0
+importer="keep"

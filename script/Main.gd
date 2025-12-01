@@ -196,6 +196,8 @@ func _on_game_paused(is_paused: bool):
 		pause_panel.visible = false
 
 func _on_main_menu_pressed() -> void:
+	GameManager.reset_game()
+	GameSpeedManager.reset_speed()
 	GameSpeedManager.set_game_speed(1.0)  # Reset speed
 	get_tree().change_scene_to_file("res://scene/main_menu.tscn")
 

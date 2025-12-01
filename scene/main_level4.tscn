@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://cylqto18g5nl3"]
+[gd_scene load_steps=5 format=3 uid="uid://cylqto18g5nl3"]
 
 [ext_resource type="PackedScene" uid="uid://cdgqu8jrfmpij" path="res://scene/Main.tscn" id="1_urr7m"]
 [ext_resource type="PackedScene" uid="uid://jefigy1xqyia" path="res://scene/path_lvl4.tscn" id="2_hra38"]
 [ext_resource type="PackedScene" uid="uid://b7pwdl8r5e6sn" path="res://scene/path_lvl4_1.tscn" id="3_6d3lq"]
+[ext_resource type="PackedScene" uid="uid://dvmwbo4glqd7x" path="res://scene/tower_placement.tscn" id="4_6d3lq"]
 
 [node name="Main" instance=ExtResource("1_urr7m")]
 
@@ -17,12 +18,22 @@ path_scene = ExtResource("3_6d3lq")
 
 [node name="TowerPanel3" parent="CanvasLayer/UI_Management/Panel" index="2"]
 visible = true
+offset_left = 628.00006
+offset_right = 706.00006
 
 [node name="TowerPanel4" parent="CanvasLayer/UI_Management/Panel" index="3"]
 visible = true
+offset_left = 344.0
+offset_top = 18.0
+offset_right = 422.0
+offset_bottom = 92.0
 
 [node name="TowerPanel5" parent="CanvasLayer/UI_Management/Panel" index="4"]
 visible = true
+offset_left = 486.0
+offset_top = 19.0
+offset_right = 564.0
+offset_bottom = 93.0
 
 [node name="Label" parent="CanvasLayer/UI_Management/Instruction_Panel/Page1" index="1"]
 text = "Mini Boss pertama tiba!  Chef Amber dapat melakukan counter-attack 
@@ -95,6 +106,12 @@ position = Vector2(724.00006, 144.00002)
 
 [node name="Area2D5" parent="Tower_Placement" index="4"]
 position = Vector2(1099, 204)
+
+[node name="Area2D7" parent="Tower_Placement" index="6" instance=ExtResource("4_6d3lq")]
+position = Vector2(712, 441)
+
+[node name="Area2D8" parent="Tower_Placement" index="7" instance=ExtResource("4_6d3lq")]
+position = Vector2(342.00003, 326)
 
 [node name="CollisionPolygon2D" parent="TowerArea/DropArea2" index="0"]
 polygon = PackedVector2Array(971.4286, 19.642853, 133.92859, 16.071442, 133.92859, 123.214294, -287.49994, 123.214294, -287.49994, 437.50003, -1017.85706, 437.50003, -1035.7142, 544.6428, 555.357, 544.643, 555.357, 442.857, 980.357, 442.857, 978.571, 737.5, 555.357, 735.714, 555.357, 651.786, -1132.1428, 650, -1126.7856, 335.71426, -392.85712, 332.14285, -394.64282, 121.42859, -710.71423, 119.64285, -705.3571, 19.642853, -1337.5, 17.8571, -1339.29, -87.5, -605.3571, -89.285706, -610.71423, 17.857147, 28.571411, 17.857147, 28.571411, -85.71428, 969.64294, -82.14285)

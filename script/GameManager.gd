@@ -1,9 +1,10 @@
 extends Node2D
 
 
-var coin: int = 10000
+var coin: int = 0
 var health_player: int = 100
- 
+var initial_coin_per_level: int = 10000
+
 signal update_coin(new_amount: int)
 signal update_health(new_amount: int)
 signal game_over()
@@ -14,6 +15,22 @@ var is_game_over = false
 var placed_towers: Array = []  # Menyimpan referensi semua tower yang sudah terpasang
 var min_tower_distance: float = 80.0 
 
+func set_level(level: int):
+	match level:
+		1:
+			initial_coin_per_level = 100
+		2:
+			initial_coin_per_level = 150
+		3:
+			initial_coin_per_level = 200
+		4:
+			initial_coin_per_level = 250
+		5:
+			initial_coin_per_level = 300
+		_:
+			initial_coin_per_level = 100  # Default
+	reset_game()
+	
 func _add_coin(amount: int) -> void:
 	coin += amount
 	emit_signal("update_coin", coin)
@@ -42,7 +59,7 @@ func is_game_paused() -> bool:
 	return GameSpeedManager.is_game_paused()
 
 func reset_game():
-	coin = 10000
+	coin = initial_coin_per_level
 	health_player = 100
 	is_game_over = false
 	placed_towers.clear()

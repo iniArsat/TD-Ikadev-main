@@ -16,6 +16,8 @@ extends Control
 func _ready() -> void:
 	slider_bgm.value = MusicPlayer.volume
 	MusicPlayer.connect("volume_changed", Callable(self, "_on_volume_changed"))
+	GameManager.reset_game()
+	GameSpeedManager.reset_speed()
 
 
 func _on_button_upgrade_pressed() -> void:
@@ -33,6 +35,7 @@ func _on_button_credit_pressed() -> void:
 
 
 func _on_button_start_pressed() -> void:
+	GameSpeedManager.set_game_speed(1.0)
 	get_tree().change_scene_to_file("res://scene/select_level.tscn")
 
 

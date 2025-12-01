@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://dfuhc7hw0sqwj"]
+[gd_scene load_steps=12 format=3 uid="uid://dfuhc7hw0sqwj"]
 
 [ext_resource type="Script" uid="uid://dxw7sb23wfc56" path="res://script/select_level.gd" id="1_62unk"]
 [ext_resource type="Texture2D" uid="uid://d154gfxyg3qxa" path="res://asset/stage.jpeg" id="1_hpupe"]
@@ -6,6 +6,8 @@
 [ext_resource type="Texture2D" uid="uid://faesrtocitep" path="res://asset/Select_Encyclopedia.png" id="3_vf7qe"]
 [ext_resource type="Texture2D" uid="uid://boe7kmquewprd" path="res://asset/Unlocked.png" id="4_88rkn"]
 [ext_resource type="Texture2D" uid="uid://cmh7bg0fnueft" path="res://asset/Encyclopedia.png" id="4_aduhs"]
+[ext_resource type="Texture2D" uid="uid://dwghhwpbdd1gl" path="res://asset/towerDefense_tile250.png" id="7_uloro"]
+[ext_resource type="Texture2D" uid="uid://d1ig5rmkg7xln" path="res://asset/towerDefense_tile249.png" id="8_55kyr"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vf7qe"]
 bg_color = Color(0.211765, 0.211765, 0.211765, 1)
@@ -613,6 +615,76 @@ offset_bottom = 130.0
 theme_override_font_sizes/font_size = 54
 text = "TOWER"
 
+[node name="FlowContainer" type="FlowContainer" parent="Panel_Encyclopedia/Panel_Tower"]
+layout_mode = 0
+offset_left = -18.0
+offset_top = 160.0
+offset_right = 446.0
+offset_bottom = 486.0
+scale = Vector2(1.2, 1.1200006)
+theme_override_constants/h_separation = 10
+theme_override_constants/v_separation = 10
+
+[node name="Button" type="Button" parent="Panel_Encyclopedia/Panel_Tower/FlowContainer"]
+custom_minimum_size = Vector2(120, 120)
+layout_mode = 2
+icon = ExtResource("8_55kyr")
+
+[node name="Button2" type="Button" parent="Panel_Encyclopedia/Panel_Tower/FlowContainer"]
+custom_minimum_size = Vector2(120, 120)
+layout_mode = 2
+icon = ExtResource("7_uloro")
+
+[node name="Button3" type="Button" parent="Panel_Encyclopedia/Panel_Tower/FlowContainer"]
+modulate = Color(0, 0, 0, 1)
+custom_minimum_size = Vector2(120, 120)
+layout_mode = 2
+icon = ExtResource("8_55kyr")
+
+[node name="Button4" type="Button" parent="Panel_Encyclopedia/Panel_Tower/FlowContainer"]
+modulate = Color(0, 0.6862745, 0.8666667, 1)
+custom_minimum_size = Vector2(120, 120)
+layout_mode = 2
+icon = ExtResource("8_55kyr")
+
+[node name="Button5" type="Button" parent="Panel_Encyclopedia/Panel_Tower/FlowContainer"]
+modulate = Color(0.8666667, 0.3882353, 1, 1)
+custom_minimum_size = Vector2(120, 120)
+layout_mode = 2
+icon = ExtResource("8_55kyr")
+
+[node name="Panel" type="Panel" parent="Panel_Encyclopedia/Panel_Tower"]
+layout_mode = 0
+offset_left = 606.0
+offset_top = 167.0
+offset_right = 1231.0
+offset_bottom = 542.0
+
+[node name="Tower_Name" type="Label" parent="Panel_Encyclopedia/Panel_Tower/Panel"]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 16.0
+offset_right = 172.0
+offset_bottom = 50.0
+theme_override_font_sizes/font_size = 24
+text = "TOWER NAME"
+
+[node name="Tower_Desc" type="Label" parent="Panel_Encyclopedia/Panel_Tower/Panel"]
+layout_mode = 0
+offset_left = 14.0
+offset_top = 295.0
+offset_right = 174.0
+offset_bottom = 329.0
+text = "Description"
+
+[node name="Tower_Stats" type="Label" parent="Panel_Encyclopedia/Panel_Tower/Panel"]
+layout_mode = 0
+offset_left = 305.0
+offset_top = 94.0
+offset_right = 465.0
+offset_bottom = 128.0
+text = "Status"
+
 [node name="Panel_Enemies" type="Panel" parent="Panel_Encyclopedia"]
 visible = false
 layout_mode = 0
@@ -673,6 +745,7 @@ theme_override_font_sizes/font_size = 35
 text = "X"
 
 [node name="Select_Container" type="HBoxContainer" parent="Panel_Encyclopedia"]
+visible = false
 layout_mode = 0
 offset_left = -207.99997
 offset_top = 24.000015

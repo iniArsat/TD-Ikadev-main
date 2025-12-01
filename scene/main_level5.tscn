@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://c1fmx1yyahx4m"]
+[gd_scene load_steps=3 format=3 uid="uid://c1fmx1yyahx4m"]
 
 [ext_resource type="PackedScene" uid="uid://cdgqu8jrfmpij" path="res://scene/Main.tscn" id="1_nxq6k"]
+[ext_resource type="PackedScene" uid="uid://dvmwbo4glqd7x" path="res://scene/tower_placement.tscn" id="2_6etbt"]
 
 [node name="Main" instance=ExtResource("1_nxq6k")]
 
@@ -15,12 +16,22 @@ offset_bottom = 229.0
 
 [node name="TowerPanel3" parent="CanvasLayer/UI_Management/Panel" index="2"]
 visible = true
+offset_left = 679.00006
+offset_top = 16.0
+offset_right = 757.00006
+offset_bottom = 90.0
 
 [node name="TowerPanel4" parent="CanvasLayer/UI_Management/Panel" index="3"]
 visible = true
+offset_left = 361.00003
+offset_top = 18.0
+offset_right = 439.00003
+offset_bottom = 92.0
 
 [node name="TowerPanel5" parent="CanvasLayer/UI_Management/Panel" index="4"]
 visible = true
+offset_left = 520.00006
+offset_right = 598.00006
 
 [node name="Label" parent="CanvasLayer/UI_Management/Instruction_Panel/Page1" index="1"]
 text = "Cheff Basilisk datang, ia ingin mencuri seluruh rahasia 
@@ -53,6 +64,15 @@ position = Vector2(657.00006, 202.00002)
 
 [node name="Area2D5" parent="Tower_Placement" index="4"]
 position = Vector2(782, 449)
+
+[node name="Area2D7" parent="Tower_Placement" index="6" instance=ExtResource("2_6etbt")]
+position = Vector2(1118, 204.00009)
+
+[node name="Area2D8" parent="Tower_Placement" index="7" instance=ExtResource("2_6etbt")]
+position = Vector2(889.0001, 202)
+
+[node name="Area2D9" parent="Tower_Placement" index="8" instance=ExtResource("2_6etbt")]
+position = Vector2(306.00012, 501.99997)
 
 [node name="CollisionPolygon2D" parent="TowerArea/DropArea2" index="0"]
 polygon = PackedVector2Array(973.21423, 21.428589, 237.5, 19.642853, 235.71436, 541.0714, 555.357, 544.643, 555.357, 442.857, 980.357, 442.857, 978.571, 737.5, 555.357, 735.714, 555.357, 651.786, 135.71423, 651.7859, 132.14294, 17.857147, -182.14282, 19.642853, -182.14282, 650, -705.3571, 650, -708.9285, 337.50003, -1130.357, 332.14285, -1128.5714, 121.42859, -1341.0714, 126.785736, -1341.0714, 19.642853, -1028.5714, 25, -1028.5714, 226.78574, -605.3571, 226.78574, -599.99994, 544.6428, -283.9286, 542.8572, -282.14282, -89.285706, 969.64294, -83.92856)

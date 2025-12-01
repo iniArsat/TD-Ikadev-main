@@ -21,8 +21,10 @@ offset_top = 181.0
 offset_right = 112.0
 offset_bottom = 231.0
 
-[node name="TowerPanel3" parent="CanvasLayer/UI_Management/Panel" index="2"]
+[node name="TowerPanel4" parent="CanvasLayer/UI_Management/Panel" index="3"]
 visible = true
+offset_left = 339.0
+offset_right = 417.0
 
 [node name="Restart" parent="CanvasLayer/UI_Management/Gameover_Panel" index="1"]
 layout_mode = 1

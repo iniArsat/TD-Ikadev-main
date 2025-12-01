@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://bixvp60vsrqbj"]
+[gd_scene load_steps=5 format=3 uid="uid://bixvp60vsrqbj"]
 
 [ext_resource type="PackedScene" uid="uid://cdgqu8jrfmpij" path="res://scene/Main.tscn" id="1_rwjn0"]
 [ext_resource type="PackedScene" uid="uid://6dybxlhnhkt7" path="res://scene/path_lvl3.tscn" id="2_xs3d8"]
 [ext_resource type="PackedScene" uid="uid://c8esaqdnsn7cm" path="res://scene/path_lvl3_1.tscn" id="3_dqdfe"]
+[ext_resource type="PackedScene" uid="uid://dvmwbo4glqd7x" path="res://scene/tower_placement.tscn" id="4_xs3d8"]
 
 [node name="Main" instance=ExtResource("1_rwjn0")]
 
@@ -15,11 +16,17 @@ path_scene = ExtResource("2_xs3d8")
 [node name="PathSpawner2" parent="." index="4"]
 path_scene = ExtResource("3_dqdfe")
 
-[node name="TowerPanel3" parent="CanvasLayer/UI_Management/Panel" index="2"]
-visible = true
-
 [node name="TowerPanel4" parent="CanvasLayer/UI_Management/Panel" index="3"]
 visible = true
+offset_left = 360.0
+offset_right = 438.0
+
+[node name="TowerPanel5" parent="CanvasLayer/UI_Management/Panel" index="4"]
+visible = true
+offset_left = 512.0
+offset_top = 14.0
+offset_right = 590.0
+offset_bottom = 88.0
 
 [node name="Label" parent="CanvasLayer/UI_Management/Instruction_Panel/Page1" index="1"]
 text = "Seekor Monyet Pencuri muncul—licik, lincah, 
@@ -90,6 +97,9 @@ position = Vector2(805.00006, 207.00002)
 
 [node name="Area2D5" parent="Tower_Placement" index="4"]
 position = Vector2(1098, 317)
+
+[node name="Area2D7" parent="Tower_Placement" index="6" instance=ExtResource("4_xs3d8")]
+position = Vector2(484.00003, 269.0001)
 
 [node name="CollisionPolygon2D" parent="TowerArea/DropArea2" index="0"]
 polygon = PackedVector2Array(975.0001, 128.57144, 976.78577, 225.00003, -289.28564, 221.42856, -283.9286, 541.0714, 555.357, 544.643, 555.357, 442.857, 980.357, 442.857, 978.571, 737.5, 555.357, 735.714, 555.357, 651.786, -396.42853, 641.0714, -396.42853, 14.285736, -603.5714, 12.5, -601.78564, 221.42856, -1235.7142, 221.42856, -1235.7142, 19.642853, -1337.5, 17.8571, -1339.29, -87.5, -1128.1062, -86.422516, -1132.1428, 117.85715, -710.71423, 121.42859, -708.9285, -91.07141, -289.28564, -82.14285, -287.49994, 123.214294)
