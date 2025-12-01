@@ -15,8 +15,11 @@ path_scene = ExtResource("2_xs3d8")
 [node name="PathSpawner2" parent="." index="4"]
 path_scene = ExtResource("3_dqdfe")
 
-[node name="Page1" parent="CanvasLayer/UI_Management/Instruction_Panel" index="0"]
-visible = false
+[node name="TowerPanel3" parent="CanvasLayer/UI_Management/Panel" index="2"]
+visible = true
+
+[node name="TowerPanel4" parent="CanvasLayer/UI_Management/Panel" index="3"]
+visible = true
 
 [node name="Label" parent="CanvasLayer/UI_Management/Instruction_Panel/Page1" index="1"]
 text = "Seekor Monyet Pencuri muncul—licik, lincah, 

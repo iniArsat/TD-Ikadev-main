@@ -469,6 +469,7 @@ ice_chiller_scene = null
 garlic_barrier_scene = null
 
 [node name="TowerPanel3" parent="CanvasLayer/UI_Management/Panel" instance=ExtResource("10_hrl0l")]
+visible = false
 layout_mode = 0
 offset_left = 371.0
 offset_top = 17.0
@@ -480,6 +481,7 @@ chilli_launcher_scene = null
 garlic_barrier_scene = null
 
 [node name="TowerPanel4" parent="CanvasLayer/UI_Management/Panel" instance=ExtResource("9_ob58h")]
+visible = false
 layout_mode = 0
 offset_left = 539.0
 offset_top = 16.0
@@ -489,6 +491,7 @@ scale = Vector2(1.367, 1.367)
 garlic_barrier_scene = ExtResource("13_kxuod")
 
 [node name="TowerPanel5" parent="CanvasLayer/UI_Management/Panel" instance=ExtResource("12_gjnlk")]
+visible = false
 layout_mode = 0
 offset_left = 678.0
 offset_top = 17.0
@@ -993,6 +996,7 @@ offset_bottom = 346.0
 text = "CONTINUE"
 
 [node name="Tower_Placement" type="Node2D" parent="."]
+position = Vector2(3, 0)
 
 [node name="Area2D" parent="Tower_Placement" instance=ExtResource("23_wosyn")]
 position = Vector2(246, 379)
@@ -1017,7 +1021,6 @@ position = Vector2(735, 163)
 scale = Vector2(0.56, 0.56)
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="TowerArea/DropArea2"]
-visible = false
 modulate = Color(1, 1, 1, 0)
 polygon = PackedVector2Array(978.571, 125, 448.214, 126.786, 446.429, 441.071, -287.5, 441.071, -287.5, 335.714, -917.857, 333.929, -919.643, 542.857, 555.357, 544.643, 555.357, 442.857, 980.357, 442.857, 978.571, 737.5, 555.357, 735.714, 555.357, 651.786, -1023.21, 651.786, -1025, 228.571, -182.143, 230.357, -182.143, 333.929, 344.643, 333.929, 346.429, 125, -1023.21, 123.214, -1023.21, 19.6429, -1337.5, 17.8571, -1339.29, -87.5, -917.857, -87.5, -919.643, 17.8571, 976.786, 17.8571)
 

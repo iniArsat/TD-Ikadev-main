@@ -126,9 +126,16 @@ func add_miss():
 	if status_miss_label:
 		status_miss_label.text = "MISS: " + str(miss_count)
 		status_miss_label.visible = true
+		
+		get_tree().create_timer(0.5).timeout.connect(_hide_miss_label)
 	
 	print("🎯 MISS counter: ", miss_count)
 
+func _hide_miss_label():
+	if status_miss_label:
+		status_miss_label.visible = false
+	miss_count = 0
+	
 # NEW: Fungsi untuk reset miss counter (opsional)
 func reset_miss():
 	miss_count = 0

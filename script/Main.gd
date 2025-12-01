@@ -57,13 +57,14 @@ func _ready() -> void:
 	GameManager.game_over.connect(_on_game_over)
 	wave_manager.victory_achieved.connect(_on_victory_achieved)
 	gameover_panel.visible = false
+	GameSpeedManager.reset_speed()
 	
 	wave_manager.wave_countdown_started.connect(_on_wave_countdown_started)
 	wave_manager.wave_countdown_updated.connect(_on_wave_countdown_updated)
 	wave_manager.wave_countdown_finished.connect(_on_wave_countdown_finished)
 	
 	wave_manager.wave_changed.connect(_on_wave_changed)
-	speed_button.disabled = true
+	#speed_button.disabled = true
 	
 func _on_coins_changed(new_amount: int) -> void:
 	coin_label.text = "Coin : " + str(new_amount)
@@ -89,7 +90,7 @@ func _on_skip_instructions():
 	
 func _start_game():
 	GameSpeedManager.set_game_speed(1.0)
-	speed_button.disabled = false
+	#speed_button.disabled = false
 	if start_wave_button:
 		start_wave_button.visible = true
 		countdown_label.visible = false
