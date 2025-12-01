@@ -45,6 +45,7 @@ func reset_game():
 	coin = 10000
 	health_player = 100
 	is_game_over = false
+	placed_towers.clear()
 	GameSpeedManager.reset_speed()
 	emit_signal("update_coin", coin)
 	emit_signal("update_health", health_player)

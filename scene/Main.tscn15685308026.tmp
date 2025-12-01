@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://cdgqu8jrfmpij"]
+[gd_scene load_steps=31 format=3 uid="uid://cdgqu8jrfmpij"]
 
 [ext_resource type="Script" uid="uid://dnepi04ynwh4r" path="res://script/Main.gd" id="1_yiwpq"]
 [ext_resource type="Script" uid="uid://dj4gx2hi8oi4o" path="res://script/path_spawner.gd" id="2_mnmej"]
@@ -28,7 +28,6 @@
 [ext_resource type="Texture2D" uid="uid://dx4ewcwhteb7x" path="res://asset/Star_Black.png" id="22_puvaq"]
 [ext_resource type="Texture2D" uid="uid://b2kgoj8lh1l4w" path="res://asset/Star_Fill.png" id="23_lcaa3"]
 [ext_resource type="PackedScene" uid="uid://dvmwbo4glqd7x" path="res://scene/tower_placement.tscn" id="23_wosyn"]
-[ext_resource type="PackedScene" uid="uid://cn8q02huknrt7" path="res://scene/enemy_MiniBoss.tscn" id="29_lcaa3"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_wosyn"]
 texture = ExtResource("2_s5yxy")
@@ -574,64 +573,6 @@ offset_right = 430.0
 offset_bottom = 346.0
 text = "CONTINUE"
 
-[node name="Ui_Upgrade" type="Panel" parent="CanvasLayer/UI_Management"]
-visible = false
-layout_mode = 0
-offset_left = 267.0
-offset_top = 104.0
-offset_right = 904.0
-offset_bottom = 492.0
-
-[node name="Tower_Name_Label" type="Label" parent="CanvasLayer/UI_Management/Ui_Upgrade"]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = 45.5
-offset_top = 87.0
-offset_right = 275.5
-offset_bottom = 142.0
-grow_horizontal = 2
-theme_override_font_sizes/font_size = 24
-text = "Stove Cannon"
-
-[node name="Label_Upgrade" type="Label" parent="CanvasLayer/UI_Management/Ui_Upgrade"]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -114.5
-offset_top = 7.0
-offset_right = 115.5
-offset_bottom = 62.0
-grow_horizontal = 2
-theme_override_font_sizes/font_size = 40
-text = "UPGRADE"
-
-[node name="Upgrade_Cost_Label" type="Label" parent="CanvasLayer/UI_Management/Ui_Upgrade"]
-layout_mode = 0
-offset_left = 434.0
-offset_top = 250.0
-offset_right = 474.0
-offset_bottom = 278.0
-theme_override_font_sizes/font_size = 20
-text = "100"
-
-[node name="Upgrade_Button" type="Button" parent="CanvasLayer/UI_Management/Ui_Upgrade"]
-layout_mode = 0
-offset_left = 417.0
-offset_top = 319.0
-offset_right = 500.0
-offset_bottom = 350.0
-text = "UPGRADE"
-
-[node name="Close_Upgrade" type="Button" parent="CanvasLayer/UI_Management/Ui_Upgrade"]
-layout_mode = 0
-offset_left = 579.0
-offset_right = 637.0
-offset_bottom = 31.0
-text = "CLOSE"
-
 [node name="Instruction_Panel" type="Panel" parent="CanvasLayer/UI_Management"]
 visible = false
 layout_mode = 0
@@ -642,7 +583,6 @@ offset_bottom = 492.0
 script = ExtResource("14_08k7p")
 
 [node name="Page1" type="Panel" parent="CanvasLayer/UI_Management/Instruction_Panel"]
-visible = false
 layout_mode = 0
 offset_left = 171.0
 offset_top = 83.0
@@ -674,7 +614,8 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "selamat datang di dapur desa rempah !
 kini musuh pertama mulai mendekat melalui jalur utama
 pasang tower di area build untuk melindungi dapur chef juno.
-gunakan coin untuk membeli tower pertama"
+gunakan coin untuk membeli tower pertama
+"
 horizontal_alignment = 1
 
 [node name="Label2" type="Label" parent="CanvasLayer/UI_Management/Instruction_Panel/Page1"]
@@ -998,7 +939,7 @@ text = "CONTINUE"
 position = Vector2(246, 379)
 
 [node name="Area2D2" parent="Tower_Placement" instance=ExtResource("23_wosyn")]
-position = Vector2(902, 330.00006)
+position = Vector2(1008, 554)
 
 [node name="Area2D3" parent="Tower_Placement" instance=ExtResource("23_wosyn")]
 position = Vector2(246.00003, 151.00002)
@@ -1007,7 +948,7 @@ position = Vector2(246.00003, 151.00002)
 position = Vector2(902, 148)
 
 [node name="Area2D5" parent="Tower_Placement" instance=ExtResource("23_wosyn")]
-position = Vector2(653, 327.99997)
+position = Vector2(1008, 448)
 
 [node name="TowerArea" type="Node2D" parent="."]
 position = Vector2(-1, 3)
@@ -1027,7 +968,6 @@ path_spawners = Array[NodePath]([NodePath("../PathSpawner"), NodePath("../PathSp
 enemy_Grease_Rat_scene = ExtResource("12_hrl0l")
 enemy_Squirrel_Fire_scene = ExtResource("13_tuai4")
 enemy_Monkey_scene = ExtResource("14_ob58h")
-enemy_Mini_Boss_scene = ExtResource("29_lcaa3")
 
 [node name="Towers" type="Node2D" parent="."]
 
@@ -1036,8 +976,6 @@ enemy_Mini_Boss_scene = ExtResource("29_lcaa3")
 [connection signal="pressed" from="CanvasLayer/UI_Management/Pause" to="." method="_on_pause_pressed"]
 [connection signal="pressed" from="CanvasLayer/UI_Management/Gameover_Panel/Restart" to="." method="_on_restart_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/UI_Management/Gameover_Panel/Continue" to="." method="_on_continue_pressed"]
-[connection signal="pressed" from="CanvasLayer/UI_Management/Ui_Upgrade/Upgrade_Button" to="." method="_on_upgrade_button_pressed"]
-[connection signal="pressed" from="CanvasLayer/UI_Management/Ui_Upgrade/Close_Upgrade" to="." method="_on_close_upgrade_panel_pressed"]
 [connection signal="pressed" from="CanvasLayer/UI_Management/Instruction_Panel/SkipButton" to="CanvasLayer/UI_Management/Instruction_Panel" method="_on_skip_pressed"]
 [connection signal="pressed" from="CanvasLayer/UI_Management/Instruction_Panel/ContinueButton" to="CanvasLayer/UI_Management/Instruction_Panel" method="_on_continue_pressed"]
 [connection signal="pressed" from="CanvasLayer/UI_Management/Paused_Panel/VBoxContainer/Resume" to="." method="_on_resume_pressed"]

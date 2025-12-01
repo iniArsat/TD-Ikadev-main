@@ -34,6 +34,15 @@ func _on_button_level_1_pressed() -> void:
 
 func _on_button_level_2_pressed() -> void:
 	get_tree().change_scene_to_file("res://scene/main_level2.tscn")
+
+func _on_button_level_3_pressed() -> void:
+	get_tree().change_scene_to_file("res://scene/main_level3.tscn")
+
+func _on_button_level_4_pressed() -> void:
+	get_tree().change_scene_to_file("res://scene/main_level4.tscn")
+	
+func _on_button_level_5_pressed() -> void:
+	get_tree().change_scene_to_file("res://scene/main_level5.tscn")
 	
 func _on_slider_bgm_value_changed(value: float) -> void:
 	MusicPlayer.set_bgm_volume(value)

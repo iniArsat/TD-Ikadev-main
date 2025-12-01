@@ -15,6 +15,64 @@ path_scene = ExtResource("2_xs3d8")
 [node name="PathSpawner2" parent="." index="4"]
 path_scene = ExtResource("3_dqdfe")
 
+[node name="Page1" parent="CanvasLayer/UI_Management/Instruction_Panel" index="0"]
+visible = false
+
+[node name="Label" parent="CanvasLayer/UI_Management/Instruction_Panel/Page1" index="1"]
+text = "Seekor Monyet Pencuri muncul—licik, lincah, 
+dan menyerang balik saat diserang.  Menangkan level ini untuk menambah bintang 
+agar bisa beli tower baru di STORE."
+
+[node name="Label2" parent="CanvasLayer/UI_Management/Instruction_Panel/Page1" index="2"]
+text = "LEVEL 3"
+
+[node name="Label2" parent="CanvasLayer/UI_Management/Instruction_Panel/Page2" index="1"]
+text = "LEVEL 3"
+
+[node name="Label3" parent="CanvasLayer/UI_Management/Instruction_Panel/Page2" index="2"]
+theme_override_font_sizes/font_size = 13
+text = "new enemies"
+
+[node name="Label4" parent="CanvasLayer/UI_Management/Instruction_Panel/Page2" index="3"]
+theme_override_font_sizes/font_size = 13
+text = "advance upgrade"
+
+[node name="Label5" parent="CanvasLayer/UI_Management/Instruction_Panel/Page2" index="4"]
+theme_override_font_sizes/font_size = 13
+text = "collect stars"
+
+[node name="Label6" type="Label" parent="CanvasLayer/UI_Management/Instruction_Panel/Page2" index="8"]
+visible = false
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 51.0
+offset_top = 78.0
+offset_right = 273.0
+offset_bottom = 127.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 11
+text = "gambar bar hp
+mini boss"
+horizontal_alignment = 1
+
+[node name="Label7" type="Label" parent="CanvasLayer/UI_Management/Instruction_Panel/Page2" index="9"]
+visible = false
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -271.0
+offset_top = 78.0
+offset_right = -49.0
+offset_bottom = 127.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 11
+text = "new tower lv 3
+unlock!"
+horizontal_alignment = 1
+
 [node name="Area2D" parent="Tower_Placement" index="0"]
 position = Vector2(225, 322)
 
@@ -29,3 +87,9 @@ position = Vector2(805.00006, 207.00002)
 
 [node name="Area2D5" parent="Tower_Placement" index="4"]
 position = Vector2(1098, 317)
+
+[node name="CollisionPolygon2D" parent="TowerArea/DropArea2" index="0"]
+polygon = PackedVector2Array(975.0001, 128.57144, 976.78577, 225.00003, -289.28564, 221.42856, -283.9286, 541.0714, 555.357, 544.643, 555.357, 442.857, 980.357, 442.857, 978.571, 737.5, 555.357, 735.714, 555.357, 651.786, -396.42853, 641.0714, -396.42853, 14.285736, -603.5714, 12.5, -601.78564, 221.42856, -1235.7142, 221.42856, -1235.7142, 19.642853, -1337.5, 17.8571, -1339.29, -87.5, -1128.1062, -86.422516, -1132.1428, 117.85715, -710.71423, 121.42859, -708.9285, -91.07141, -289.28564, -82.14285, -287.49994, 123.214294)
+
+[node name="WaveManager" parent="." index="9"]
+current_level = 3

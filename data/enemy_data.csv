@@ -2,3 +2,4 @@ enemy_type,health,speed,coin_reward,dps_damage,can_attack_towers,tower_damage,ne
 Grease_Rat,10,80,15,2.0,1,15,cooldown,0.2,3.0
 Squirrel_Fire,35,70,20,1.5,1,20,accuracy,0.3,3.0
 Monkey,60,90,8,3,1,20,cooldown,0.25,3.0
+Mini_Boss,120,50,100,10,1,15.0,cooldown,0.3,1.0

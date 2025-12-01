@@ -1,5 +1,6 @@
 extends Node2D
 
+signal tower_clicked(tower_instance)
 # Variables yang akan di-set dari CSV
 var tower_type: String = "Stove_Cannon"
 var bullet_speed = 250.0
@@ -267,12 +268,18 @@ func apply_upgrade_stats():
 			match tower_type:
 				"Stove_Cannon":
 					bullet_damage *= 1.5
+					range_radius *= 1.2
 					cooldown *= 0.9
 				"Chilli_Launcher":
 					bullet_damage *= 1.8
 					range_radius *= 1.2
 				"Ice_Chiller":
 					cooldown *= 0.7
+					range_radius *= 1.2
+					bullet_damage *= 1.3
+				"Pepper_Grinder":
+					cooldown *= 0.7
+					range_radius *= 1.2
 					bullet_damage *= 1.3
 			
 			if head_texture_level2:
@@ -282,12 +289,18 @@ func apply_upgrade_stats():
 			match tower_type:
 				"Stove_Cannon":
 					bullet_damage *= 1.5
+					range_radius *= 1.2
 					cooldown *= 0.9
 				"Chilli_Launcher":
 					bullet_damage *= 1.8
 					range_radius *= 1.2
 				"Ice_Chiller":
 					cooldown *= 0.7
+					range_radius *= 1.2
+					bullet_damage *= 1.3
+				"Pepper_Grinder":
+					cooldown *= 0.7
+					range_radius *= 1.2
 					bullet_damage *= 1.3
 			if head_texture_level3:
 				head.texture = head_texture_level3
@@ -333,7 +346,10 @@ func take_damage(damage: float):
 	if current_health <= 0:
 		_destroy_tower()
 
-# NEW: Fungsi tower hancur
+func upgrade_tower() -> void:
+	upgrade_level += 1
+	apply_upgrade_stats()
+
 func _destroy_tower():
 	is_destroyed = true
 	repair_timer = repair_cooldown
@@ -364,3 +380,11 @@ func setup_from_data(tower_type: String, data: Dictionary):
 	original_cooldown = cooldown
 	call_deferred("setup_range_collision")
 	call_deferred("update_range_visual_scale")
+
+
+func _on_shape_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
+	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+		var main_scene = get_tree().get_root().get_node("Main")
+		if main_scene and main_scene.has_method("show_tower_info"):
+			# Kirim hanya type tower, cost dihitung di Main
+			main_scene.show_tower_info(self) 

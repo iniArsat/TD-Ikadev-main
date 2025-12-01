@@ -22,6 +22,9 @@ extends Node
 
 signal victory_achieved()
 signal wave_changed(current_wave: int, total_waves: int)
+signal wave_countdown_started(seconds: int)  # NEW: Signal untuk countdown antar wave
+signal wave_countdown_updated(seconds: int)  # NEW: Signal untuk update countdown
+signal wave_countdown_finished()
 
 var waves = []
 var enemy_data = {}
@@ -36,8 +39,6 @@ func _ready():
 	
 	# Load data dari CSV
 	load_data_from_csv()
-	
-	start_initial_wave()
 
 func load_data_from_csv():
 	# NEW: Load waves berdasarkan level
@@ -106,6 +107,7 @@ func start_next_wave():
 		# Masih ada wave berikutnya
 		print("⏳ Menunggu %d detik sebelum wave %d/%d..." % [time_between_waves, current_wave + 1, waves.size()])
 		await get_tree().create_timer(time_between_waves).timeout
+		
 		start_next_wave()
 
 func spawn_wave(wave_data: Dictionary):
@@ -210,7 +212,7 @@ func set_level(level: int):
 	reset_wave_manager()
 
 func reset_wave_manager():
-	current_wave = 0
+	current_wave = -1
 	spawning = false
 	active_enemies.clear()
 	
@@ -229,7 +231,15 @@ func get_current_wave_info() -> Dictionary:
 		return waves[current_wave]
 	return {}
 
-# NEW: Skip to specific wave (untuk testing)
+func start_wave_countdown(seconds: int):
+	wave_countdown_started.emit(seconds)
+	
+	for i in range(seconds, 0, -1):
+		wave_countdown_updated.emit(i)
+		await get_tree().create_timer(1.0).timeout
+	
+	wave_countdown_finished.emit()
+	
 func skip_to_wave(wave_number: int):
 	if wave_number > 0 and wave_number <= waves.size():
 		current_wave = wave_number - 1

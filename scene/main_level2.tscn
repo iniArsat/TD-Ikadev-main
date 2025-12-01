@@ -15,6 +15,12 @@ path_scene = ExtResource("2_3qwn7")
 [node name="PathSpawner2" parent="." index="4"]
 path_scene = ExtResource("3_d301n")
 
+[node name="Start_Wave" parent="CanvasLayer/UI_Management" index="7"]
+offset_left = 12.0
+offset_top = 181.0
+offset_right = 112.0
+offset_bottom = 231.0
+
 [node name="Restart" parent="CanvasLayer/UI_Management/Gameover_Panel" index="1"]
 layout_mode = 1
 anchors_preset = 7
@@ -42,6 +48,29 @@ offset_right = 105.5
 offset_bottom = -34.0
 grow_horizontal = 2
 grow_vertical = 0
+
+[node name="Label" parent="CanvasLayer/UI_Management/Instruction_Panel/Page1" index="1"]
+text = "Serangan semakin cepat dan tak beraturan. “Tower-mu harus makin kuat! Gunakan coin untuk upgrade
+ lebih sering!”"
+
+[node name="Label2" parent="CanvasLayer/UI_Management/Instruction_Panel/Page1" index="2"]
+text = "LEVEL 2"
+
+[node name="Page2" parent="CanvasLayer/UI_Management/Instruction_Panel" index="1"]
+visible = true
+
+[node name="Label2" parent="CanvasLayer/UI_Management/Instruction_Panel/Page2" index="1"]
+text = "LEVEL 2"
+
+[node name="Label3" parent="CanvasLayer/UI_Management/Instruction_Panel/Page2" index="2"]
+text = "masukan tower baru"
+
+[node name="Label4" parent="CanvasLayer/UI_Management/Instruction_Panel/Page2" index="3"]
+text = "upgrade tower"
+
+[node name="Label5" parent="CanvasLayer/UI_Management/Instruction_Panel/Page2" index="4"]
+text = "selesaikan semua
+wave"
 
 [node name="Area2D2" parent="Tower_Placement" index="1"]
 position = Vector2(657, 328)
