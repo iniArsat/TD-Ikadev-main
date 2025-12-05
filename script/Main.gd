@@ -1,7 +1,7 @@
 extends Node
 
 @onready var coin_label = $CanvasLayer/UI_Management/coin_lbl
-@onready var score: Label = $CanvasLayer/UI_Management/Victory_Panel/Score
+#@onready var score: Label = $CanvasLayer/UI_Management/Victory_Panel/Score
 @onready var health_label: Label = $CanvasLayer/UI_Management/health_lbl
 @onready var wave_manager = $WaveManager
 @onready var countdown_label: Label =$CanvasLayer/UI_Management/Countdown
@@ -13,14 +13,37 @@ extends Node
 @onready var wave_lbl: Label = $CanvasLayer/UI_Management/wave_lbl
 @onready var pause_panel: Panel = $CanvasLayer/UI_Management/Paused_Panel
 @onready var instruction_panel: Panel = $CanvasLayer/UI_Management/Instruction_Panel
-#@onready var upgrade_panel: Panel = $CanvasLayer/UI_Management/Upgrade_Panel
 @onready var base_sprite: Sprite2D = $Base
 @onready var start_wave_button: Button = $CanvasLayer/UI_Management/Start_Wave
 @onready var tower_name_label: Label = $CanvasLayer/UI_Management/Ui_Upgrade/Tower_Name_Label
 @onready var upgrade_cost_label: Label = $CanvasLayer/UI_Management/Ui_Upgrade/Upgrade_Cost_Label
 @onready var upgrade_button: Button = $CanvasLayer/UI_Management/Ui_Upgrade/Upgrade_Button
 @onready var close_upgrade: Button = $CanvasLayer/UI_Management/Ui_Upgrade/Close_Upgrade
-@export var  countdown:= 15
+@onready var sell_button: Button = $CanvasLayer/UI_Management/Ui_Upgrade/Sell_Button
+@onready var sell_price_label: Label = $CanvasLayer/UI_Management/Ui_Upgrade/Sell_Value
+
+
+# NEW: Variabel sederhana untuk tutorial Level 1
+@onready var tutorial_startwave: Sprite2D = $CanvasLayer/UI_Management/PopUp_StartWave
+@onready var tutorial_drag_tower: Sprite2D = $CanvasLayer/UI_Management/PopUp_Drag
+@onready var tutorial_upgrade: Sprite2D = $CanvasLayer/UI_Management/PopUp_Upgrade
+@onready var tutorial_input_blocker: Panel = $CanvasLayer/UI_Management/Tutorial_Input_Bloker
+
+@onready var panel_settings: Panel = $CanvasLayer/UI_Management/Paused_Panel/Panel_Settings
+@onready var slider_music: HSlider = $Panel_Settings/VBoxContainer/ColorRect2/HSlider
+
+
+var tutorial_wave_completed := false
+var first_wave_finished := false
+
+
+# Variabel untuk reward system
+@export var max_countdown_time := 15.0
+@export var max_reward := 50
+var current_countdown_timer := 0.0
+var is_countdown_active := false
+var wave_reward := 0
+var has_started_first_wave := false
 
 var game_started = false
 
@@ -31,12 +54,35 @@ var game_started = false
 @onready var star_3_blank: Sprite2D = $CanvasLayer/UI_Management/Victory_Panel/star_3_blank
 @onready var star_3_fill: Sprite2D = $CanvasLayer/UI_Management/Victory_Panel/star_3_fill
 
+
+var tutorial_step := 0  # 0: belum mulai, 1: start wave, 2: drag tower, 3: upgrade, 4: selesai
+var tutorial_completed_steps := {
+	"start_wave": false,
+	"drag_tower": false,
+	"upgrade_tower": false
+}
+
 var current_tower = null
 
 func _ready() -> void:
 	GameSpeedManager.set_game_speed(0.0)
 	instruction_panel.visible = true
 	ui_upgrade.visible = false
+	panel_settings.visible = false
+	pause_panel.visible = false
+	
+	# NEW: Setup tutorial label (sembunyikan dulu)
+	if tutorial_startwave:
+		tutorial_startwave.visible = false
+	if tutorial_drag_tower:
+		tutorial_drag_tower.visible = false
+	if tutorial_upgrade:
+		tutorial_upgrade.visible = false
+		
+	if slider_music:
+		slider_music.value = MusicPlayer.volume
+		slider_music.value_changed.connect(_on_slider_music_value_changed)
+	
 	instruction_panel.instruction_completed.connect(_on_instruction_completed)
 	instruction_panel.skip_instructions.connect(_on_skip_instructions)
 	
@@ -45,7 +91,7 @@ func _ready() -> void:
 		start_wave_button.pressed.connect(_on_start_wave_button_pressed)
 		
 	GameManager.update_coin.connect(_on_coins_changed)
-	_on_coins_changed(GameManager.coin) # tampilkan nilai awal
+	_on_coins_changed(GameManager.coin)
 	GameManager.update_health.connect(_on_health_changed)
 	_on_health_changed(GameManager.health_player)
 	GameManager.invalid_drop_areas = get_tree().get_nodes_in_group("invalid_drop_area")
@@ -63,9 +109,36 @@ func _ready() -> void:
 	wave_manager.wave_countdown_updated.connect(_on_wave_countdown_updated)
 	wave_manager.wave_countdown_finished.connect(_on_wave_countdown_finished)
 	
-	wave_manager.wave_changed.connect(_on_wave_changed)
-	#speed_button.disabled = true
+	wave_manager.wave_completed.connect(_on_wave_completed)
+	wave_manager.all_enemies_defeated.connect(_on_all_enemies_defeated)
 	
+	wave_manager.wave_changed.connect(_on_wave_changed)
+	wave_manager.all_enemies_defeated.connect(_start_next_wave_countdown)
+	
+	_check_purchased_towers()
+
+func _process(delta: float) -> void:
+	if is_countdown_active:
+		current_countdown_timer += delta
+		_update_start_wave_button_text()
+	if GameManager.current_level == 1:
+		if tutorial_step == 2 and not tutorial_completed_steps["drag_tower"]:
+			check_tower_placed()
+		#elif tutorial_step == 3 and not tutorial_completed_steps["upgrade_tower"]:
+			#pass
+
+func _check_purchased_towers():
+	var locked_panels = {
+		"Ice_Chiller": get_node_or_null("CanvasLayer/locked_Ice"),
+		"Garlic_Barrier": get_node_or_null("CanvasLayer/locked_Garlic"),
+		"Pepper_Grinder": get_node_or_null("CanvasLayer/locked_Pepper")
+	}
+	
+	for tower_name in locked_panels:
+		if SaveManager.has_tower(tower_name) and locked_panels[tower_name]:
+			locked_panels[tower_name].visible = false
+			print("✅ " + tower_name + " purchased - hiding locked panel")
+		
 func _on_coins_changed(new_amount: int) -> void:
 	coin_label.text = "Coin : " + str(new_amount)
 	coin_label.text = str(new_amount)
@@ -73,12 +146,18 @@ func _on_coins_changed(new_amount: int) -> void:
 func _on_health_changed(new_health: int) -> void:
 	health_label.text = str(new_health)
 
+func _start_next_wave_countdown():
+	
+	if wave_manager.current_wave < wave_manager.waves.size():
+		print("⏳ Memulai countdown untuk wave berikutnya...")
+		_start_wave_countdown()
+		
 func _on_speed_button_pressed():
 	GameManager.toggle_game_speed()
 
-# NEW: Fungsi untuk handle game speed change
 func _on_game_speed_changed(speed_multiplier: float):
 	_update_speed_button_text()
+	
 	
 func _on_instruction_completed():
 	instruction_panel.visible = false
@@ -89,60 +168,340 @@ func _on_skip_instructions():
 	_start_game()
 	
 func _start_game():
+	# NEW: Cek apakah Level 1, jika ya tampilkan tutorial
+	var current_level = GameManager.current_level
+	
+	if current_level == 1:
+		# Mulai tutorial step 1
+		_start_tutorial_step(1)
+		if not has_started_first_wave:
+			_start_wave_countdown()
+	else:
+		# Level lainnya langsung mulai
+		GameSpeedManager.set_game_speed(1.0)
+		if not has_started_first_wave:
+			_start_wave_countdown()
+
+func _start_tutorial_step(step: int):
+	tutorial_step = step
+	match step:
+		1:
+			# Tutorial step 1: Start Wave
+			_show_level1_tutorial()
+		2:
+			# Tutorial step 2: Drag Tower
+			_show_drag_tower_tutorial()
+		3:
+			# Tutorial step 3: Upgrade Tower (setelah wave pertama)
+			if first_wave_finished:
+				_show_upgrade_tutorial()
+			else:
+				print("⏳ Tunggu wave pertama selesai dulu...")
+		4:
+			# Tutorial selesai
+			_complete_tutorial()
+
+func _show_drag_tower_tutorial():
+	print("📢 Tutorial Step 2: Drag and Place Tower")
+	
+	# Pause game
+	GameSpeedManager.set_game_speed(0.0)
+	
+	# Tampilkan sprite tutorial drag tower
+	if tutorial_drag_tower:
+		tutorial_drag_tower.visible = true
+	
+	# Highlight panel tower
+	var tower_panel = $CanvasLayer/UI_Management/Panel
+	if tower_panel:
+		# Tambahkan efek highlight
+		tower_panel.modulate = Color(1, 1, 0.5, 1)  # Warna kuning muda
+	
+	print("⏸️ Game paused - Drag tower ke area yang valid!")
+
+# NEW: Fungsi untuk tutorial upgrade
+func _show_upgrade_tutorial():
+	print("📢 Tutorial Step 3: Upgrade Tower")
+	
+	# Pause game
+	GameSpeedManager.set_game_speed(0.0)
+	
+	# Tampilkan sprite tutorial upgrade
+	if tutorial_upgrade:
+		tutorial_upgrade.visible = true
+	
+	print("⏸️ Game paused - Klik tower yang sudah terpasang untuk upgrade!")
+
+# NEW: Fungsi untuk selesaikan tutorial
+func _complete_tutorial():
+	print("✅ Tutorial Level 1 SELESAI!")
+	
+	# Sembunyikan semua tutorial sprites
+	if tutorial_startwave:
+		tutorial_startwave.visible = false
+	if tutorial_drag_tower:
+		tutorial_drag_tower.visible = false
+	if tutorial_upgrade:
+		tutorial_upgrade.visible = false
+	
+	# Reset highlight tower panel
+	var tower_panel = $CanvasLayer/UI_Management/Panel
+	if tower_panel:
+		tower_panel.modulate = Color.WHITE
+	
+	# Resume game
 	GameSpeedManager.set_game_speed(1.0)
-	#speed_button.disabled = false
+	tutorial_step = 4  # Mark as completed
+
+func _show_level1_tutorial():
+	# NEW: Tutorial sederhana untuk Level 1
+	print("📢 Tutorial Level 1 aktif")
+	
+	tutorial_input_blocker.visible = true
+	# Tampilkan tutorial label
+	if tutorial_startwave:
+		tutorial_startwave.visible = true
+	
+	# Tampilkan button Start Wave
 	if start_wave_button:
 		start_wave_button.visible = true
-		countdown_label.visible = false
-		
-func _on_start_wave_button_pressed():
-	if start_wave_button:
-		start_wave_button.visible = false  # Sembunyikan button
-	start_wave_countdown()
+		start_wave_button.text = "START WAVE"
+		# Highlight button
+		start_wave_button.add_theme_color_override("font_color", Color.GOLD)
+		start_wave_button.add_theme_color_override("font_outline_color", Color.BLACK)
+		start_wave_button.add_theme_constant_override("outline_size", 4)
+	
+	# Game tetap paused sampai player tekan button
+	GameSpeedManager.set_game_speed(0.0)
+	print("⏸️ Game paused - Tunggu player tekan Start Wave")
 
-func start_wave_countdown():
-	countdown_label.visible = true
-	await start_initial_countdown(countdown)
-	wave_manager.start_next_wave()
+func _hide_level1_tutorial():
+	tutorial_input_blocker.visible = false
+	print("✅ Tutorial Level 1 selesai")
 	
-func _update_speed_button_text():
-	print("speed x2")
-	#if speed_button:
-		#if GameSpeedManager.is_fast_forward():
-			#speed_button.text = "Speed: 2x"
-		#else:
-			#speed_button.text = "Speed: 1x"
+	if tutorial_startwave:
+		tutorial_startwave.visible = false
+	
+	# Resume game
+	GameSpeedManager.set_game_speed(1.0)
+
+func _on_start_wave_button_pressed():
+	# NEW: Untuk Level 1, sembunyikan tutorial dulu
+	var current_level = GameManager.current_level
+	if current_level == 1:
+		if tutorial_step == 1 and tutorial_startwave and tutorial_startwave.visible:
+			# Selesaikan step 1
+			_hide_level1_tutorial()
+			tutorial_completed_steps["start_wave"] = true
 			
-func start_initial_countdown(seconds: int) -> void:
-	countdown_label.visible = true
+			# Mulai step 2: Drag Tower
+			_start_tutorial_step(2)
+			return  # Jangan mulai wave dulu
+			
+		elif tutorial_step == 2 and not tutorial_completed_steps["drag_tower"]:
+			print("⚠️ Selesaikan tutorial drag tower dulu!")
+			return  # Blok jika belum selesaikan drag tower
+			
+	if current_level == 1 and tutorial_step == 3 and not first_wave_finished:
+		print("⚠️ Selesaikan wave pertama dulu!")
+		return
+	if not is_countdown_active:
+		return
 	
-	for i in range(seconds, 0, -1):
+	# Hitung reward
+	_calculate_wave_reward()
+	
+	# Berikan reward
+	if wave_reward > 0:
+		GameManager._add_coin(wave_reward)
+		_show_reward_popup(wave_reward)
+	
+	# Hentikan countdown
+	is_countdown_active = false
+	if start_wave_button:
+		start_wave_button.visible = false
+	
+	# Mulai wave
+	wave_manager.start_next_wave()
+	has_started_first_wave = true
+
+func _on_wave_completed(wave_number: int):
+	if GameManager.current_level == 1:
+		if wave_number == 1 and not first_wave_finished:
+			first_wave_finished = true
+			print("🎉 Wave 1 selesai! Buka tutorial upgrade...")
+			
+			# Jika masih di tutorial step 2, lanjut ke step 3
+			if tutorial_step == 2:
+				_start_tutorial_step(3)
+				
+func check_tower_placed():
+	if GameManager.current_level == 1 and tutorial_step == 2:
+		if GameManager.placed_towers.size() > 0:
+			print("✅ Tutorial Step 2 selesai! Tower berhasil ditempatkan.")
+			tutorial_completed_steps["drag_tower"] = true
+			
+			# Sembunyikan tutorial drag tower
+			if tutorial_drag_tower:
+				tutorial_drag_tower.visible = false
+			
+			# Reset tower panel highlight
+			var tower_panel = $CanvasLayer/UI_Management/Panel
+			if tower_panel:
+				tower_panel.modulate = Color.WHITE
+			
+			if start_wave_button:
+				start_wave_button.visible = true
+				start_wave_button.text = "START WAVE 1"
+				
+			tutorial_step = 2.5
+			
+			GameSpeedManager.set_game_speed(1.0)
+
+func _on_all_enemies_defeated():
+	if GameManager.current_level == 1:
+		# Cek wave mana yang selesai
+		var current_wave = wave_manager.current_wave
+		if current_wave == 1 and not first_wave_finished:  # Wave pertama selesai
+			_on_wave_completed(1)
+			
+func check_tower_clicked():
+	if GameManager.current_level == 1 and tutorial_step == 3:
+		# Cek jika panel upgrade terlihat
+		if ui_upgrade.visible:
+			print("✅ Tutorial Step 3 selesai! Panel upgrade terbuka.")
+			tutorial_completed_steps["upgrade_tower"] = true
+			
+			# Sembunyikan tutorial upgrade
+			if tutorial_upgrade:
+				tutorial_upgrade.visible = false
+			
+			# Selesaikan tutorial
+			_start_tutorial_step(4)
+			return
+				
+func _start_wave_countdown():
+	current_countdown_timer = 0.0
+	is_countdown_active = true
+	
+	if start_wave_button:
+		start_wave_button.visible = true
+		_update_start_wave_button_text()
+	
+	countdown_label.visible = true
+	_start_visual_countdown()
+	
+func _start_visual_countdown():
+	var countdown_time = max_countdown_time
+	
+	for i in range(countdown_time, 0, -1):
+		if not is_countdown_active:
+			break
 		countdown_label.text = str(i)
 		await get_tree().create_timer(1.0).timeout
 	
-	await get_tree().create_timer(.0).timeout
+	if is_countdown_active:
+		countdown_label.text = "0"
+		await get_tree().create_timer(1.0).timeout
+		
+		# NEW: Untuk Level 1, pastikan tutorial disembunyikan
+		var current_level = GameManager.current_level
+		if current_level == 1 and tutorial_startwave and tutorial_startwave.visible:
+			_hide_level1_tutorial()
+		
+		is_countdown_active = false
+		if start_wave_button:
+			start_wave_button.visible = false
+		
+		wave_manager.start_next_wave()
+		has_started_first_wave = true
+	
 	countdown_label.visible = false
+
+func _calculate_wave_reward():
+	var remaining_time = max_countdown_time - current_countdown_timer
+	var reward_percentage = remaining_time / max_countdown_time
+	
+	wave_reward = int(max_reward * reward_percentage)
+	wave_reward = max(5, wave_reward)
+	
+	print("💰 Wave reward: ", wave_reward, " gold")
+
+func _update_start_wave_button_text():
+	if start_wave_button and is_countdown_active:
+		var remaining_time = max_countdown_time - current_countdown_timer
+		var reward = int(max_reward * (remaining_time / max_countdown_time))
+		reward = max(5, reward)
+		
+		start_wave_button.text = "START WAVE NOW\n+" + str(reward) + " GOLD"
+		
+		## Warna berdasarkan reward
+		#if reward >= 40:
+			#start_wave_button.add_theme_color_override("font_color", Color.GREEN)
+		#elif reward >= 20:
+			#start_wave_button.add_theme_color_override("font_color", Color.YELLOW)
+		#else:
+			#start_wave_button.add_theme_color_override("font_color", Color.WHITE)
+
+func _show_reward_popup(amount: int):
+	var reward_popup = Label.new()
+	reward_popup.text = "+" + str(amount) + " GOLD!"
+	reward_popup.add_theme_font_size_override("font_size", 32)
+	reward_popup.add_theme_color_override("font_color", Color.GOLD)
+	reward_popup.position = Vector2(500, 300)
+	
+	add_child(reward_popup)
+	
+	var tween = create_tween()
+	tween.tween_property(reward_popup, "position:y", 250, 0.5)
+	tween.tween_property(reward_popup, "modulate:a", 0.0, 0.5)
+	
+	await tween.finished
+	reward_popup.queue_free()
+	
+	print("🎉 Reward: +", amount, " gold!")
+
+# ... (fungsi-fungsi lainnya tetap sama, dari _update_speed_button_text sampai akhir)
+
+func _update_speed_button_text():
+	if not speed_button:
+		return
+	
+	var is_fast = GameSpeedManager.is_fast_forward()
+	
+	if is_fast:
+		speed_button.texture_normal = preload("res://asset/fast_forward_x2.png")
+	else:
+		speed_button.texture_normal = preload("res://asset/fast_forward.png")
 
 func _input(event):
 	if event.is_action_pressed("toggle_speed"):
 		_on_speed_button_pressed()
-	if event.is_action_pressed("ui_cancel"):  # Escape key
+	if event.is_action_pressed("ui_cancel"):
 		_on_pause_pressed()
 		
 func _on_game_over():
 	gameover_panel.visible = true
-	score.text = str(GameManager.coin)
+	#score.text = str(GameManager.coin)
 
 func _on_victory_achieved():
 	victory_panel.visible = true
-	score_result.text = str(GameManager.coin)
+	#score_result.text = str(GameManager.coin)
 	
 	var stars_earned = calculate_stars()
 	show_stars(stars_earned)
-	# Pause game
 	GameSpeedManager.set_game_speed(0.0)
-	print("🎉 Victory! Semua wave berhasil dikalahkan!")
+	
+	_save_level_completion(stars_earned)
 
+func _save_level_completion(stars: int):
+	var current_level = GameManager.current_level
+	
+	# Gunakan SaveManager Autoload
+	SaveManager.complete_level(current_level, stars)
+	
+	print("🎮 Level ", current_level, " completed (", stars, " stars)")
+	
 func flash_base_simple():
 	if not base_sprite:
 		return
@@ -156,25 +515,55 @@ func flash_base_simple():
 func _on_wave_changed(current_wave: int, total_waves: int):
 	if wave_lbl:
 		wave_lbl.text = "%d/%d" % [current_wave, total_waves]
-		
+
 func _reset_game():
 	GameManager.reset_game()
 	game_started = false
 	
+	current_countdown_timer = 0.0
+	is_countdown_active = false
+	has_started_first_wave = false
+	wave_reward = 0
+	
+	tutorial_step = 0
+	tutorial_completed_steps = {
+		"start_wave": false,
+		"drag_tower": false,
+		"upgrade_tower": false
+	}
+	tutorial_wave_completed = false
+	first_wave_finished = false
+	
 	wave_manager.reset_wave_manager()
-	# Hide game over panel
 	gameover_panel.visible = false
 	victory_panel.visible = false
 	
 	if base_sprite:
 		base_sprite.modulate = Color.WHITE
-	# Reset wave manager dan musuh
-	get_tree().call_group("player", "queue_free")  # Hapus semua musuh
+	
+	get_tree().call_group("player", "queue_free")
 	get_tree().call_group("tower", "queue_free")
 	
 	countdown_label.visible = false
+	
+	if tutorial_startwave:
+		tutorial_startwave.visible = false
+	if tutorial_drag_tower:
+		tutorial_drag_tower.visible = false
+	if tutorial_upgrade:
+		tutorial_upgrade.visible = false
+	
 	if start_wave_button:
 		start_wave_button.visible = true
+		start_wave_button.text = "START WAVE"
+		start_wave_button.remove_theme_color_override("font_color")
+		start_wave_button.add_theme_constant_override("outline_size", 0)
+	
+	# Reset tower panel highlight
+	var tower_panel = $CanvasLayer/UI_Management/Tower_Panel
+	if tower_panel:
+		tower_panel.modulate = Color.WHITE
+	
 	GameSpeedManager.set_game_speed(1.0)
 	
 func _on_restart_button_pressed():
@@ -198,18 +587,17 @@ func _on_game_paused(is_paused: bool):
 func _on_main_menu_pressed() -> void:
 	GameManager.reset_game()
 	GameSpeedManager.reset_speed()
-	GameSpeedManager.set_game_speed(1.0)  # Reset speed
+	GameSpeedManager.set_game_speed(1.0)
 	get_tree().change_scene_to_file("res://scene/main_menu.tscn")
 
 func _on_wave_countdown_started(seconds: int):
-	countdown_label.visible = true
-	countdown_label.text = str(seconds)
+	pass
 
 func _on_wave_countdown_updated(seconds: int):
-	countdown_label.text = str(seconds)
+	pass
 
 func _on_wave_countdown_finished():
-	countdown_label.visible = false
+	pass
 	
 func calculate_stars() -> int:
 	var health_percentage = float(GameManager.health_player) / 100.0 * 100
@@ -223,9 +611,7 @@ func calculate_stars() -> int:
 	else:
 		return 0
 
-# NEW: Fungsi untuk menampilkan stars di victory panel
 func show_stars(stars_count: int):
-	# Reset semua stars ke blank terlebih dahulu
 	star_1_fill.visible = false
 	star_1_blank.visible = true
 	star_2_fill.visible = false
@@ -233,7 +619,6 @@ func show_stars(stars_count: int):
 	star_3_fill.visible = false
 	star_3_blank.visible = true
 	
-	# Tampilkan stars sesuai jumlah
 	match stars_count:
 		3:
 			star_1_fill.visible = true
@@ -257,7 +642,6 @@ func show_stars(stars_count: int):
 			star_2_blank.visible = true
 			star_3_blank.visible = true
 		0:
-			# Semua blank
 			star_1_fill.visible = false
 			star_2_fill.visible = false
 			star_3_fill.visible = false
@@ -269,15 +653,15 @@ func show_tower_info(tower_reference):
 	current_tower = tower_reference
 	ui_upgrade.visible = true
 	update_tower_display()
+	if GameManager.current_level == 1 and tutorial_step == 3:
+		check_tower_clicked()
 
 func update_tower_display():
 	if current_tower:
-		# Update nama tower dan level
 		if tower_name_label:
 			var display_name = current_tower.tower_type.replace("_", " ")
 			tower_name_label.text = display_name + " (Lv." + str(current_tower.upgrade_level) + ")"
 		
-		# Update cost upgrade
 		if upgrade_cost_label:
 			var upgrade_cost = current_tower.get_upgrade_cost()
 			if upgrade_cost == 99999:
@@ -289,29 +673,66 @@ func update_tower_display():
 				upgrade_cost_label.text = "Upgrade: " + str(upgrade_cost) + " coins"
 				if upgrade_button:
 					upgrade_button.disabled = false
-					upgrade_button.text = "UPGRADE"
+		if sell_price_label:
+			var sell_price = calculate_sell_price(current_tower)
+			sell_price_label.text = "Sell: " + str(sell_price) + " coins"
 
-# FUNGSI UNTUK TOMBOL UPGRADE
+		# Enable sell button
+		if sell_button:
+			sell_button.disabled = false
+
 func _on_upgrade_button_pressed():
 	if current_tower:
 		var upgrade_cost = current_tower.get_upgrade_cost()
 		
-		# Cek apakah coin cukup
 		if GameManager.coin >= upgrade_cost:
-			# Kurangi coin
 			GameManager.coin -= upgrade_cost
 			GameManager.emit_signal("update_coin", GameManager.coin)
 			
-			# Panggil fungsi upgrade di tower
 			current_tower.upgrade_tower()
-			
-			# Update display setelah upgrade
 			update_tower_display()
 			
 			print("Tower upgraded! Current level: ", current_tower.upgrade_level)
 		else:
 			print("Coin tidak cukup! Butuh ", upgrade_cost, " coin, hanya ada ", GameManager.coin)
 
+func calculate_sell_price(tower) -> int:
+	# Hitung total biaya yang sudah dikeluarkan
+	var base_cost = tower.get_base_cost()
+	var total_spent = base_cost
+	
+	# Tambahkan biaya upgrade jika ada
+	if tower.upgrade_level >= 2:
+		total_spent += tower.upgrade_cost_level2
+	if tower.upgrade_level >= 3:
+		total_spent += tower.upgrade_cost_level3
+	
+	# Kembalikan 70% dari total biaya
+	var sell_price = int(total_spent * 0.7)
+	return max(5, sell_price)  # Minimal 5 coins
+
+# Tambahkan fungsi untuk handle sell button
+func _on_sell_button_pressed():
+	if not current_tower:
+		return
+	
+	# Hitung harga jual
+	var sell_price = calculate_sell_price(current_tower)
+	
+	# Tambahkan koin ke player
+	GameManager._add_coin(sell_price)
+	print("✅ Tower dijual seharga ", sell_price, " coins")
+	
+	# Hapus tower dari daftar dan scene
+	if current_tower in GameManager.placed_towers:
+		GameManager.placed_towers.erase(current_tower)
+	
+	current_tower.queue_free()
+	current_tower = null
+	
+	# Tutup panel upgrade
+	ui_upgrade.visible = false
+	
 func format_tower_name(tower_type: String) -> String:
 	match tower_type:
 		"Stove_Cannon":
@@ -339,3 +760,24 @@ func _on_resume_pressed() -> void:
 
 func _on_button_upgrade_pressed() -> void:
 	pass
+
+func _on_store_pressed() -> void:
+	get_tree().change_scene_to_file("res://scene/select_level.tscn")
+	GameManager.should_open_store = true
+
+
+func _on_setting_pressed() -> void:
+	panel_settings.visible = true
+	if slider_music:
+		slider_music.value = MusicPlayer.volume
+
+func _on_close_settings_pressed() -> void:
+	panel_settings.visible = false
+	
+func _on_slider_music_value_changed(value: float) -> void:
+	MusicPlayer.set_bgm_volume(value)
+
+# Fungsi untuk ketika volume music berubah dari luar
+func _on_music_volume_changed(value: float):
+	if slider_music and slider_music.value != value:
+		slider_music.value = value

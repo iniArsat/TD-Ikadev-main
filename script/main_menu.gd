@@ -10,7 +10,7 @@ extends Control
 @onready var panel_tower: Panel = $Panel_Encyclopedia/Panel_Tower
 @onready var panel_enemies: Panel = $Panel_Encyclopedia/Panel_Enemies
 @onready var container: HBoxContainer = $Panel_Encyclopedia/HBoxContainer
-
+@onready var panel_htp: Panel = $Panel_HTP
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -29,6 +29,7 @@ func _on_close_upgrade_pressed() -> void:
 	panel_credit.visible = false
 	panel_settings.visible = false
 	panel_encyclopedia.visible = false
+	panel_htp.visible = false
 
 func _on_button_credit_pressed() -> void:
 	panel_credit.visible = true
@@ -66,3 +67,6 @@ func _on_button_enemies_pressed() -> void:
 
 func _on_button_exit_pressed() -> void:
 	get_tree().quit()
+
+func _on_button_htp_pressed() -> void:
+	panel_htp.visible = true

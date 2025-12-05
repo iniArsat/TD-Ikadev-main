@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bgxcixbtsqnnn" path="res://script/tower_a.gd" id="1_ln1o3"]
 [ext_resource type="PackedScene" uid="uid://5s3b7tsxo2c4" path="res://scene/bullet.tscn" id="2_6lnxv"]
-[ext_resource type="Texture2D" uid="uid://d1ig5rmkg7xln" path="res://asset/towerDefense_tile249.png" id="2_ln1o3"]
+[ext_resource type="Texture2D" uid="uid://d1ig5rmkg7xln" path="res://asset/Stove_Cannon.png" id="2_ln1o3"]
 [ext_resource type="Texture2D" uid="uid://bpdoirv4wlyop" path="res://asset/png_palu.png" id="3_s4i55"]
 [ext_resource type="Script" uid="uid://kvis5s4a8808" path="res://script/range_visual.gd" id="5_s4i55"]
 

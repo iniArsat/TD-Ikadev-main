@@ -11,7 +11,7 @@ extends Panel
 @onready var tower_panel: Panel = $"."
 
 # NEW: Hanya butuh 1 sprite reference
-@onready var selected_tower_sprite: Sprite2D = $CanUpgrade
+#@onready var selected_tower_sprite: Sprite2D = $CanUpgrade
 
 var tower_data = {}
 var temp_tower = null
@@ -24,13 +24,14 @@ func _ready():
 	# NEW: Connect ke signal update coin
 	GameManager.update_coin.connect(_on_coins_changed)
 	# Update visibilitas awal
-	_update_sprite_visibility()
-	_update_sprite_color()
+	#_update_sprite_visibility()
+	#_update_sprite_color()
 
 func _on_coins_changed(new_amount: int):
+	pass
 	# NEW: Update visibilitas sprite ketika koin berubah
-	_update_sprite_visibility()
-	_update_sprite_color()
+	#_update_sprite_visibility()
+	#_update_sprite_color()
 
 func load_tower_data():
 	tower_data = TowerCSVLoader.load_tower_data_from_csv(tower_csv_path)
@@ -45,12 +46,12 @@ func get_tower_cost(tower_type: String) -> float:
 	return 9999
 
 # NEW: Fungsi sederhana untuk update visibilitas sprite
-func _update_sprite_visibility():
-	var current_coins = GameManager.coin
-	var tower_cost = get_tower_cost(selected_tower_type)
-	
-	if selected_tower_sprite:
-		selected_tower_sprite.visible = current_coins >= tower_cost
+#func _update_sprite_visibility():
+	#var current_coins = GameManager.coin
+	#var tower_cost = get_tower_cost(selected_tower_type)
+	#
+	#if selected_tower_sprite:
+		#selected_tower_sprite.visible = current_coins >= tower_cost
 
 func _on_gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
@@ -123,9 +124,16 @@ func get_tower_scene_by_type(tower_type: String) -> PackedScene:
 			
 func release_tower():
 	if temp_tower:
-		print("Tower dilepas")
+		var drop_position = temp_tower.global_position
+		# Cari valid drop area terdekat
+		var nearest_valid_area = _find_nearest_valid_drop_area(drop_position)
+		# Jika ada valid drop area di dekatnya, snap ke tengah area
+		if nearest_valid_area:
+			var center_position = _get_area_center(nearest_valid_area)
+			if center_position:
+				drop_position = center_position
+				
 		if is_valid_drop_position(temp_tower.global_position):
-			var drop_position = temp_tower.global_position
 			var tower_cost = get_tower_cost(selected_tower_type)
 			
 			# Kurangi koin
@@ -142,6 +150,7 @@ func release_tower():
 				
 				# NEW: Tambahkan tower ke daftar tower yang sudah terpasang
 				GameManager.placed_towers.append(temp_tower)
+				GameManager.emit_signal("tower_placed", temp_tower)
 				
 				print("✅ Tower ", selected_tower_type, " berhasil dipasang")
 			else:
@@ -156,6 +165,50 @@ func release_tower():
 		temp_tower = null
 	is_dragging = false
 
+func _find_nearest_valid_drop_area(pos: Vector2) -> Area2D:
+	var nearest_area = null
+	var min_distance = INF
+	
+	for area in GameManager.valid_drop_areas:
+		if area is Area2D:
+			var polygon = area.get_node_or_null("CollisionPolygon2D")
+			if polygon and polygon.polygon.size() > 0:
+				var local_pos = area.to_local(pos)
+				if Geometry2D.is_point_in_polygon(local_pos, polygon.polygon):
+					# Jika posisi sudah dalam area, langsung return area ini
+					return area
+				
+				# Jika tidak dalam area, hitung jarak ke area
+				var area_center = _get_area_center(area)
+				if area_center:
+					var distance = pos.distance_to(area_center)
+					if distance < min_distance:
+						min_distance = distance
+						nearest_area = area
+	
+	return nearest_area
+
+# Fungsi untuk mendapatkan titik tengah area
+func _get_area_center(area: Area2D) -> Vector2:
+	var polygon = area.get_node_or_null("CollisionPolygon2D")
+	if not polygon or polygon.polygon.size() == 0:
+		return Vector2.ZERO
+	
+	# Hitung bounding box dari polygon
+	var min_point = polygon.polygon[0]
+	var max_point = polygon.polygon[0]
+	
+	for point in polygon.polygon:
+		min_point.x = min(min_point.x, point.x)
+		min_point.y = min(min_point.y, point.y)
+		max_point.x = max(max_point.x, point.x)
+		max_point.y = max(max_point.y, point.y)
+	
+	# Hitung titik tengah
+	var local_center = (min_point + max_point) / 2
+	# Konversi ke koordinat global
+	return area.to_global(local_center)
+	
 func is_valid_drop_position(pos: Vector2) -> bool:
 	var in_valid_area = false
 	for area in GameManager.valid_drop_areas:
@@ -200,21 +253,21 @@ func show_not_enough_coin_label():
 	await tween.finished
 	tidak_cukup.visible = false
 
-func _update_sprite_color():
-	if selected_tower_sprite:
-		var tower_cost = get_tower_cost(selected_tower_type)
-		if GameManager.coin >= tower_cost:
-			tower_panel.modulate = Color.WHITE  # Warna normal
-		else:
-			tower_panel.modulate = Color.GRAY
-			
+#func _update_sprite_color():
+	#if selected_tower_sprite:
+		#var tower_cost = get_tower_cost(selected_tower_type)
+		#if GameManager.coin >= tower_cost:
+			#tower_panel.modulate = Color.WHITE  # Warna normal
+		#else:
+			#tower_panel.modulate = Color.GRAY
+			#
 # Fungsi untuk UI buttons memilih tower type
 func set_tower_type(tower_type: String):
 	if tower_data.has(tower_type):
 		selected_tower_type = tower_type
 		print("Selected tower: ", tower_type)
-		_update_sprite_color()
-		# NEW: Update visibilitas sprite setelah ganti tower type
-		_update_sprite_visibility()
+		#_update_sprite_color()
+		## NEW: Update visibilitas sprite setelah ganti tower type
+		#_update_sprite_visibility()
 	else:
 		push_error("Tower type not found: " + tower_type)

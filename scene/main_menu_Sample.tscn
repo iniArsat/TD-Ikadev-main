@@ -1,10 +1,10 @@
 [gd_scene load_steps=8 format=3 uid="uid://dy7bjxrtl7l2x"]
 
 [ext_resource type="Script" uid="uid://bgac42ixedltt" path="res://script/main_menu.gd" id="1_3er1b"]
-[ext_resource type="Texture2D" uid="uid://dwghhwpbdd1gl" path="res://asset/towerDefense_tile250.png" id="2_hxu56"]
-[ext_resource type="Texture2D" uid="uid://d1ig5rmkg7xln" path="res://asset/towerDefense_tile249.png" id="3_2fwvj"]
-[ext_resource type="Texture2D" uid="uid://bws4wkddkjgs6" path="res://asset/towerDefense_tile245.png" id="4_sepwh"]
-[ext_resource type="Texture2D" uid="uid://x8ceoolmw32l" path="res://asset/towerDefense_tile246.png" id="5_14wem"]
+[ext_resource type="Texture2D" uid="uid://dwghhwpbdd1gl" path="res://asset/Chilli_Launcher.png" id="2_hxu56"]
+[ext_resource type="Texture2D" uid="uid://d1ig5rmkg7xln" path="res://asset/Stove_Cannon.png" id="3_2fwvj"]
+[ext_resource type="Texture2D" uid="uid://bws4wkddkjgs6" path="res://asset/Grease_Rat.png" id="4_sepwh"]
+[ext_resource type="Texture2D" uid="uid://x8ceoolmw32l" path="res://asset/Sequirel_Fire.png" id="5_14wem"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rhts7"]
 bg_color = Color(0.211765, 0.211765, 0.211765, 1)

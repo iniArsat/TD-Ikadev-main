@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://cion3ou7mtjwm"]
+
+[ext_resource type="Script" uid="uid://cpbbbwsh2nk11" path="res://script/coin_popup.gd" id="1_dyunp"]
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_dyunp")
+
+[node name="Label" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 23.0

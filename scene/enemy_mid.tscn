@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://cqs5nstspiepw"]
 
 [ext_resource type="Script" uid="uid://crpi2ei52olnk" path="res://script/enemy.gd" id="1_41ibt"]
-[ext_resource type="Texture2D" uid="uid://bws4wkddkjgs6" path="res://asset/towerDefense_tile245.png" id="2_hfita"]
+[ext_resource type="Texture2D" uid="uid://bws4wkddkjgs6" path="res://asset/Grease_Rat.png" id="2_hfita"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qi2p4"]
 size = Vector2(12.5, 19.5)

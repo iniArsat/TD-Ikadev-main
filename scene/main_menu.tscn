@@ -45,15 +45,45 @@ theme_override_colors/font_shadow_color = Color(0.281187, 0.281187, 0.281187, 1)
 theme_override_font_sizes/font_size = 100
 text = "RECIPE WAR"
 
-[node name="Button_Setting" type="Button" parent="."]
-custom_minimum_size = Vector2(100, 100)
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 0
-offset_left = 1130.0
-offset_top = 28.0
-offset_right = 1254.0
-offset_bottom = 128.0
+offset_left = 484.0
+offset_top = 186.0
+offset_right = 784.0
+offset_bottom = 702.0
+theme_override_constants/separation = 10
+
+[node name="Button_Start" type="Button" parent="VBoxContainer"]
+custom_minimum_size = Vector2(300, 80)
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Start"
+
+[node name="Button_htp" type="Button" parent="VBoxContainer"]
+custom_minimum_size = Vector2(300, 80)
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "How To Play"
+
+[node name="Button_Setting" type="Button" parent="VBoxContainer"]
+custom_minimum_size = Vector2(100, 80)
+layout_mode = 2
 theme_override_font_sizes/font_size = 30
 text = "Settings"
+
+[node name="Button_Credit" type="Button" parent="VBoxContainer"]
+custom_minimum_size = Vector2(300, 80)
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Credit
+"
+
+[node name="Button_Exit" type="Button" parent="VBoxContainer"]
+custom_minimum_size = Vector2(300, 80)
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Exit
+"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 visible = false
@@ -83,58 +113,6 @@ custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
 text = "Encyclopedia
-"
-
-[node name="Button_Start" type="Button" parent="."]
-custom_minimum_size = Vector2(300, 100)
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -150.0
-offset_top = -110.0
-offset_right = 150.0
-offset_bottom = -10.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_font_sizes/font_size = 30
-text = "Start"
-
-[node name="Button_Credit" type="Button" parent="."]
-custom_minimum_size = Vector2(300, 100)
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -150.0
-offset_right = 150.0
-offset_bottom = 100.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_font_sizes/font_size = 30
-text = "Credit
-"
-
-[node name="Button_Exit" type="Button" parent="."]
-custom_minimum_size = Vector2(300, 100)
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -150.0
-offset_top = 111.0
-offset_right = 150.0
-offset_bottom = 211.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_font_sizes/font_size = 30
-text = "Exit
 "
 
 [node name="Panel_Upgrade" type="Panel" parent="."]
@@ -487,6 +465,45 @@ offset_bottom = 61.0
 theme_override_font_sizes/font_size = 35
 text = "X"
 
+[node name="Panel_HTP" type="Panel" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -450.0
+offset_top = -183.0
+offset_right = 450.0
+offset_bottom = 317.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(450, 0)
+theme_override_styles/panel = SubResource("StyleBoxFlat_rhts7")
+
+[node name="Label" type="Label" parent="Panel_HTP"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -86.0
+offset_right = 86.0
+offset_bottom = 69.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 50
+text = "How To Play"
+
+[node name="Close_Upgrade" type="Button" parent="Panel_HTP"]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 0
+offset_left = 839.0
+offset_top = 1.0
+offset_right = 899.0
+offset_bottom = 61.0
+theme_override_font_sizes/font_size = 35
+text = "X"
+
 [node name="Panel_Settings" type="Panel" parent="."]
 visible = false
 layout_mode = 1
@@ -708,14 +725,16 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 25
 text = "ENEMIES"
 
-[connection signal="pressed" from="Button_Setting" to="." method="_on_button_setting_pressed"]
+[connection signal="pressed" from="VBoxContainer/Button_Start" to="." method="_on_button_start_pressed"]
+[connection signal="pressed" from="VBoxContainer/Button_htp" to="." method="_on_button_htp_pressed"]
+[connection signal="pressed" from="VBoxContainer/Button_Setting" to="." method="_on_button_setting_pressed"]
+[connection signal="pressed" from="VBoxContainer/Button_Credit" to="." method="_on_button_credit_pressed"]
+[connection signal="pressed" from="VBoxContainer/Button_Exit" to="." method="_on_button_exit_pressed"]
 [connection signal="pressed" from="HBoxContainer/Button_Upgrade" to="." method="_on_button_upgrade_pressed"]
 [connection signal="pressed" from="HBoxContainer/Button_Encyclopedia" to="." method="_on_button_encyclopedia_pressed"]
-[connection signal="pressed" from="Button_Start" to="." method="_on_button_start_pressed"]
-[connection signal="pressed" from="Button_Credit" to="." method="_on_button_credit_pressed"]
-[connection signal="pressed" from="Button_Exit" to="." method="_on_button_exit_pressed"]
 [connection signal="pressed" from="Panel_Upgrade/Close_Upgrade" to="." method="_on_close_upgrade_pressed"]
 [connection signal="pressed" from="Panel_Credit/Close_Upgrade" to="." method="_on_close_upgrade_pressed"]
+[connection signal="pressed" from="Panel_HTP/Close_Upgrade" to="." method="_on_close_upgrade_pressed"]
 [connection signal="pressed" from="Panel_Settings/Close_Settings" to="." method="_on_close_upgrade_pressed"]
 [connection signal="value_changed" from="Panel_Settings/VBoxContainer/ColorRect/HSlider" to="." method="_on_slider_bgm_value_changed"]
 [connection signal="pressed" from="Panel_Encyclopedia/Close_Upgrade" to="." method="_on_close_upgrade_pressed"]

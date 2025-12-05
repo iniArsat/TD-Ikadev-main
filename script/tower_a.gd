@@ -7,6 +7,7 @@ var bullet_speed = 250.0
 var bullet_damage = 5.0
 var cooldown = 1.0
 var range_radius = 150.0
+var base_cost: int = 100
 var upgrade_cost_level2 = 50
 var upgrade_cost_level3 = 100
 
@@ -254,6 +255,9 @@ func _on_texture_button_pressed() -> void:
 		
 		upgrade_level += 1
 		apply_upgrade_stats()
+		var main_scene = get_tree().get_root().get_node("Main")
+		if main_scene and main_scene.has_method("check_tower_upgraded"):
+			main_scene.check_tower_upgraded()
 		print("Tower ", tower_type, " upgraded to level ", upgrade_level)
 		
 func get_upgrade_cost() -> int:
@@ -376,11 +380,13 @@ func setup_from_data(tower_type: String, data: Dictionary):
 	self.range_radius = data.get("range_radius", 150.0)
 	self.upgrade_cost_level2 = data.get("upgrade_cost_level2", 50)
 	self.upgrade_cost_level3 = data.get("upgrade_cost_level3", 100)
-	
+	self.base_cost = data.get("base_cost", 100)
 	original_cooldown = cooldown
 	call_deferred("setup_range_collision")
 	call_deferred("update_range_visual_scale")
 
+func get_base_cost() -> int:
+	return base_cost
 
 func _on_shape_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:

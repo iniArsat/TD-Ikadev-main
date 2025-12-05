@@ -1,8 +1,12 @@
-[gd_scene load_steps=4 format=3 uid="uid://bfv763cvlgh4i"]
+[gd_scene load_steps=8 format=3 uid="uid://bfv763cvlgh4i"]
 
 [ext_resource type="PackedScene" uid="uid://cdgqu8jrfmpij" path="res://scene/Main.tscn" id="1_3w287"]
 [ext_resource type="PackedScene" uid="uid://p313qbfjbtby" path="res://scene/path_lvl2.tscn" id="2_3qwn7"]
 [ext_resource type="PackedScene" uid="uid://ke3giwbp42rg" path="res://scene/path_lvl2_1.tscn" id="3_d301n"]
+[ext_resource type="Texture2D" uid="uid://dbte3l55mtcxw" path="res://asset/level2_page2.png" id="4_0fm8k"]
+[ext_resource type="Texture2D" uid="uid://7krk64a15ku2" path="res://asset/Locked.png" id="4_cnmgk"]
+[ext_resource type="PackedScene" uid="uid://dvmwbo4glqd7x" path="res://scene/tower_placement.tscn" id="4_d301n"]
+[ext_resource type="Texture2D" uid="uid://c8pgb14t0imvi" path="res://asset/level2_page3.png" id="5_ys13b"]
 
 [node name="Main" instance=ExtResource("1_3w287")]
 
@@ -15,18 +19,12 @@ path_scene = ExtResource("2_3qwn7")
 [node name="PathSpawner2" parent="." index="4"]
 path_scene = ExtResource("3_d301n")
 
-[node name="Start_Wave" parent="CanvasLayer/UI_Management" index="7"]
-offset_left = 12.0
-offset_top = 181.0
-offset_right = 112.0
-offset_bottom = 231.0
-
 [node name="TowerPanel4" parent="CanvasLayer/UI_Management/Panel" index="3"]
 visible = true
 offset_left = 339.0
 offset_right = 417.0
 
-[node name="Restart" parent="CanvasLayer/UI_Management/Gameover_Panel" index="1"]
+[node name="Restart" parent="CanvasLayer/UI_Management/Gameover_Panel" index="2"]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -40,7 +38,7 @@ offset_bottom = -34.0
 grow_horizontal = 2
 grow_vertical = 0
 
-[node name="Continue" parent="CanvasLayer/UI_Management/Gameover_Panel" index="2"]
+[node name="Continue" parent="CanvasLayer/UI_Management/Gameover_Panel" index="3"]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -54,28 +52,97 @@ offset_bottom = -34.0
 grow_horizontal = 2
 grow_vertical = 0
 
-[node name="Label" parent="CanvasLayer/UI_Management/Instruction_Panel/Page1" index="1"]
-text = "Serangan semakin cepat dan tak beraturan. “Tower-mu harus makin kuat! Gunakan coin untuk upgrade
- lebih sering!”"
+[node name="Instruction_Panel" parent="CanvasLayer/UI_Management" index="15"]
+visible = false
 
-[node name="Label2" parent="CanvasLayer/UI_Management/Instruction_Panel/Page1" index="2"]
+[node name="Label" parent="CanvasLayer/UI_Management/Instruction_Panel/Page1" index="0"]
+text = "Serangan semakin intens! Musuh baru muncul dengan HP lebih tinggi dan sulit dikalahkan. Tower Pertahananmu harus mulai diperkuat!"
+
+[node name="Label2" parent="CanvasLayer/UI_Management/Instruction_Panel/Page1" index="1"]
 text = "LEVEL 2"
 
-[node name="Page2" parent="CanvasLayer/UI_Management/Instruction_Panel" index="1"]
-visible = true
+[node name="Sprite2D" parent="CanvasLayer/UI_Management/Instruction_Panel/Page2" index="0"]
+position = Vector2(153, 174)
+texture = ExtResource("4_0fm8k")
 
-[node name="Label2" parent="CanvasLayer/UI_Management/Instruction_Panel/Page2" index="1"]
+[node name="Label" parent="CanvasLayer/UI_Management/Instruction_Panel/Page2" index="1"]
+offset_left = -235.0
+offset_top = -58.0
+offset_right = 243.0
+offset_bottom = 95.0
+text = "New Enemies Appearing In This Level!"
+
+[node name="Label2" parent="CanvasLayer/UI_Management/Instruction_Panel/Page2" index="2"]
 text = "LEVEL 2"
 
-[node name="Label3" parent="CanvasLayer/UI_Management/Instruction_Panel/Page2" index="2"]
-text = "masukan tower baru"
+[node name="Page3" parent="CanvasLayer/UI_Management/Instruction_Panel" index="3"]
+visible = false
 
-[node name="Label4" parent="CanvasLayer/UI_Management/Instruction_Panel/Page2" index="3"]
-text = "upgrade tower"
+[node name="Sprite2D" parent="CanvasLayer/UI_Management/Instruction_Panel/Page3" index="0"]
+position = Vector2(139, 188)
+texture = ExtResource("5_ys13b")
 
-[node name="Label5" parent="CanvasLayer/UI_Management/Instruction_Panel/Page2" index="4"]
-text = "selesaikan semua
-wave"
+[node name="Label" parent="CanvasLayer/UI_Management/Instruction_Panel/Page3" index="1"]
+text = "New Towers Available For This Level!"
+
+[node name="Label2" parent="CanvasLayer/UI_Management/Instruction_Panel/Page3" index="2"]
+text = "LEVEL 2"
+
+[node name="Label2" parent="CanvasLayer/UI_Management/Instruction_Panel/Page4" index="0"]
+text = "LEVEL 2"
+
+[node name="Start_Wave" parent="CanvasLayer/UI_Management" index="20"]
+offset_left = 12.0
+offset_top = 181.0
+offset_right = 112.0
+offset_bottom = 231.0
+
+[node name="locked_Pepper2" type="Panel" parent="CanvasLayer" index="1"]
+visible = false
+self_modulate = Color(1, 1, 1, 0)
+offset_left = 504.00003
+offset_top = 596.0
+offset_right = 544.0
+offset_bottom = 636.0
+scale = Vector2(2.355, 2.355)
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/locked_Pepper2" index="0"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("4_cnmgk")
+expand_mode = 1
+
+[node name="locked_Ice2" type="Panel" parent="CanvasLayer" index="2"]
+visible = false
+self_modulate = Color(1, 1, 1, 0)
+offset_left = 660.0
+offset_top = 596.0
+offset_right = 700.0
+offset_bottom = 636.0
+scale = Vector2(2.355, 2.355)
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/locked_Ice2" index="0"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("4_cnmgk")
+expand_mode = 1
+
+[node name="locked_Garlic" type="Panel" parent="CanvasLayer" index="3"]
+self_modulate = Color(1, 1, 1, 0)
+offset_left = 334.0
+offset_top = 593.0
+offset_right = 374.0
+offset_bottom = 633.0
+scale = Vector2(2.7, 2.7)
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/locked_Garlic" index="0"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("4_cnmgk")
+expand_mode = 1
 
 [node name="Area2D2" parent="Tower_Placement" index="1"]
 position = Vector2(657, 328)
@@ -85,6 +152,9 @@ position = Vector2(921.00006, 151.00002)
 
 [node name="Area2D5" parent="Tower_Placement" index="4"]
 position = Vector2(1058, 260)
+
+[node name="Area2D7" parent="Tower_Placement" index="6" instance=ExtResource("4_d301n")]
+position = Vector2(772.00006, 446)
 
 [node name="CollisionPolygon2D" parent="TowerArea/DropArea2" index="0"]
 polygon = PackedVector2Array(978.571, 125, -180.35706, 126.785736, -183.92859, 333.92856, -917.857, 333.929, -919.643, 542.857, 555.357, 544.643, 555.357, 442.857, 980.357, 442.857, 978.571, 737.5, 555.357, 735.714, 555.357, 651.786, -1023.21, 651.786, -1025, 228.571, -285.71423, 230.35715, -291.0714, 125, -1335.7142, 125, -1342.857, 23.214294, 976.786, 17.8571)

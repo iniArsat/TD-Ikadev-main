@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://cdgqu8jrfmpij"]
+[gd_scene load_steps=42 format=3 uid="uid://cdgqu8jrfmpij"]
 
 [ext_resource type="Script" uid="uid://dnepi04ynwh4r" path="res://script/Main.gd" id="1_yiwpq"]
 [ext_resource type="Script" uid="uid://dj4gx2hi8oi4o" path="res://script/path_spawner.gd" id="2_mnmej"]
@@ -14,21 +14,30 @@
 [ext_resource type="Script" uid="uid://d1i2tv380espq" path="res://script/wave_manager.gd" id="8_eik88"]
 [ext_resource type="Texture2D" uid="uid://b8gr1sk6myax3" path="res://asset/Coin.png" id="9_hmh3n"]
 [ext_resource type="PackedScene" uid="uid://876fanfdout3" path="res://scene/tower_panel4.tscn" id="9_ob58h"]
-[ext_resource type="Texture2D" uid="uid://bs76ddn704ms1" path="res://asset/speed_2.png" id="10_aex65"]
 [ext_resource type="PackedScene" uid="uid://d1tawlmy1183u" path="res://scene/tower_panel3.tscn" id="10_hrl0l"]
 [ext_resource type="Texture2D" uid="uid://dnx56n8o28xsg" path="res://asset/Health.png" id="10_tgqhd"]
 [ext_resource type="Texture2D" uid="uid://b1cbh74gkcewu" path="res://asset/Wave.png" id="11_puvaq"]
 [ext_resource type="PackedScene" uid="uid://cm118swt3y4fw" path="res://scene/tower_panel5.tscn" id="12_gjnlk"]
 [ext_resource type="PackedScene" uid="uid://378bayncw85c" path="res://scene/enemy_GreaseRat.tscn" id="12_hrl0l"]
+[ext_resource type="Texture2D" uid="uid://bcmyf015uhnv4" path="res://asset/wave_png.png" id="12_lk2p4"]
 [ext_resource type="PackedScene" uid="uid://dth544jd51mm8" path="res://scene/tower_garlic.tscn" id="13_kxuod"]
 [ext_resource type="PackedScene" uid="uid://0pc0pmkc1fpm" path="res://scene/enemy_Squirrelfire.tscn" id="13_tuai4"]
 [ext_resource type="Script" uid="uid://cb8tcw2ikdffd" path="res://script/instruction_panel.gd" id="14_08k7p"]
 [ext_resource type="PackedScene" uid="uid://cyu3hmkm8dew0" path="res://scene/enemy_Monkey.tscn" id="14_ob58h"]
 [ext_resource type="PackedScene" uid="uid://djajniwnkgmk7" path="res://scene/tower_Pepper.tscn" id="15_1dr5g"]
+[ext_resource type="Texture2D" uid="uid://c1m4jm58i0qqg" path="res://asset/fast_forward.png" id="21_pn0cg"]
+[ext_resource type="Texture2D" uid="uid://utb7wlof3c5" path="res://asset/ui_upgrade.png" id="22_72c0u"]
+[ext_resource type="Texture2D" uid="uid://cj0v05cfigw5h" path="res://asset/fast_forward_x2.png" id="22_cqmtw"]
 [ext_resource type="Texture2D" uid="uid://dx4ewcwhteb7x" path="res://asset/Star_Black.png" id="22_puvaq"]
+[ext_resource type="Texture2D" uid="uid://dsgrttp8j08td" path="res://asset/game_over_panel.png" id="23_cqmtw"]
 [ext_resource type="Texture2D" uid="uid://b2kgoj8lh1l4w" path="res://asset/Star_Fill.png" id="23_lcaa3"]
+[ext_resource type="Texture2D" uid="uid://bw6huaugv4vry" path="res://asset/close_ui.png" id="23_pn0cg"]
 [ext_resource type="PackedScene" uid="uid://dvmwbo4glqd7x" path="res://scene/tower_placement.tscn" id="23_wosyn"]
+[ext_resource type="Texture2D" uid="uid://bji0p1jse888e" path="res://asset/Pop_Up.png" id="24_vq81u"]
+[ext_resource type="Texture2D" uid="uid://c1igmawlf3ems" path="res://asset/instruction_panel.png" id="27_65lg3"]
+[ext_resource type="Texture2D" uid="uid://dod8vf4dl3fct" path="res://asset/level1_page2.png" id="28_goqcv"]
 [ext_resource type="PackedScene" uid="uid://cn8q02huknrt7" path="res://scene/enemy_MiniBoss.tscn" id="29_lcaa3"]
+[ext_resource type="Texture2D" uid="uid://d37qcwl2budyb" path="res://asset/level1_page3.png" id="29_lk2p4"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_wosyn"]
 texture = ExtResource("2_s5yxy")
@@ -337,9 +346,11 @@ texture_region_size = Vector2i(64, 64)
 tile_size = Vector2i(64, 64)
 sources/0 = SubResource("TileSetAtlasSource_wosyn")
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lk2p4"]
+bg_color = Color(0.211765, 0.211765, 0.211765, 1)
+
 [node name="Main" type="Node2D"]
 script = ExtResource("1_yiwpq")
-countdown = 5
 
 [node name="TileMap" type="TileMap" parent="."]
 position = Vector2(102, 0)
@@ -421,6 +432,10 @@ position = Vector2(1128, 51)
 scale = Vector2(0.445, 0.445)
 texture = ExtResource("11_puvaq")
 
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/UI_Management/Wave"]
+position = Vector2(-150.5618, -4.494382)
+texture = ExtResource("12_lk2p4")
+
 [node name="wave_lbl" type="Label" parent="CanvasLayer/UI_Management"]
 layout_mode = 0
 offset_left = 1107.0
@@ -430,13 +445,60 @@ offset_bottom = 97.0
 theme_override_font_sizes/font_size = 32
 text = "1/10"
 
-[node name="Start_Wave" type="Button" parent="CanvasLayer/UI_Management"]
-layout_mode = 0
-offset_left = 3.0
-offset_top = 121.0
-offset_right = 103.0
-offset_bottom = 171.0
-text = "Start_Wave"
+[node name="PopUp_StartWave" type="Sprite2D" parent="CanvasLayer/UI_Management"]
+visible = false
+position = Vector2(69, 222.00003)
+scale = Vector2(0.4625, 0.4625)
+texture = ExtResource("24_vq81u")
+
+[node name="Tutorial_Label" type="Label" parent="CanvasLayer/UI_Management/PopUp_StartWave"]
+offset_left = -92.97298
+offset_top = -8.648723
+offset_right = 97.02702
+offset_bottom = 50.351276
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 20
+text = "TEKAN START WAVE
+UNTUK MULAI!"
+horizontal_alignment = 1
+
+[node name="PopUp_Drag" type="Sprite2D" parent="CanvasLayer/UI_Management"]
+visible = false
+position = Vector2(145, 529.00006)
+rotation = 3.1415927
+scale = Vector2(0.4625, 0.4625)
+texture = ExtResource("24_vq81u")
+
+[node name="Tutorial_Label" type="Label" parent="CanvasLayer/UI_Management/PopUp_Drag"]
+offset_left = 101.62163
+offset_top = 58.378475
+offset_right = 314.62164
+offset_bottom = 117.3785
+rotation = 3.1415927
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 20
+text = "DRAG TOWER PADA 
+AREA YANG TERSEDIA!"
+horizontal_alignment = 1
+
+[node name="PopUp_Upgrade" type="Sprite2D" parent="CanvasLayer/UI_Management"]
+visible = false
+position = Vector2(301, 328)
+rotation = 3.1415927
+scale = Vector2(0.4625, 0.4625)
+texture = ExtResource("24_vq81u")
+
+[node name="Tutorial_Label" type="Label" parent="CanvasLayer/UI_Management/PopUp_Upgrade"]
+offset_left = 101.62163
+offset_top = 58.378475
+offset_right = 314.62164
+offset_bottom = 117.3785
+rotation = 3.1415927
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 20
+text = "UPGRADE TOWER
+DENGAN KLIK TOWER!"
+horizontal_alignment = 1
 
 [node name="Panel" type="Panel" parent="CanvasLayer/UI_Management"]
 layout_mode = 0
@@ -518,44 +580,46 @@ texture_pressed = ExtResource("4_yiwpq")
 [node name="Percepat" type="TextureButton" parent="CanvasLayer/UI_Management"]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = -1.15
-anchor_top = 11.425
-anchor_right = -1.15
-anchor_bottom = 11.425
+anchor_left = -1.05
+anchor_top = 11.45
+anchor_right = -1.05
+anchor_bottom = 11.45
 offset_left = 42.0
 offset_top = 16.0
-offset_right = 1343.0
-offset_bottom = 1317.0
-scale = Vector2(0.0799993, 0.0797322)
-texture_normal = ExtResource("10_aex65")
-texture_pressed = ExtResource("10_aex65")
+offset_right = 554.0
+offset_bottom = 528.0
+scale = Vector2(0.195, 0.195)
+texture_normal = ExtResource("21_pn0cg")
+texture_pressed = ExtResource("22_cqmtw")
 metadata/_edit_use_anchors_ = true
-
-[node name="Pause" type="Button" parent="CanvasLayer/UI_Management"]
-layout_mode = 0
-offset_left = -2.0
-offset_right = 98.0
-offset_bottom = 75.0
-theme_override_font_sizes/font_size = 35
-text = "||"
 
 [node name="Gameover_Panel" type="Panel" parent="CanvasLayer/UI_Management"]
 visible = false
+self_modulate = Color(1, 1, 1, 0)
 layout_mode = 0
 offset_left = 267.0
 offset_top = 104.0
 offset_right = 904.0
 offset_bottom = 492.0
 
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/UI_Management/Gameover_Panel"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(0.42, 0.42)
+texture = ExtResource("23_cqmtw")
+
 [node name="Label" type="Label" parent="CanvasLayer/UI_Management/Gameover_Panel"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -115.0
-offset_right = 115.0
-offset_bottom = 55.0
+offset_left = -114.5
+offset_top = 22.0
+offset_right = 115.5
+offset_bottom = 77.0
 grow_horizontal = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 40
 text = "GAME OVER"
 
@@ -563,99 +627,153 @@ text = "GAME OVER"
 custom_minimum_size = Vector2(100, 50)
 layout_mode = 0
 offset_left = 198.0
-offset_top = 297.0
+offset_top = 345.0
 offset_right = 298.0
-offset_bottom = 347.0
+offset_bottom = 395.0
 text = "RESTART"
 
 [node name="Continue" type="Button" parent="CanvasLayer/UI_Management/Gameover_Panel"]
 custom_minimum_size = Vector2(100, 50)
 layout_mode = 0
 offset_left = 330.0
-offset_top = 296.0
+offset_top = 344.0
 offset_right = 430.0
-offset_bottom = 346.0
+offset_bottom = 394.0
 text = "CONTINUE"
+
+[node name="Label2" type="Label" parent="CanvasLayer/UI_Management/Gameover_Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -177.5
+offset_top = -65.0
+offset_right = 177.5
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 32
+text = "The Recipe Was Stolen!"
+horizontal_alignment = 1
+
+[node name="Label3" type="Label" parent="CanvasLayer/UI_Management/Gameover_Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -177.5
+offset_top = 15.0
+offset_right = 177.5
+offset_bottom = 90.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Grease Rat, Squirrel Fires and Monkey 
+overhelmed the Defense and stole the 
+entire Recipes"
+horizontal_alignment = 1
 
 [node name="Ui_Upgrade" type="Panel" parent="CanvasLayer/UI_Management"]
 visible = false
+self_modulate = Color(1, 1, 1, 0)
 layout_mode = 0
-offset_left = 267.0
-offset_top = 104.0
-offset_right = 904.0
-offset_bottom = 492.0
+offset_left = 310.0
+offset_top = 108.0
+offset_right = 947.0
+offset_bottom = 496.0
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/UI_Management/Ui_Upgrade"]
+layout_mode = 0
+offset_left = 161.0
+offset_top = 17.999977
+offset_right = 559.0
+offset_bottom = 461.99997
+scale = Vector2(0.97, 0.97)
+texture = ExtResource("22_72c0u")
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/UI_Management/Ui_Upgrade/TextureRect"]
+layout_mode = 0
+offset_left = 1.5258789e-05
+offset_top = 381.44336
+offset_right = 200.00002
+offset_bottom = 441.44336
+color = Color(0.5689727, 0.56897277, 0.5689727, 1)
+
+[node name="ColorRect2" type="ColorRect" parent="CanvasLayer/UI_Management/Ui_Upgrade/TextureRect"]
+layout_mode = 0
+offset_left = 203.0928
+offset_top = 381.44333
+offset_right = 403.0928
+offset_bottom = 441.44333
+color = Color(0.5689727, 0.56897277, 0.5689727, 1)
 
 [node name="Tower_Name_Label" type="Label" parent="CanvasLayer/UI_Management/Ui_Upgrade"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = 45.5
-offset_top = 87.0
-offset_right = 275.5
-offset_bottom = 142.0
+offset_left = -67.5
+offset_top = 150.0
+offset_right = 162.5
+offset_bottom = 205.0
 grow_horizontal = 2
-theme_override_font_sizes/font_size = 24
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 18
 text = "Stove Cannon"
-
-[node name="Label_Upgrade" type="Label" parent="CanvasLayer/UI_Management/Ui_Upgrade"]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -114.5
-offset_top = 7.0
-offset_right = 115.5
-offset_bottom = 62.0
-grow_horizontal = 2
-theme_override_font_sizes/font_size = 40
-text = "UPGRADE"
-
-[node name="Upgrade_Cost_Label" type="Label" parent="CanvasLayer/UI_Management/Ui_Upgrade"]
-layout_mode = 0
-offset_left = 434.0
-offset_top = 250.0
-offset_right = 474.0
-offset_bottom = 278.0
-theme_override_font_sizes/font_size = 20
-text = "100"
-
-[node name="Sell_Value" type="Label" parent="CanvasLayer/UI_Management/Ui_Upgrade"]
-visible = false
-layout_mode = 0
-offset_left = 43.0
-offset_top = 291.0
-offset_right = 83.0
-offset_bottom = 319.0
-theme_override_font_sizes/font_size = 20
-text = "100"
+horizontal_alignment = 1
 
 [node name="Upgrade_Button" type="Button" parent="CanvasLayer/UI_Management/Ui_Upgrade"]
+self_modulate = Color(1, 1, 1, 0)
 layout_mode = 0
-offset_left = 417.0
-offset_top = 319.0
-offset_right = 500.0
-offset_bottom = 350.0
-text = "UPGRADE"
+offset_left = 358.0
+offset_top = 388.0
+offset_right = 553.0
+offset_bottom = 448.0
+flat = true
 
 [node name="Sell_Button" type="Button" parent="CanvasLayer/UI_Management/Ui_Upgrade"]
-visible = false
+self_modulate = Color(1, 1, 1, 0)
 layout_mode = 0
-offset_left = 146.0
-offset_top = 319.0
-offset_right = 229.0
-offset_bottom = 350.0
-text = "SELL"
+offset_left = 161.0
+offset_top = 388.0
+offset_right = 356.0
+offset_bottom = 448.0
+flat = true
+alignment = 0
 
 [node name="Close_Upgrade" type="Button" parent="CanvasLayer/UI_Management/Ui_Upgrade"]
 layout_mode = 0
-offset_left = 579.0
-offset_right = 637.0
-offset_bottom = 31.0
-text = "CLOSE"
+offset_left = 474.0
+offset_top = 24.999992
+offset_right = 539.0
+offset_bottom = 89.99999
+icon = ExtResource("23_pn0cg")
+flat = true
+
+[node name="Upgrade_Cost_Label" type="Label" parent="CanvasLayer/UI_Management/Ui_Upgrade"]
+layout_mode = 0
+offset_left = 364.0
+offset_top = 406.0
+offset_right = 404.0
+offset_bottom = 434.0
+text = "100"
+
+[node name="Sell_Value" type="Label" parent="CanvasLayer/UI_Management/Ui_Upgrade"]
+layout_mode = 0
+offset_left = 179.0
+offset_top = 406.0
+offset_right = 219.0
+offset_bottom = 434.0
+text = "100"
 
 [node name="Instruction_Panel" type="Panel" parent="CanvasLayer/UI_Management"]
 visible = false
+self_modulate = Color(1, 1, 1, 0)
 layout_mode = 0
 offset_left = 267.0
 offset_top = 104.0
@@ -663,21 +781,21 @@ offset_right = 904.0
 offset_bottom = 492.0
 script = ExtResource("14_08k7p")
 
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/UI_Management/Instruction_Panel"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(0.42, 0.42)
+texture = ExtResource("27_65lg3")
+
 [node name="Page1" type="Panel" parent="CanvasLayer/UI_Management/Instruction_Panel"]
 visible = false
+self_modulate = Color(1, 1, 1, 0)
 layout_mode = 0
 offset_left = 171.0
 offset_top = 83.0
 offset_right = 471.0
 offset_bottom = 283.0
-
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer/UI_Management/Instruction_Panel/Page1"]
-layout_mode = 0
-offset_left = -128.0
-offset_top = -18.0
-offset_right = 427.0
-offset_bottom = 275.0
-texture = ExtResource("4_kxuod")
 
 [node name="Label" type="Label" parent="CanvasLayer/UI_Management/Instruction_Panel/Page1"]
 layout_mode = 1
@@ -686,17 +804,16 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -239.0
-offset_top = -45.0
-offset_right = 239.0
-offset_bottom = 82.0
+offset_left = -238.0
+offset_top = -29.0
+offset_right = 240.0
+offset_bottom = 124.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-text = "selamat datang di dapur desa rempah !
-kini musuh pertama mulai mendekat melalui jalur utama
-pasang tower di area build untuk melindungi dapur chef juno.
-gunakan coin untuk membeli tower pertama"
+theme_override_font_sizes/font_size = 16
+text = "Selamat datang di Dapur Desa Rempah! Musuh pertama mulai memasuki jalur base pertahanan Pasang tower di area platform untuk melindungi 
+Recipe milik Chef Juno. Gunakan coin untuk membeli tower pertamamu! "
 horizontal_alignment = 1
 
 [node name="Label2" type="Label" parent="CanvasLayer/UI_Management/Instruction_Panel/Page1"]
@@ -704,9 +821,9 @@ layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -29.5
-offset_right = 29.5
-offset_bottom = 23.0
+offset_left = -46.0
+offset_right = 46.0
+offset_bottom = 35.0
 grow_horizontal = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 25
@@ -715,21 +832,106 @@ horizontal_alignment = 1
 
 [node name="Page2" type="Panel" parent="CanvasLayer/UI_Management/Instruction_Panel"]
 visible = false
+self_modulate = Color(1, 1, 1, 0)
 layout_mode = 0
 offset_left = 171.0
 offset_top = 83.0
 offset_right = 471.0
 offset_bottom = 283.0
 
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer/UI_Management/Instruction_Panel/Page2"]
-layout_mode = 0
-offset_left = -128.0
-offset_top = -18.0
-offset_right = 427.0
-offset_bottom = 275.0
-texture = ExtResource("4_kxuod")
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/UI_Management/Instruction_Panel/Page2"]
+position = Vector2(150, 172)
+scale = Vector2(0.435, 0.435)
+texture = ExtResource("28_goqcv")
+
+[node name="Label" type="Label" parent="CanvasLayer/UI_Management/Instruction_Panel/Page2"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -238.0
+offset_top = -65.0
+offset_right = 240.0
+offset_bottom = 88.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 16
+text = "Enemies Appearing In This Level!"
+horizontal_alignment = 1
 
 [node name="Label2" type="Label" parent="CanvasLayer/UI_Management/Instruction_Panel/Page2"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -46.0
+offset_right = 46.0
+offset_bottom = 35.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 25
+text = "LEVEL 1"
+horizontal_alignment = 1
+
+[node name="Page3" type="Panel" parent="CanvasLayer/UI_Management/Instruction_Panel"]
+visible = false
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_left = 171.0
+offset_top = 83.0
+offset_right = 471.0
+offset_bottom = 283.0
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/UI_Management/Instruction_Panel/Page3"]
+position = Vector2(147, 188)
+scale = Vector2(0.435, 0.435)
+texture = ExtResource("29_lk2p4")
+
+[node name="Label" type="Label" parent="CanvasLayer/UI_Management/Instruction_Panel/Page3"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -238.0
+offset_top = -54.0
+offset_right = 240.0
+offset_bottom = 99.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 16
+text = "Towers Available For This Level!"
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="CanvasLayer/UI_Management/Instruction_Panel/Page3"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -46.0
+offset_right = 46.0
+offset_bottom = 35.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 25
+text = "LEVEL 1"
+horizontal_alignment = 1
+
+[node name="Page4" type="Panel" parent="CanvasLayer/UI_Management/Instruction_Panel"]
+visible = false
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_left = 171.0
+offset_top = 83.0
+offset_right = 471.0
+offset_bottom = 283.0
+
+[node name="Label2" type="Label" parent="CanvasLayer/UI_Management/Instruction_Panel/Page4"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -743,7 +945,7 @@ theme_override_font_sizes/font_size = 25
 text = "LEVEL 1"
 horizontal_alignment = 1
 
-[node name="Label3" type="Label" parent="CanvasLayer/UI_Management/Instruction_Panel/Page2"]
+[node name="Label3" type="Label" parent="CanvasLayer/UI_Management/Instruction_Panel/Page4"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -757,7 +959,7 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Build First Tower"
 horizontal_alignment = 1
 
-[node name="Label4" type="Label" parent="CanvasLayer/UI_Management/Instruction_Panel/Page2"]
+[node name="Label4" type="Label" parent="CanvasLayer/UI_Management/Instruction_Panel/Page4"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -771,7 +973,7 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Start Wave"
 horizontal_alignment = 1
 
-[node name="Label5" type="Label" parent="CanvasLayer/UI_Management/Instruction_Panel/Page2"]
+[node name="Label5" type="Label" parent="CanvasLayer/UI_Management/Instruction_Panel/Page4"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -785,7 +987,7 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Upgrade Tower"
 horizontal_alignment = 1
 
-[node name="TextureRect2" type="TextureRect" parent="CanvasLayer/UI_Management/Instruction_Panel/Page2"]
+[node name="TextureRect2" type="TextureRect" parent="CanvasLayer/UI_Management/Instruction_Panel/Page4"]
 modulate = Color(0.26657522, 0.2665752, 0.2665752, 1)
 layout_mode = 0
 offset_left = -53.0
@@ -795,7 +997,7 @@ offset_bottom = 295.0
 scale = Vector2(0.3600012, 0.3600012)
 texture = ExtResource("4_kxuod")
 
-[node name="TextureRect3" type="TextureRect" parent="CanvasLayer/UI_Management/Instruction_Panel/Page2"]
+[node name="TextureRect3" type="TextureRect" parent="CanvasLayer/UI_Management/Instruction_Panel/Page4"]
 modulate = Color(0.26657522, 0.2665752, 0.2665752, 1)
 layout_mode = 0
 offset_left = 106.999985
@@ -805,7 +1007,7 @@ offset_bottom = 295.0
 scale = Vector2(0.3600012, 0.3600012)
 texture = ExtResource("4_kxuod")
 
-[node name="TextureRect4" type="TextureRect" parent="CanvasLayer/UI_Management/Instruction_Panel/Page2"]
+[node name="TextureRect4" type="TextureRect" parent="CanvasLayer/UI_Management/Instruction_Panel/Page4"]
 modulate = Color(0.26657522, 0.2665752, 0.2665752, 1)
 layout_mode = 0
 offset_left = 266.99997
@@ -820,30 +1022,140 @@ layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -115.0
-offset_right = 115.0
-offset_bottom = 55.0
+offset_left = -107.5
+offset_top = 7.0
+offset_right = 122.5
+offset_bottom = 62.0
 grow_horizontal = 2
-theme_override_font_sizes/font_size = 40
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 32
 text = "INSTRUCTION"
 
-[node name="SkipButton" type="Button" parent="CanvasLayer/UI_Management/Instruction_Panel"]
-custom_minimum_size = Vector2(100, 50)
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/UI_Management/Instruction_Panel"]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = 21.5
-offset_top = -91.0
-offset_right = 121.5
-offset_bottom = -41.0
+offset_left = -155.5
+offset_right = 184.5
+offset_bottom = 50.0
 grow_horizontal = 2
 grow_vertical = 0
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="PreviousButton" type="Button" parent="CanvasLayer/UI_Management/Instruction_Panel/HBoxContainer"]
+custom_minimum_size = Vector2(100, 50)
+layout_mode = 2
+text = "PREVIOUS"
+
+[node name="ContinueButton" type="Button" parent="CanvasLayer/UI_Management/Instruction_Panel/HBoxContainer"]
+custom_minimum_size = Vector2(100, 50)
+layout_mode = 2
+text = "NEXT"
+
+[node name="SkipButton" type="Button" parent="CanvasLayer/UI_Management/Instruction_Panel/HBoxContainer"]
+custom_minimum_size = Vector2(100, 50)
+layout_mode = 2
 text = "SKIP"
 
-[node name="ContinueButton" type="Button" parent="CanvasLayer/UI_Management/Instruction_Panel"]
+[node name="Victory_Panel" type="Panel" parent="CanvasLayer/UI_Management"]
+visible = false
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_left = 267.0
+offset_top = 104.0
+offset_right = 904.0
+offset_bottom = 492.0
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/UI_Management/Victory_Panel"]
+layout_mode = 0
+offset_right = 1522.0
+offset_bottom = 1072.0
+scale = Vector2(0.42, 0.42)
+texture = ExtResource("23_cqmtw")
+
+[node name="star_1_blank" type="Sprite2D" parent="CanvasLayer/UI_Management/Victory_Panel"]
+position = Vector2(229, 198)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("22_puvaq")
+
+[node name="star_1_fill" type="Sprite2D" parent="CanvasLayer/UI_Management/Victory_Panel"]
+position = Vector2(229, 198)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("23_lcaa3")
+
+[node name="star_2_blank" type="Sprite2D" parent="CanvasLayer/UI_Management/Victory_Panel"]
+position = Vector2(318, 184)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("22_puvaq")
+
+[node name="star_2_fill" type="Sprite2D" parent="CanvasLayer/UI_Management/Victory_Panel"]
+position = Vector2(318, 184)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("23_lcaa3")
+
+[node name="star_3_blank" type="Sprite2D" parent="CanvasLayer/UI_Management/Victory_Panel"]
+position = Vector2(410, 198)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("22_puvaq")
+
+[node name="star_3_fill" type="Sprite2D" parent="CanvasLayer/UI_Management/Victory_Panel"]
+position = Vector2(410, 198)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("23_lcaa3")
+
+[node name="Victory" type="Label" parent="CanvasLayer/UI_Management/Victory_Panel"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -114.5
+offset_top = 22.0
+offset_right = 115.5
+offset_bottom = 135.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 40
+text = "VICTORY
+"
+horizontal_alignment = 1
+
+[node name="Label_Score" type="Label" parent="CanvasLayer/UI_Management/Victory_Panel"]
+visible = false
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -114.5
+offset_top = 113.0
+offset_right = 115.5
+offset_bottom = 226.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 40
+text = "Score:
+"
+horizontal_alignment = 1
+
+[node name="Score" type="Label" parent="CanvasLayer/UI_Management/Victory_Panel"]
+visible = false
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -114.5
+offset_top = 178.0
+offset_right = 115.5
+offset_bottom = 291.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 40
+text = "100
+"
+horizontal_alignment = 1
+
+[node name="Store" type="Button" parent="CanvasLayer/UI_Management/Victory_Panel"]
 custom_minimum_size = Vector2(100, 50)
 layout_mode = 1
 anchors_preset = 7
@@ -851,16 +1163,55 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -132.5
-offset_top = -88.0
-offset_right = -32.5
-offset_bottom = -38.0
+offset_left = -113.5
+offset_top = -50.0
+offset_right = -1.5
+grow_horizontal = 2
+grow_vertical = 0
+text = "GO TO STORE"
+
+[node name="Continue" type="Button" parent="CanvasLayer/UI_Management/Victory_Panel"]
+custom_minimum_size = Vector2(100, 50)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 12.5
+offset_top = -50.0
+offset_right = 112.5
 grow_horizontal = 2
 grow_vertical = 0
 text = "CONTINUE"
 
-[node name="Paused_Panel" type="Panel" parent="CanvasLayer/UI_Management"]
+[node name="Label" type="Label" parent="CanvasLayer/UI_Management/Victory_Panel"]
+layout_mode = 0
+offset_left = 141.0
+offset_top = 259.0
+offset_right = 503.0
+offset_bottom = 285.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 18
+text = "A New tower is available to the next level!
+Visit the store to unclock a stronger tower"
+
+[node name="Tutorial_Input_Bloker" type="Panel" parent="CanvasLayer/UI_Management"]
 visible = false
+modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_right = 1300.0
+offset_bottom = 1300.0
+
+[node name="Pause" type="Button" parent="CanvasLayer/UI_Management"]
+layout_mode = 0
+offset_left = -2.0
+offset_right = 98.0
+offset_bottom = 75.0
+theme_override_font_sizes/font_size = 35
+text = "||"
+
+[node name="Paused_Panel" type="Panel" parent="CanvasLayer/UI_Management"]
 layout_mode = 0
 offset_left = 267.0
 offset_top = 104.0
@@ -894,6 +1245,12 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 30
 text = "MAIN MENU"
 
+[node name="Setting" type="Button" parent="CanvasLayer/UI_Management/Paused_Panel/VBoxContainer"]
+custom_minimum_size = Vector2(250, 75)
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "SETTINGS"
+
 [node name="Quit" type="Button" parent="CanvasLayer/UI_Management/Paused_Panel/VBoxContainer"]
 custom_minimum_size = Vector2(250, 75)
 layout_mode = 2
@@ -913,106 +1270,107 @@ theme_override_font_sizes/font_size = 40
 text = "PAUSED"
 horizontal_alignment = 1
 
-[node name="Victory_Panel" type="Panel" parent="CanvasLayer/UI_Management"]
-visible = false
-layout_mode = 0
-offset_left = 267.0
-offset_top = 104.0
-offset_right = 904.0
-offset_bottom = 492.0
+[node name="Panel_Settings" type="Panel" parent="CanvasLayer/UI_Management/Paused_Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -442.5
+offset_top = -92.0
+offset_right = 457.5
+offset_bottom = 408.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.435, 0.435)
+pivot_offset = Vector2(450, 0)
+theme_override_styles/panel = SubResource("StyleBoxFlat_lk2p4")
 
-[node name="star_1_blank" type="Sprite2D" parent="CanvasLayer/UI_Management/Victory_Panel"]
-position = Vector2(211, 154)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("22_puvaq")
-
-[node name="star_1_fill" type="Sprite2D" parent="CanvasLayer/UI_Management/Victory_Panel"]
-position = Vector2(211, 154)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("23_lcaa3")
-
-[node name="star_2_blank" type="Sprite2D" parent="CanvasLayer/UI_Management/Victory_Panel"]
-position = Vector2(321, 127)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("22_puvaq")
-
-[node name="star_2_fill" type="Sprite2D" parent="CanvasLayer/UI_Management/Victory_Panel"]
-position = Vector2(321, 127)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("23_lcaa3")
-
-[node name="star_3_blank" type="Sprite2D" parent="CanvasLayer/UI_Management/Victory_Panel"]
-position = Vector2(420, 154)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("22_puvaq")
-
-[node name="star_3_fill" type="Sprite2D" parent="CanvasLayer/UI_Management/Victory_Panel"]
-position = Vector2(420, 154)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("23_lcaa3")
-
-[node name="Victory" type="Label" parent="CanvasLayer/UI_Management/Victory_Panel"]
+[node name="Label" type="Label" parent="CanvasLayer/UI_Management/Paused_Panel/Panel_Settings"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -114.5
-offset_right = 115.5
-offset_bottom = 113.0
+offset_left = -86.0
+offset_right = 86.0
+offset_bottom = 69.0
 grow_horizontal = 2
-theme_override_font_sizes/font_size = 40
-text = "VICTORY
-"
-horizontal_alignment = 1
+theme_override_font_sizes/font_size = 50
+text = "SETTINGS"
 
-[node name="Label_Score" type="Label" parent="CanvasLayer/UI_Management/Victory_Panel"]
-visible = false
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -114.5
-offset_top = 113.0
-offset_right = 115.5
-offset_bottom = 226.0
-grow_horizontal = 2
-theme_override_font_sizes/font_size = 40
-text = "Score:
-"
-horizontal_alignment = 1
-
-[node name="Score" type="Label" parent="CanvasLayer/UI_Management/Victory_Panel"]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -114.5
-offset_top = 178.0
-offset_right = 115.5
-offset_bottom = 291.0
-grow_horizontal = 2
-theme_override_font_sizes/font_size = 40
-text = "100
-"
-horizontal_alignment = 1
-
-[node name="Restart" type="Button" parent="CanvasLayer/UI_Management/Victory_Panel"]
-custom_minimum_size = Vector2(100, 50)
+[node name="Close_Settings" type="Button" parent="CanvasLayer/UI_Management/Paused_Panel/Panel_Settings"]
+custom_minimum_size = Vector2(60, 60)
 layout_mode = 0
-offset_left = 198.0
-offset_top = 297.0
-offset_right = 298.0
-offset_bottom = 347.0
-text = "RESTART"
+offset_left = 839.0
+offset_top = 1.0
+offset_right = 899.0
+offset_bottom = 61.0
+theme_override_font_sizes/font_size = 35
+text = "X"
 
-[node name="Continue" type="Button" parent="CanvasLayer/UI_Management/Victory_Panel"]
-custom_minimum_size = Vector2(100, 50)
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/UI_Management/Paused_Panel/Panel_Settings"]
 layout_mode = 0
-offset_left = 330.0
-offset_top = 296.0
-offset_right = 430.0
-offset_bottom = 346.0
-text = "CONTINUE"
+offset_left = 102.0
+offset_top = 132.0
+offset_right = 802.0
+offset_bottom = 232.0
+theme_override_constants/separation = 30
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/UI_Management/Paused_Panel/Panel_Settings/VBoxContainer"]
+custom_minimum_size = Vector2(700, 90)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/UI_Management/Paused_Panel/Panel_Settings/VBoxContainer/ColorRect"]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 8.0
+offset_right = 182.0
+offset_bottom = 77.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 50
+text = "MUSIC"
+
+[node name="HSlider" type="HSlider" parent="CanvasLayer/UI_Management/Paused_Panel/Panel_Settings/VBoxContainer/ColorRect"]
+custom_minimum_size = Vector2(420, 0)
+layout_mode = 0
+offset_left = 250.0
+offset_top = 35.0
+offset_right = 670.0
+offset_bottom = 51.0
+max_value = 1.0
+step = 0.01
+value = 1.0
+
+[node name="ColorRect2" type="ColorRect" parent="CanvasLayer/UI_Management/Paused_Panel/Panel_Settings/VBoxContainer"]
+custom_minimum_size = Vector2(700, 90)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/UI_Management/Paused_Panel/Panel_Settings/VBoxContainer/ColorRect2"]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 8.0
+offset_right = 182.0
+offset_bottom = 77.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 50
+text = "SFX"
+
+[node name="HSlider" type="HSlider" parent="CanvasLayer/UI_Management/Paused_Panel/Panel_Settings/VBoxContainer/ColorRect2"]
+custom_minimum_size = Vector2(420, 0)
+layout_mode = 0
+offset_left = 250.0
+offset_top = 35.0
+offset_right = 670.0
+offset_bottom = 51.0
+
+[node name="Start_Wave" type="Button" parent="CanvasLayer/UI_Management"]
+layout_mode = 0
+offset_left = 3.0
+offset_top = 121.0
+offset_right = 103.0
+offset_bottom = 171.0
+text = "Start_Wave"
 
 [node name="Tower_Placement" type="Node2D" parent="."]
 position = Vector2(3, 0)
@@ -1030,7 +1388,7 @@ position = Vector2(246.00003, 151.00002)
 position = Vector2(902, 148)
 
 [node name="Area2D5" parent="Tower_Placement" instance=ExtResource("23_wosyn")]
-position = Vector2(542.00006, 267.00003)
+position = Vector2(542.00006, 258)
 
 [node name="Area2D6" parent="Tower_Placement" instance=ExtResource("23_wosyn")]
 position = Vector2(942, 554.00006)
@@ -1043,6 +1401,7 @@ position = Vector2(735, 163)
 scale = Vector2(0.56, 0.56)
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="TowerArea/DropArea2"]
+visible = false
 modulate = Color(1, 1, 1, 0)
 polygon = PackedVector2Array(978.571, 125, 448.214, 126.786, 446.429, 441.071, -287.5, 441.071, -287.5, 335.714, -917.857, 333.929, -919.643, 542.857, 555.357, 544.643, 555.357, 442.857, 980.357, 442.857, 978.571, 737.5, 555.357, 735.714, 555.357, 651.786, -1023.21, 651.786, -1025, 228.571, -182.143, 230.357, -182.143, 333.929, 344.643, 333.929, 346.429, 125, -1023.21, 123.214, -1023.21, 19.6429, -1337.5, 17.8571, -1339.29, -87.5, -917.857, -87.5, -919.643, 17.8571, 976.786, 17.8571)
 
@@ -1058,16 +1417,20 @@ enemy_Mini_Boss_scene = ExtResource("29_lcaa3")
 
 [connection signal="pressed" from="CanvasLayer/UI_Management/TextureButton" to="." method="_on_upgrade_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/UI_Management/Percepat" to="." method="_on_speed_button_pressed"]
-[connection signal="pressed" from="CanvasLayer/UI_Management/Pause" to="." method="_on_pause_pressed"]
 [connection signal="pressed" from="CanvasLayer/UI_Management/Gameover_Panel/Restart" to="." method="_on_restart_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/UI_Management/Gameover_Panel/Continue" to="." method="_on_continue_pressed"]
 [connection signal="pressed" from="CanvasLayer/UI_Management/Ui_Upgrade/Upgrade_Button" to="." method="_on_upgrade_button_pressed"]
-[connection signal="pressed" from="CanvasLayer/UI_Management/Ui_Upgrade/Sell_Button" to="." method="_on_upgrade_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/UI_Management/Ui_Upgrade/Sell_Button" to="." method="_on_sell_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/UI_Management/Ui_Upgrade/Close_Upgrade" to="." method="_on_close_upgrade_panel_pressed"]
-[connection signal="pressed" from="CanvasLayer/UI_Management/Instruction_Panel/SkipButton" to="CanvasLayer/UI_Management/Instruction_Panel" method="_on_skip_pressed"]
-[connection signal="pressed" from="CanvasLayer/UI_Management/Instruction_Panel/ContinueButton" to="CanvasLayer/UI_Management/Instruction_Panel" method="_on_continue_pressed"]
+[connection signal="pressed" from="CanvasLayer/UI_Management/Instruction_Panel/HBoxContainer/PreviousButton" to="CanvasLayer/UI_Management/Instruction_Panel" method="_on_previous_pressed"]
+[connection signal="pressed" from="CanvasLayer/UI_Management/Instruction_Panel/HBoxContainer/ContinueButton" to="CanvasLayer/UI_Management/Instruction_Panel" method="_on_continue_pressed"]
+[connection signal="pressed" from="CanvasLayer/UI_Management/Instruction_Panel/HBoxContainer/SkipButton" to="CanvasLayer/UI_Management/Instruction_Panel" method="_on_skip_pressed"]
+[connection signal="pressed" from="CanvasLayer/UI_Management/Victory_Panel/Store" to="." method="_on_store_pressed"]
+[connection signal="pressed" from="CanvasLayer/UI_Management/Victory_Panel/Continue" to="." method="_on_continue_pressed"]
+[connection signal="pressed" from="CanvasLayer/UI_Management/Pause" to="." method="_on_pause_pressed"]
 [connection signal="pressed" from="CanvasLayer/UI_Management/Paused_Panel/VBoxContainer/Resume" to="." method="_on_resume_pressed"]
 [connection signal="pressed" from="CanvasLayer/UI_Management/Paused_Panel/VBoxContainer/MainMenu" to="." method="_on_main_menu_pressed"]
+[connection signal="pressed" from="CanvasLayer/UI_Management/Paused_Panel/VBoxContainer/Setting" to="." method="_on_main_menu_pressed"]
 [connection signal="pressed" from="CanvasLayer/UI_Management/Paused_Panel/VBoxContainer/Quit" to="." method="_on_quit_pressed"]
-[connection signal="pressed" from="CanvasLayer/UI_Management/Victory_Panel/Restart" to="." method="_on_restart_button_pressed"]
-[connection signal="pressed" from="CanvasLayer/UI_Management/Victory_Panel/Continue" to="." method="_on_continue_pressed"]
+[connection signal="pressed" from="CanvasLayer/UI_Management/Paused_Panel/Panel_Settings/Close_Settings" to="." method="_on_close_settings_pressed"]
+[connection signal="value_changed" from="CanvasLayer/UI_Management/Paused_Panel/Panel_Settings/VBoxContainer/ColorRect/HSlider" to="." method="_on_slider_music_value_changed"]

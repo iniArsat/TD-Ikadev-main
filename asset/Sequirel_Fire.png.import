@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cpynmou31d7p2"
-path="res://.godot/imported/towerDefense_tile203.png-a430393b047ceb7cc7e629045fc13cd4.ctex"
+uid="uid://x8ceoolmw32l"
+path="res://.godot/imported/Sequirel_Fire.png-82ebe58bb8de1a62f3f45d2fde55119f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://asset/towerDefense_tile203.png"
-dest_files=["res://.godot/imported/towerDefense_tile203.png-a430393b047ceb7cc7e629045fc13cd4.ctex"]
+source_file="res://asset/Sequirel_Fire.png"
+dest_files=["res://.godot/imported/Sequirel_Fire.png-82ebe58bb8de1a62f3f45d2fde55119f.ctex"]
 
 [params]
 

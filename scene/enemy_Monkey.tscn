@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://cyu3hmkm8dew0"]
+[gd_scene load_steps=8 format=3 uid="uid://cyu3hmkm8dew0"]
 
 [ext_resource type="Script" uid="uid://crpi2ei52olnk" path="res://script/enemy.gd" id="1_3vm6j"]
-[ext_resource type="Texture2D" uid="uid://cauarbonmyb8j" path="res://asset/towerDefense_tile247.png" id="2_3vm6j"]
+[ext_resource type="Texture2D" uid="uid://cauarbonmyb8j" path="res://asset/Monkey.png" id="2_3vm6j"]
 [ext_resource type="PackedScene" uid="uid://c1bo5ofjokjgn" path="res://scene/enemy_bullet.tscn" id="2_jse4d"]
+[ext_resource type="PackedScene" uid="uid://cion3ou7mtjwm" path="res://scene/coin_popup.tscn" id="3_5ax8k"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qi2p4"]
 size = Vector2(12.5, 19.5)
@@ -16,6 +17,7 @@ bg_color = Color(0, 0.72549, 0, 1)
 [node name="Enemy" type="CharacterBody2D" groups=["player"]]
 script = ExtResource("1_3vm6j")
 enemy_bullet_scene = ExtResource("2_jse4d")
+coin_popup_scene = ExtResource("3_5ax8k")
 
 [node name="body" type="Sprite2D" parent="."]
 scale = Vector2(0.35, 0.35)

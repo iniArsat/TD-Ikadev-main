@@ -21,6 +21,7 @@ ClickManager="*res://script/ClickManager.gd"
 GameManager="*res://script/GameManager.gd"
 GameSpeedManager="*res://script/Game_Speed_Manager.gd"
 MusicPlayer="*res://scene/music_player.tscn"
+SaveManager="*res://script/SaveManager.gd"
 
 [display]
 

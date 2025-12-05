@@ -5,7 +5,7 @@ extends Node
 
 # Export time settings di Inspector
 @export var time_between_enemies := 1.0
-@export var time_between_waves := 15.0
+@export var time_between_waves := 15.0  # NEW: Digunakan untuk countdown otomatis
 
 # Variasi enemy
 @export var enemy_Grease_Rat_scene: PackedScene
@@ -22,9 +22,11 @@ extends Node
 
 signal victory_achieved()
 signal wave_changed(current_wave: int, total_waves: int)
-signal wave_countdown_started(seconds: int)  # NEW: Signal untuk countdown antar wave
-signal wave_countdown_updated(seconds: int)  # NEW: Signal untuk update countdown
+signal wave_countdown_started(seconds: int)
+signal wave_countdown_updated(seconds: int)
 signal wave_countdown_finished()
+signal all_enemies_defeated()
+signal wave_completed(wave_number: int)
 
 var waves = []
 var enemy_data = {}
@@ -39,6 +41,9 @@ func _ready():
 	
 	# Load data dari CSV
 	load_data_from_csv()
+	
+	# NEW: Tidak mulai wave otomatis, tunggu dari Main.gd
+	print("⏳ WaveManager siap. Tunggu start dari player...")
 
 func load_data_from_csv():
 	# NEW: Load waves berdasarkan level
@@ -74,10 +79,7 @@ func setup_default_waves():
 		}
 	]
 
-func start_initial_wave():
-	await get_tree().create_timer(initial_wave_delay).timeout
-	start_next_wave()
-
+# NEW: Fungsi dipanggil dari Main.gd untuk mulai wave
 func start_next_wave():
 	if spawning:
 		return
@@ -85,7 +87,8 @@ func start_next_wave():
 		print("✅ Semua wave selesai")
 		victory_achieved.emit() 
 		return
-
+	
+	var previous_wave = current_wave
 	spawning = true
 	print("🚀 Wave ", current_wave + 1, " mulai!")
 
@@ -96,19 +99,16 @@ func start_next_wave():
 	# Tunggu semua musuh mati
 	await wait_until_all_enemies_dead()
 	print("✅ Semua musuh di wave ", current_wave + 1, " telah dikalahkan!")
-
+	
+	wave_completed.emit(current_wave + 1)
 	current_wave += 1
 	spawning = false
 
 	if current_wave >= waves.size():
 		print("🎉 VICTORY! Semua %d wave berhasil dikalahkan!" % waves.size())
 		victory_achieved.emit()
-	else:
-		# Masih ada wave berikutnya
-		print("⏳ Menunggu %d detik sebelum wave %d/%d..." % [time_between_waves, current_wave + 1, waves.size()])
-		await get_tree().create_timer(time_between_waves).timeout
-		
-		start_next_wave()
+	# NEW: Wave berikutnya otomatis setelah delay (dikelola Main.gd)
+	# Tidak perlu start_next_wave() disini
 
 func spawn_wave(wave_data: Dictionary):
 	var spawner_nodes = []
@@ -137,7 +137,6 @@ func spawn_wave(wave_data: Dictionary):
 			var enemy = spawn_enemy(enemy_type, spawner_nodes[spawner_index])
 			if enemy:
 				active_enemies.append(enemy)
-				# NEW: Connect signal dengan cara yang lebih aman
 				if enemy.tree_exited.is_connected(_on_enemy_died):
 					enemy.tree_exited.disconnect(_on_enemy_died)
 				enemy.tree_exited.connect(_on_enemy_died.bind(enemy))
@@ -204,6 +203,7 @@ func _on_enemy_died(enemy):
 func wait_until_all_enemies_dead():
 	while active_enemies.size() > 0:
 		await get_tree().process_frame
+	all_enemies_defeated.emit()
 	print("All enemies cleared from wave")
 
 # NEW: Fungsi untuk mengganti level
@@ -212,7 +212,7 @@ func set_level(level: int):
 	reset_wave_manager()
 
 func reset_wave_manager():
-	current_wave = -1
+	current_wave = 0  # NEW: Reset ke 0, bukan -1
 	spawning = false
 	active_enemies.clear()
 	
@@ -232,6 +232,7 @@ func get_current_wave_info() -> Dictionary:
 	return {}
 
 func start_wave_countdown(seconds: int):
+	# NEW: Fungsi ini digunakan untuk countdown antar wave
 	wave_countdown_started.emit(seconds)
 	
 	for i in range(seconds, 0, -1):

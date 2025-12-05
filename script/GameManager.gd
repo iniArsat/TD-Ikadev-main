@@ -9,13 +9,22 @@ signal update_coin(new_amount: int)
 signal update_health(new_amount: int)
 signal game_over()
 signal base_damaged()
+signal tower_placed(tower_instance)
+signal tower_upgraded(tower_instance)
 var invalid_drop_areas: Array = []
 var valid_drop_areas: Array = []
 var is_game_over = false
 var placed_towers: Array = []  # Menyimpan referensi semua tower yang sudah terpasang
 var min_tower_distance: float = 80.0 
+var current_level: int = 1
+var should_open_store = false
+
+func _ready():
+	# Reset flag setiap game mulai
+	should_open_store = false
 
 func set_level(level: int):
+	current_level = level
 	match level:
 		1:
 			initial_coin_per_level = 100

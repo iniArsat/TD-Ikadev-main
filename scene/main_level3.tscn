@@ -1,9 +1,12 @@
-[gd_scene load_steps=5 format=3 uid="uid://bixvp60vsrqbj"]
+[gd_scene load_steps=8 format=3 uid="uid://bixvp60vsrqbj"]
 
 [ext_resource type="PackedScene" uid="uid://cdgqu8jrfmpij" path="res://scene/Main.tscn" id="1_rwjn0"]
 [ext_resource type="PackedScene" uid="uid://6dybxlhnhkt7" path="res://scene/path_lvl3.tscn" id="2_xs3d8"]
 [ext_resource type="PackedScene" uid="uid://c8esaqdnsn7cm" path="res://scene/path_lvl3_1.tscn" id="3_dqdfe"]
+[ext_resource type="Texture2D" uid="uid://7krk64a15ku2" path="res://asset/Locked.png" id="4_dqdfe"]
+[ext_resource type="Texture2D" uid="uid://ctge8shchnikr" path="res://asset/level3_page2.png" id="4_v8ss7"]
 [ext_resource type="PackedScene" uid="uid://dvmwbo4glqd7x" path="res://scene/tower_placement.tscn" id="4_xs3d8"]
+[ext_resource type="Texture2D" uid="uid://ci24oq0gsqjal" path="res://asset/level3_page3.png" id="5_jhkwx"]
 
 [node name="Main" instance=ExtResource("1_rwjn0")]
 
@@ -28,30 +31,26 @@ offset_top = 14.0
 offset_right = 590.0
 offset_bottom = 88.0
 
-[node name="Label" parent="CanvasLayer/UI_Management/Instruction_Panel/Page1" index="1"]
-text = "Seekor Monyet Pencuri muncul—licik, lincah, 
-dan menyerang balik saat diserang.  Menangkan level ini untuk menambah bintang 
-agar bisa beli tower baru di STORE."
+[node name="Instruction_Panel" parent="CanvasLayer/UI_Management" index="15"]
+visible = false
 
-[node name="Label2" parent="CanvasLayer/UI_Management/Instruction_Panel/Page1" index="2"]
+[node name="Label" parent="CanvasLayer/UI_Management/Instruction_Panel/Page1" index="0"]
+offset_top = -7.0
+offset_bottom = 146.0
+text = "Wave musuh datang lebih cepat dan lebih banyak dari
+ sebelumnya! Perkuat pertahananmu dan pasang tower baru dengan 
+strategi terbaik!"
+
+[node name="Label2" parent="CanvasLayer/UI_Management/Instruction_Panel/Page1" index="1"]
 text = "LEVEL 3"
 
-[node name="Label2" parent="CanvasLayer/UI_Management/Instruction_Panel/Page2" index="1"]
+[node name="Sprite2D" parent="CanvasLayer/UI_Management/Instruction_Panel/Page2" index="0"]
+texture = ExtResource("4_v8ss7")
+
+[node name="Label2" parent="CanvasLayer/UI_Management/Instruction_Panel/Page2" index="2"]
 text = "LEVEL 3"
 
-[node name="Label3" parent="CanvasLayer/UI_Management/Instruction_Panel/Page2" index="2"]
-theme_override_font_sizes/font_size = 13
-text = "new enemies"
-
-[node name="Label4" parent="CanvasLayer/UI_Management/Instruction_Panel/Page2" index="3"]
-theme_override_font_sizes/font_size = 13
-text = "advance upgrade"
-
-[node name="Label5" parent="CanvasLayer/UI_Management/Instruction_Panel/Page2" index="4"]
-theme_override_font_sizes/font_size = 13
-text = "collect stars"
-
-[node name="Label6" type="Label" parent="CanvasLayer/UI_Management/Instruction_Panel/Page2" index="8"]
+[node name="Label6" type="Label" parent="CanvasLayer/UI_Management/Instruction_Panel/Page2" index="3"]
 visible = false
 layout_mode = 1
 anchors_preset = 5
@@ -67,7 +66,7 @@ text = "gambar bar hp
 mini boss"
 horizontal_alignment = 1
 
-[node name="Label7" type="Label" parent="CanvasLayer/UI_Management/Instruction_Panel/Page2" index="9"]
+[node name="Label7" type="Label" parent="CanvasLayer/UI_Management/Instruction_Panel/Page2" index="4"]
 visible = false
 layout_mode = 1
 anchors_preset = 5
@@ -82,6 +81,51 @@ theme_override_font_sizes/font_size = 11
 text = "new tower lv 3
 unlock!"
 horizontal_alignment = 1
+
+[node name="Page3" parent="CanvasLayer/UI_Management/Instruction_Panel" index="3"]
+visible = false
+
+[node name="Sprite2D" parent="CanvasLayer/UI_Management/Instruction_Panel/Page3" index="0"]
+position = Vector2(152, 188)
+texture = ExtResource("5_jhkwx")
+
+[node name="Label2" parent="CanvasLayer/UI_Management/Instruction_Panel/Page3" index="2"]
+text = "LEVEL 3"
+
+[node name="Label2" parent="CanvasLayer/UI_Management/Instruction_Panel/Page4" index="0"]
+text = "LEVEL 3"
+
+[node name="locked_Pepper" type="Panel" parent="CanvasLayer" index="1"]
+visible = false
+self_modulate = Color(1, 1, 1, 0)
+offset_left = 508.0
+offset_top = 592.0
+offset_right = 548.0
+offset_bottom = 632.0
+scale = Vector2(2.7, 2.7)
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/locked_Pepper" index="0"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("4_dqdfe")
+expand_mode = 1
+
+[node name="locked_Garlic" type="Panel" parent="CanvasLayer" index="2"]
+visible = false
+self_modulate = Color(1, 1, 1, 0)
+offset_left = 354.0
+offset_top = 594.0
+offset_right = 394.0
+offset_bottom = 634.0
+scale = Vector2(2.7, 2.7)
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/locked_Garlic" index="0"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("4_dqdfe")
+expand_mode = 1
 
 [node name="Area2D" parent="Tower_Placement" index="0"]
 position = Vector2(225, 322)

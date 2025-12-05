@@ -2,9 +2,9 @@
 
 [ext_resource type="Script" uid="uid://c4y7shhy6urob" path="res://script/ui_placement.gd" id="1_y1js5"]
 [ext_resource type="Texture2D" uid="uid://bpdoirv4wlyop" path="res://asset/png_palu.png" id="2_4v0bj"]
-[ext_resource type="Texture2D" uid="uid://dwghhwpbdd1gl" path="res://asset/towerDefense_tile250.png" id="3_ugrxm"]
-[ext_resource type="Texture2D" uid="uid://d1ig5rmkg7xln" path="res://asset/towerDefense_tile249.png" id="4_c248s"]
-[ext_resource type="Texture2D" uid="uid://cpynmou31d7p2" path="res://asset/towerDefense_tile203.png" id="5_xf14f"]
+[ext_resource type="Texture2D" uid="uid://dwghhwpbdd1gl" path="res://asset/Chilli_Launcher.png" id="3_ugrxm"]
+[ext_resource type="Texture2D" uid="uid://d1ig5rmkg7xln" path="res://asset/Stove_Cannon.png" id="4_c248s"]
+[ext_resource type="Texture2D" uid="uid://cpynmou31d7p2" path="res://asset/Garlic_Barrier.png" id="5_xf14f"]
 
 [node name="UI_Placement" type="Node2D"]
 script = ExtResource("1_y1js5")

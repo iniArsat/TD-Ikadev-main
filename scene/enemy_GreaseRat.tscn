@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://378bayncw85c"]
+[gd_scene load_steps=8 format=3 uid="uid://378bayncw85c"]
 
 [ext_resource type="Script" uid="uid://crpi2ei52olnk" path="res://script/enemy.gd" id="1_cmgyk"]
-[ext_resource type="Texture2D" uid="uid://bws4wkddkjgs6" path="res://asset/towerDefense_tile245.png" id="2_8wfr3"]
+[ext_resource type="Texture2D" uid="uid://bws4wkddkjgs6" path="res://asset/Grease_Rat.png" id="2_8wfr3"]
 [ext_resource type="PackedScene" uid="uid://c1bo5ofjokjgn" path="res://scene/enemy_bullet.tscn" id="2_rli66"]
+[ext_resource type="PackedScene" uid="uid://cion3ou7mtjwm" path="res://scene/coin_popup.tscn" id="3_rli66"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qi2p4"]
 size = Vector2(12.5, 19.5)
@@ -16,6 +17,7 @@ bg_color = Color(0, 0.72549, 0, 1)
 [node name="Enemy" type="CharacterBody2D" groups=["player"]]
 script = ExtResource("1_cmgyk")
 enemy_bullet_scene = ExtResource("2_rli66")
+coin_popup_scene = ExtResource("3_rli66")
 
 [node name="body" type="Sprite2D" parent="."]
 scale = Vector2(0.35, 0.35)

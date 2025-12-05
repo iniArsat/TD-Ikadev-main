@@ -1,11 +1,13 @@
-[gd_scene load_steps=12 format=3 uid="uid://d2i5gjafy7xtx"]
+[gd_scene load_steps=14 format=3 uid="uid://d2i5gjafy7xtx"]
 
 [ext_resource type="Script" uid="uid://bgxcixbtsqnnn" path="res://script/tower_a.gd" id="1_11wi7"]
 [ext_resource type="PackedScene" uid="uid://805pbpmm4hdd" path="res://scene/Chili_Bullet.tscn" id="2_l8n8j"]
-[ext_resource type="Texture2D" uid="uid://dwghhwpbdd1gl" path="res://asset/towerDefense_tile250.png" id="2_yam0w"]
+[ext_resource type="Texture2D" uid="uid://dwghhwpbdd1gl" path="res://asset/Chilli_Launcher.png" id="2_yam0w"]
 [ext_resource type="Texture2D" uid="uid://bpdoirv4wlyop" path="res://asset/png_palu.png" id="3_i4h2n"]
 [ext_resource type="Texture2D" uid="uid://di2dl5tp67x7v" path="res://asset/aura_effect.png" id="3_sapfk"]
 [ext_resource type="Script" uid="uid://kvis5s4a8808" path="res://script/range_visual.gd" id="6_mlk3p"]
+[ext_resource type="Texture2D" uid="uid://utb7wlof3c5" path="res://asset/ui_upgrade.png" id="7_5wmt6"]
+[ext_resource type="Texture2D" uid="uid://bw6huaugv4vry" path="res://asset/close_ui.png" id="8_xg7x1"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_om1lo"]
 radius = 144.184
@@ -128,6 +130,84 @@ offset_bottom = -82.0
 
 [node name="Range_Visual" type="Node2D" parent="."]
 script = ExtResource("6_mlk3p")
+
+[node name="Ui_Upgrade" type="Panel" parent="."]
+visible = false
+self_modulate = Color(1, 1, 1, 0)
+offset_left = -294.0
+offset_top = -207.0
+offset_right = 343.0
+offset_bottom = 181.0
+
+[node name="TextureRect" type="TextureRect" parent="Ui_Upgrade"]
+layout_mode = 0
+offset_left = 211.0
+offset_top = 113.000015
+offset_right = 609.0
+offset_bottom = 557.0
+scale = Vector2(0.425, 0.425)
+texture = ExtResource("7_5wmt6")
+
+[node name="Tower_Name_Label" type="Label" parent="Ui_Upgrade"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -132.5
+offset_top = 171.0
+offset_right = 97.5
+offset_bottom = 226.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 8
+text = "Stove Cannon"
+horizontal_alignment = 1
+
+[node name="Upgrade_Button" type="Button" parent="Ui_Upgrade"]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_left = 296.0
+offset_top = 271.0
+offset_right = 379.0
+offset_bottom = 302.0
+theme_override_font_sizes/font_size = 10
+
+[node name="Sell_Button" type="Button" parent="Ui_Upgrade"]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_left = 211.0
+offset_top = 271.0
+offset_right = 294.0
+offset_bottom = 302.0
+alignment = 0
+
+[node name="Close_Upgrade" type="Button" parent="Ui_Upgrade"]
+layout_mode = 0
+offset_left = 348.0
+offset_top = 116.0
+offset_right = 413.0
+offset_bottom = 181.0
+scale = Vector2(0.43, 0.43)
+icon = ExtResource("8_xg7x1")
+flat = true
+
+[node name="Upgrade_Cost_Label" type="Label" parent="Ui_Upgrade"]
+layout_mode = 0
+offset_left = 297.0
+offset_top = 283.0
+offset_right = 337.0
+offset_bottom = 311.0
+theme_override_font_sizes/font_size = 10
+text = "100"
+
+[node name="Sell_Value" type="Label" parent="Ui_Upgrade"]
+layout_mode = 0
+offset_left = 211.0
+offset_top = 283.0
+offset_right = 251.0
+offset_bottom = 311.0
+theme_override_font_sizes/font_size = 10
+text = "100"
 
 [connection signal="body_entered" from="Sight" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Sight" to="." method="_on_area_2d_body_exited"]
