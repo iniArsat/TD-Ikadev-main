@@ -1,12 +1,13 @@
-[gd_scene load_steps=8 format=3 uid="uid://bfv763cvlgh4i"]
+[gd_scene load_steps=9 format=3 uid="uid://bfv763cvlgh4i"]
 
 [ext_resource type="PackedScene" uid="uid://cdgqu8jrfmpij" path="res://scene/Main.tscn" id="1_3w287"]
 [ext_resource type="PackedScene" uid="uid://p313qbfjbtby" path="res://scene/path_lvl2.tscn" id="2_3qwn7"]
 [ext_resource type="PackedScene" uid="uid://ke3giwbp42rg" path="res://scene/path_lvl2_1.tscn" id="3_d301n"]
 [ext_resource type="Texture2D" uid="uid://dbte3l55mtcxw" path="res://asset/level2_page2.png" id="4_0fm8k"]
-[ext_resource type="Texture2D" uid="uid://7krk64a15ku2" path="res://asset/Locked.png" id="4_cnmgk"]
 [ext_resource type="PackedScene" uid="uid://dvmwbo4glqd7x" path="res://scene/tower_placement.tscn" id="4_d301n"]
 [ext_resource type="Texture2D" uid="uid://c8pgb14t0imvi" path="res://asset/level2_page3.png" id="5_ys13b"]
+[ext_resource type="Texture2D" uid="uid://bl2fo3otgncbd" path="res://asset/Locked_new.png" id="6_0fm8k"]
+[ext_resource type="Texture2D" uid="uid://dxg5772ehs6el" path="res://asset/instruction_lvl2_page4.png" id="6_ys13b"]
 
 [node name="Main" instance=ExtResource("1_3w287")]
 
@@ -19,10 +20,11 @@ path_scene = ExtResource("2_3qwn7")
 [node name="PathSpawner2" parent="." index="4"]
 path_scene = ExtResource("3_d301n")
 
-[node name="TowerPanel4" parent="CanvasLayer/UI_Management/Panel" index="3"]
+[node name="wave_lbl" parent="CanvasLayer/UI_Management" index="6"]
+text = "1/5"
+
+[node name="TowerPanel4" parent="CanvasLayer/UI_Management/Panel/HBoxContainer" index="2"]
 visible = true
-offset_left = 339.0
-offset_right = 417.0
 
 [node name="Restart" parent="CanvasLayer/UI_Management/Gameover_Panel" index="2"]
 layout_mode = 1
@@ -52,9 +54,6 @@ offset_bottom = -34.0
 grow_horizontal = 2
 grow_vertical = 0
 
-[node name="Instruction_Panel" parent="CanvasLayer/UI_Management" index="15"]
-visible = false
-
 [node name="Label" parent="CanvasLayer/UI_Management/Instruction_Panel/Page1" index="0"]
 text = "Serangan semakin intens! Musuh baru muncul dengan HP lebih tinggi dan sulit dikalahkan. Tower Pertahananmu harus mulai diperkuat!"
 
@@ -75,9 +74,6 @@ text = "New Enemies Appearing In This Level!"
 [node name="Label2" parent="CanvasLayer/UI_Management/Instruction_Panel/Page2" index="2"]
 text = "LEVEL 2"
 
-[node name="Page3" parent="CanvasLayer/UI_Management/Instruction_Panel" index="3"]
-visible = false
-
 [node name="Sprite2D" parent="CanvasLayer/UI_Management/Instruction_Panel/Page3" index="0"]
 position = Vector2(139, 188)
 texture = ExtResource("5_ys13b")
@@ -90,6 +86,31 @@ text = "LEVEL 2"
 
 [node name="Label2" parent="CanvasLayer/UI_Management/Instruction_Panel/Page4" index="0"]
 text = "LEVEL 2"
+
+[node name="Label3" parent="CanvasLayer/UI_Management/Instruction_Panel/Page4" index="1"]
+offset_left = -233.0
+offset_top = 191.0
+offset_right = -103.0
+offset_bottom = 226.0
+text = "Unlock Tower"
+
+[node name="Label4" parent="CanvasLayer/UI_Management/Instruction_Panel/Page4" index="2"]
+offset_left = -50.0
+offset_top = 191.0
+offset_right = 80.0
+offset_bottom = 226.0
+text = "Upgrade Tower"
+
+[node name="Label5" parent="CanvasLayer/UI_Management/Instruction_Panel/Page4" index="3"]
+offset_left = 108.0
+offset_top = 188.0
+offset_right = 238.0
+offset_bottom = 223.0
+text = "Clear All Wave"
+
+[node name="Sprite2D" parent="CanvasLayer/UI_Management/Instruction_Panel/Page4" index="4"]
+scale = Vector2(0.315, 0.315)
+texture = ExtResource("6_ys13b")
 
 [node name="Start_Wave" parent="CanvasLayer/UI_Management" index="20"]
 offset_left = 12.0
@@ -110,7 +131,7 @@ scale = Vector2(2.355, 2.355)
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
-texture = ExtResource("4_cnmgk")
+texture = ExtResource("6_0fm8k")
 expand_mode = 1
 
 [node name="locked_Ice2" type="Panel" parent="CanvasLayer" index="2"]
@@ -126,22 +147,22 @@ scale = Vector2(2.355, 2.355)
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
-texture = ExtResource("4_cnmgk")
+texture = ExtResource("6_0fm8k")
 expand_mode = 1
 
 [node name="locked_Garlic" type="Panel" parent="CanvasLayer" index="3"]
 self_modulate = Color(1, 1, 1, 0)
-offset_left = 334.0
-offset_top = 593.0
-offset_right = 374.0
-offset_bottom = 633.0
-scale = Vector2(2.7, 2.7)
+offset_left = 311.0
+offset_top = 577.0
+offset_right = 351.0
+offset_bottom = 617.0
+scale = Vector2(3.3, 3.3)
 
 [node name="TextureRect" type="TextureRect" parent="CanvasLayer/locked_Garlic" index="0"]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
-texture = ExtResource("4_cnmgk")
+texture = ExtResource("6_0fm8k")
 expand_mode = 1
 
 [node name="Area2D2" parent="Tower_Placement" index="1"]
@@ -151,13 +172,29 @@ position = Vector2(657, 328)
 position = Vector2(921.00006, 151.00002)
 
 [node name="Area2D5" parent="Tower_Placement" index="4"]
-position = Vector2(1058, 260)
+position = Vector2(997.0001, 260)
+
+[node name="Area2D6" parent="Tower_Placement" index="5"]
+position = Vector2(953.00006, 556)
 
 [node name="Area2D7" parent="Tower_Placement" index="6" instance=ExtResource("4_d301n")]
-position = Vector2(772.00006, 446)
+position = Vector2(862.00006, 446.00003)
+
+[node name="Area2D" parent="Trap_Placement" index="0"]
+position = Vector2(627.00006, 209)
+scale = Vector2(66, 2.88)
+
+[node name="Area2D3" parent="Trap_Placement" index="2"]
+position = Vector2(1610, 360)
+
+[node name="Area2D5" parent="Trap_Placement" index="4"]
+position = Vector2(1562, 248)
+
+[node name="Area2D6" parent="Trap_Placement" index="5"]
+position = Vector2(602.00006, 295)
 
 [node name="CollisionPolygon2D" parent="TowerArea/DropArea2" index="0"]
 polygon = PackedVector2Array(978.571, 125, -180.35706, 126.785736, -183.92859, 333.92856, -917.857, 333.929, -919.643, 542.857, 555.357, 544.643, 555.357, 442.857, 980.357, 442.857, 978.571, 737.5, 555.357, 735.714, 555.357, 651.786, -1023.21, 651.786, -1025, 228.571, -285.71423, 230.35715, -291.0714, 125, -1335.7142, 125, -1342.857, 23.214294, 976.786, 17.8571)
 
-[node name="WaveManager" parent="." index="9"]
+[node name="WaveManager" parent="." index="11"]
 current_level = 2

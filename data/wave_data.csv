@@ -8,7 +8,7 @@ level,wave,enemy_type,count
 1,4,Grease_Rat,8
 1,4,Squirrel_Fire,4
 2,1,Grease_Rat,4
-2,1,Squirrel_Fire,4
+2,1,Squirrel_Fire,2
 2,2,Grease_Rat,6
 2,2,Monkey,2
 2,3,Squirrel_Fire,4
@@ -45,10 +45,9 @@ level,wave,enemy_type,count
 4,6,Grease_Rat,10
 4,6,Squirrel_Fire,9
 4,6,Monkey,3
-4,6,Mini_Boss,1
-5,1,Grease_Rat,12
-5,1,Squirrel_Fire,5
-5,1,Monkey,1
+4,6,Mini_Boss,2
+5,1,Squirrel_Fire,4
+5,1,Grease_Rat,8
 5,2,Grease_Rat,10
 5,2,Squirrel_Fire,6
 5,2,Monkey,2
@@ -64,7 +63,7 @@ level,wave,enemy_type,count
 5,6,Grease_Rat,10
 5,6,Squirrel_Fire,10
 5,6,Monkey,3
+5,7,Chef_Baslik,1
 5,7,Grease_Rat,12
-5,7,Squirrel_Fire,8
-5,7,Monkey,3
+5,7,Monkey,4
 5,7,Mini_Boss,2

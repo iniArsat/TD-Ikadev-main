@@ -37,9 +37,9 @@ var repair_speed := 10.0
 @onready var range_visual: Node2D = $Range_Visual
 
 # Upgrade system
-var head_texture_level1: Texture2D
-var head_texture_level2: Texture2D
-var head_texture_level3: Texture2D
+@export var head_texture_level1: Texture2D
+@export var head_texture_level2: Texture2D
+@export var head_texture_level3: Texture2D
 var upgrade_level := 1
 
 var is_dragging = false
@@ -52,6 +52,7 @@ func _ready() -> void:
 	panel_upgrade.visible = false
 	scale = Vector2(1.2, 1.2)
 	ClickManager.connect("screen_clicked", Callable(self, "_on_screen_clicked"))
+	_set_initial_head_sprite()
 	
 	current_health = max_health
 	if health_bar:
@@ -285,9 +286,7 @@ func apply_upgrade_stats():
 					cooldown *= 0.7
 					range_radius *= 1.2
 					bullet_damage *= 1.3
-			
-			if head_texture_level2:
-				head.texture = head_texture_level2             
+			_update_head_sprite_to_level(2)            
 		3:
 			# Level 3 upgrade  
 			match tower_type:
@@ -306,11 +305,45 @@ func apply_upgrade_stats():
 					cooldown *= 0.7
 					range_radius *= 1.2
 					bullet_damage *= 1.3
-			if head_texture_level3:
-				head.texture = head_texture_level3
+			_update_head_sprite_to_level(3)
 				
 	call_deferred("setup_range_collision")
 	call_deferred("update_range_visual_scale")
+	
+func _update_head_sprite_to_level(level: int):
+	print("🔄 Updating head sprite to level ", level)
+	
+	match level:
+		2:
+			if head_texture_level2:
+				head.texture = head_texture_level2
+				print("✅ Head texture changed to level 2")
+			else:
+				print("⚠️ head_texture_level2 not set!")
+			
+		3:
+			if head_texture_level3:
+				head.texture = head_texture_level3
+				print("✅ Head texture changed to level 3")
+			else:
+				print("⚠️ head_texture_level3 not set!")
+			
+	
+func _set_initial_head_sprite():
+	if upgrade_level == 1:
+		if head_texture_level1:
+			head.texture = head_texture_level1
+
+func get_head_texture_for_level(level: int) -> Texture2D:
+	match level:
+		1: return head_texture_level1
+		2: return head_texture_level2
+		3: return head_texture_level3
+		_: return head_texture_level1
+
+func get_current_head_texture() -> Texture2D:
+	return head.texture if head else null
+	
 func _on_texture_button_2_pressed() -> void:
 	print("range")
 
@@ -387,6 +420,28 @@ func setup_from_data(tower_type: String, data: Dictionary):
 
 func get_base_cost() -> int:
 	return base_cost
+
+func get_tower_damage() -> float:
+	return bullet_damage
+
+func get_tower_range() -> float:
+	return range_radius
+
+func get_tower_cooldown() -> float:
+	return cooldown
+
+func get_tower_upgrade_level() -> int:
+	return upgrade_level
+
+# Atau jika ingin lebih rapi, buat satu fungsi get_stats():
+func get_stats() -> Dictionary:
+	return {
+		"damage": bullet_damage,
+		"range": range_radius,
+		"cooldown": cooldown,
+		"level": upgrade_level,
+		"type": tower_type
+	}
 
 func _on_shape_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:

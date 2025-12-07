@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=3 uid="uid://cdgqu8jrfmpij"]
+[gd_scene load_steps=47 format=3 uid="uid://cdgqu8jrfmpij"]
 
 [ext_resource type="Script" uid="uid://dnepi04ynwh4r" path="res://script/Main.gd" id="1_yiwpq"]
 [ext_resource type="Script" uid="uid://dj4gx2hi8oi4o" path="res://script/path_spawner.gd" id="2_mnmej"]
@@ -36,10 +36,15 @@
 [ext_resource type="Texture2D" uid="uid://bji0p1jse888e" path="res://asset/Pop_Up.png" id="24_vq81u"]
 [ext_resource type="Texture2D" uid="uid://c1igmawlf3ems" path="res://asset/instruction_panel.png" id="27_65lg3"]
 [ext_resource type="Texture2D" uid="uid://dod8vf4dl3fct" path="res://asset/level1_page2.png" id="28_goqcv"]
+[ext_resource type="Texture2D" uid="uid://d1ig5rmkg7xln" path="res://asset/Stove_Cannon.png" id="28_r5aow"]
 [ext_resource type="PackedScene" uid="uid://cn8q02huknrt7" path="res://scene/enemy_MiniBoss.tscn" id="29_lcaa3"]
 [ext_resource type="Texture2D" uid="uid://d37qcwl2budyb" path="res://asset/level1_page3.png" id="29_lk2p4"]
+[ext_resource type="Texture2D" uid="uid://dgcuo4qblau07" path="res://asset/instruction_page4.png" id="32_7kf0j"]
+[ext_resource type="PackedScene" uid="uid://dhto2f4pbehk5" path="res://scene/trap_placement.tscn" id="35_crx51"]
+[ext_resource type="PackedScene" uid="uid://c7fx8a7pp2y48" path="res://scene/enemy_ChefBaslik.tscn" id="39_wren1"]
+[ext_resource type="PackedScene" uid="uid://25p4j3gjxbwk" path="res://scene/trap_panel.tscn" id="40_2h030"]
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_wosyn"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_2h030"]
 texture = ExtResource("2_s5yxy")
 texture_region_size = Vector2i(64, 64)
 0:0/0 = 0
@@ -344,13 +349,14 @@ texture_region_size = Vector2i(64, 64)
 
 [sub_resource type="TileSet" id="TileSet_pnqar"]
 tile_size = Vector2i(64, 64)
-sources/0 = SubResource("TileSetAtlasSource_wosyn")
+sources/0 = SubResource("TileSetAtlasSource_2h030")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lk2p4"]
 bg_color = Color(0.211765, 0.211765, 0.211765, 1)
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_yiwpq")
+chilli_bomb_panel_scene = ExtResource("40_2h030")
 
 [node name="TileMap" type="TileMap" parent="."]
 position = Vector2(102, 0)
@@ -443,7 +449,7 @@ offset_top = 28.0
 offset_right = 1193.0
 offset_bottom = 97.0
 theme_override_font_sizes/font_size = 32
-text = "1/10"
+text = "1/4"
 
 [node name="PopUp_StartWave" type="Sprite2D" parent="CanvasLayer/UI_Management"]
 visible = false
@@ -482,7 +488,6 @@ AREA YANG TERSEDIA!"
 horizontal_alignment = 1
 
 [node name="PopUp_Upgrade" type="Sprite2D" parent="CanvasLayer/UI_Management"]
-visible = false
 position = Vector2(301, 328)
 rotation = 3.1415927
 scale = Vector2(0.4625, 0.4625)
@@ -507,64 +512,46 @@ offset_top = 578.0
 offset_right = 1281.0
 offset_bottom = 719.0
 
-[node name="TowerPanel" parent="CanvasLayer/UI_Management/Panel" instance=ExtResource("7_764rb")]
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/UI_Management/Panel"]
 layout_mode = 0
-offset_left = 42.0
-offset_top = 17.0
-offset_right = 120.0
-offset_bottom = 91.0
-scale = Vector2(1.36718, 1.36718)
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(1.695, 1.695)
+theme_override_constants/separation = 15
+
+[node name="TowerPanel" parent="CanvasLayer/UI_Management/Panel/HBoxContainer" instance=ExtResource("7_764rb")]
+layout_mode = 2
 stove_cannon_scene = null
 ice_chiller_scene = null
 garlic_barrier_scene = null
 selected_tower_type = "Chilli_Launcher"
 
-[node name="TowerPanel2" parent="CanvasLayer/UI_Management/Panel" instance=ExtResource("8_aex65")]
-layout_mode = 0
-offset_left = 200.0
-offset_top = 17.0
-offset_right = 278.0
-offset_bottom = 91.0
-scale = Vector2(1.36718, 1.36718)
+[node name="TowerPanel2" parent="CanvasLayer/UI_Management/Panel/HBoxContainer" instance=ExtResource("8_aex65")]
+layout_mode = 2
 chilli_launcher_scene = null
 ice_chiller_scene = null
 garlic_barrier_scene = null
 
-[node name="TowerPanel3" parent="CanvasLayer/UI_Management/Panel" instance=ExtResource("10_hrl0l")]
+[node name="TowerPanel4" parent="CanvasLayer/UI_Management/Panel/HBoxContainer" instance=ExtResource("9_ob58h")]
 visible = false
-layout_mode = 0
-offset_left = 371.0
-offset_top = 17.0
-offset_right = 449.0
-offset_bottom = 91.0
-scale = Vector2(1.36718, 1.36718)
-stove_cannon_scene = null
-chilli_launcher_scene = null
-garlic_barrier_scene = null
-
-[node name="TowerPanel4" parent="CanvasLayer/UI_Management/Panel" instance=ExtResource("9_ob58h")]
-visible = false
-layout_mode = 0
-offset_left = 539.0
-offset_top = 16.0
-offset_right = 617.0
-offset_bottom = 90.0
-scale = Vector2(1.367, 1.367)
+layout_mode = 2
 garlic_barrier_scene = ExtResource("13_kxuod")
 
-[node name="TowerPanel5" parent="CanvasLayer/UI_Management/Panel" instance=ExtResource("12_gjnlk")]
+[node name="TowerPanel5" parent="CanvasLayer/UI_Management/Panel/HBoxContainer" instance=ExtResource("12_gjnlk")]
 visible = false
-layout_mode = 0
-offset_left = 678.0
-offset_top = 17.0
-offset_right = 756.0
-offset_bottom = 91.0
-scale = Vector2(1.367, 1.367)
+layout_mode = 2
 stove_cannon_scene = null
 chilli_launcher_scene = null
 ice_chiller_scene = null
 garlic_barrier_scene = null
 pepper_grinder_scene = ExtResource("15_1dr5g")
+
+[node name="TowerPanel3" parent="CanvasLayer/UI_Management/Panel/HBoxContainer" instance=ExtResource("10_hrl0l")]
+visible = false
+layout_mode = 2
+stove_cannon_scene = null
+chilli_launcher_scene = null
+garlic_barrier_scene = null
 
 [node name="TextureButton" type="TextureButton" parent="CanvasLayer/UI_Management"]
 visible = false
@@ -771,6 +758,69 @@ offset_right = 219.0
 offset_bottom = 434.0
 text = "100"
 
+[node name="Before_Container" type="VBoxContainer" parent="CanvasLayer/UI_Management/Ui_Upgrade"]
+layout_mode = 0
+offset_left = 374.0
+offset_top = 214.0
+offset_right = 414.0
+offset_bottom = 314.0
+theme_override_constants/separation = 15
+
+[node name="DMG_Before" type="Label" parent="CanvasLayer/UI_Management/Ui_Upgrade/Before_Container"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 18
+text = "100"
+horizontal_alignment = 1
+
+[node name="RNG_Before" type="Label" parent="CanvasLayer/UI_Management/Ui_Upgrade/Before_Container"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 18
+text = "100"
+horizontal_alignment = 1
+
+[node name="CD_Before" type="Label" parent="CanvasLayer/UI_Management/Ui_Upgrade/Before_Container"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 18
+text = "100"
+horizontal_alignment = 1
+
+[node name="After_Container" type="VBoxContainer" parent="CanvasLayer/UI_Management/Ui_Upgrade"]
+layout_mode = 0
+offset_left = 453.0
+offset_top = 214.0
+offset_right = 493.0
+offset_bottom = 322.0
+theme_override_constants/separation = 15
+
+[node name="DMG_After" type="Label" parent="CanvasLayer/UI_Management/Ui_Upgrade/After_Container"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 18
+text = "100"
+horizontal_alignment = 1
+
+[node name="RNG_After" type="Label" parent="CanvasLayer/UI_Management/Ui_Upgrade/After_Container"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 18
+text = "100"
+horizontal_alignment = 1
+
+[node name="CD_After" type="Label" parent="CanvasLayer/UI_Management/Ui_Upgrade/After_Container"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 18
+text = "100"
+horizontal_alignment = 1
+
+[node name="tower_sprite" type="Sprite2D" parent="CanvasLayer/UI_Management/Ui_Upgrade"]
+position = Vector2(358, 90)
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("28_r5aow")
+
 [node name="Instruction_Panel" type="Panel" parent="CanvasLayer/UI_Management"]
 visible = false
 self_modulate = Color(1, 1, 1, 0)
@@ -950,10 +1000,10 @@ layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -221.0
-offset_top = 153.0
-offset_right = -91.0
-offset_bottom = 188.0
+offset_left = -254.0
+offset_top = 202.0
+offset_right = -124.0
+offset_bottom = 237.0
 grow_horizontal = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Build First Tower"
@@ -964,10 +1014,10 @@ layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -65.0
-offset_top = 153.0
-offset_right = 65.0
-offset_bottom = 188.0
+offset_left = -67.0
+offset_top = 202.0
+offset_right = 63.0
+offset_bottom = 237.0
 grow_horizontal = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Start Wave"
@@ -978,44 +1028,19 @@ layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = 96.0
-offset_top = 153.0
-offset_right = 226.0
-offset_bottom = 188.0
+offset_left = 126.0
+offset_top = 195.0
+offset_right = 256.0
+offset_bottom = 230.0
 grow_horizontal = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Upgrade Tower"
 horizontal_alignment = 1
 
-[node name="TextureRect2" type="TextureRect" parent="CanvasLayer/UI_Management/Instruction_Panel/Page4"]
-modulate = Color(0.26657522, 0.2665752, 0.2665752, 1)
-layout_mode = 0
-offset_left = -53.0
-offset_top = 54.999996
-offset_right = 187.0
-offset_bottom = 295.0
-scale = Vector2(0.3600012, 0.3600012)
-texture = ExtResource("4_kxuod")
-
-[node name="TextureRect3" type="TextureRect" parent="CanvasLayer/UI_Management/Instruction_Panel/Page4"]
-modulate = Color(0.26657522, 0.2665752, 0.2665752, 1)
-layout_mode = 0
-offset_left = 106.999985
-offset_top = 54.999996
-offset_right = 347.0
-offset_bottom = 295.0
-scale = Vector2(0.3600012, 0.3600012)
-texture = ExtResource("4_kxuod")
-
-[node name="TextureRect4" type="TextureRect" parent="CanvasLayer/UI_Management/Instruction_Panel/Page4"]
-modulate = Color(0.26657522, 0.2665752, 0.2665752, 1)
-layout_mode = 0
-offset_left = 266.99997
-offset_top = 54.999996
-offset_right = 507.0
-offset_bottom = 295.0
-scale = Vector2(0.3600012, 0.3600012)
-texture = ExtResource("4_kxuod")
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/UI_Management/Instruction_Panel/Page4"]
+position = Vector2(147, 128)
+scale = Vector2(0.37, 0.37)
+texture = ExtResource("32_7kf0j")
 
 [node name="Label" type="Label" parent="CanvasLayer/UI_Management/Instruction_Panel"]
 layout_mode = 1
@@ -1212,6 +1237,7 @@ theme_override_font_sizes/font_size = 35
 text = "||"
 
 [node name="Paused_Panel" type="Panel" parent="CanvasLayer/UI_Management"]
+visible = false
 layout_mode = 0
 offset_left = 267.0
 offset_top = 104.0
@@ -1231,28 +1257,30 @@ offset_right = 125.5
 offset_bottom = 134.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 20
+theme_override_constants/separation = 10
 
 [node name="Resume" type="Button" parent="CanvasLayer/UI_Management/Paused_Panel/VBoxContainer"]
-custom_minimum_size = Vector2(250, 75)
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
 text = "RESUME"
 
+[node name="Restart" type="Button" parent="CanvasLayer/UI_Management/Paused_Panel/VBoxContainer"]
+visible = false
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "RESTART"
+
 [node name="MainMenu" type="Button" parent="CanvasLayer/UI_Management/Paused_Panel/VBoxContainer"]
-custom_minimum_size = Vector2(250, 75)
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
 text = "MAIN MENU"
 
 [node name="Setting" type="Button" parent="CanvasLayer/UI_Management/Paused_Panel/VBoxContainer"]
-custom_minimum_size = Vector2(250, 75)
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
 text = "SETTINGS"
 
 [node name="Quit" type="Button" parent="CanvasLayer/UI_Management/Paused_Panel/VBoxContainer"]
-custom_minimum_size = Vector2(250, 75)
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
 text = "QUIT"
@@ -1271,6 +1299,7 @@ text = "PAUSED"
 horizontal_alignment = 1
 
 [node name="Panel_Settings" type="Panel" parent="CanvasLayer/UI_Management/Paused_Panel"]
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -1393,6 +1422,43 @@ position = Vector2(542.00006, 258)
 [node name="Area2D6" parent="Tower_Placement" instance=ExtResource("23_wosyn")]
 position = Vector2(942, 554.00006)
 
+[node name="Trap_Placement" type="Node2D" parent="."]
+
+[node name="Area2D" parent="Trap_Placement" instance=ExtResource("35_crx51")]
+modulate = Color(1, 1, 1, 0)
+position = Vector2(718, 205.99998)
+scale = Vector2(56, 2.88)
+
+[node name="Area2D2" parent="Trap_Placement" instance=ExtResource("35_crx51")]
+modulate = Color(1, 1, 1, 0)
+position = Vector2(576.00006, 499)
+scale = Vector2(47, 2.88)
+
+[node name="Area2D3" parent="Trap_Placement" instance=ExtResource("35_crx51")]
+modulate = Color(1, 1, 1, 0)
+position = Vector2(100, 148)
+scale = Vector2(12, 2.88)
+
+[node name="Area2D4" parent="Trap_Placement" instance=ExtResource("35_crx51")]
+modulate = Color(1, 1, 1, 0)
+position = Vector2(397, 322)
+scale = Vector2(23.5, 2.88)
+
+[node name="Area2D5" parent="Trap_Placement" instance=ExtResource("35_crx51")]
+modulate = Color(1, 1, 1, 0)
+position = Vector2(779, 382)
+scale = Vector2(20.5, 2.88)
+
+[node name="Area2D6" parent="Trap_Placement" instance=ExtResource("35_crx51")]
+modulate = Color(1, 1, 1, 0)
+position = Vector2(956, 293)
+scale = Vector2(3, 6)
+
+[node name="Area2D7" parent="Trap_Placement" instance=ExtResource("35_crx51")]
+modulate = Color(1, 1, 1, 0)
+position = Vector2(192.00006, 411)
+scale = Vector2(3, 6)
+
 [node name="TowerArea" type="Node2D" parent="."]
 position = Vector2(-1, 3)
 
@@ -1412,8 +1478,11 @@ enemy_Grease_Rat_scene = ExtResource("12_hrl0l")
 enemy_Squirrel_Fire_scene = ExtResource("13_tuai4")
 enemy_Monkey_scene = ExtResource("14_ob58h")
 enemy_Mini_Boss_scene = ExtResource("29_lcaa3")
+enemy_Chef_Baslik_scene = ExtResource("39_wren1")
 
 [node name="Towers" type="Node2D" parent="."]
+
+[node name="Traps" type="Node2D" parent="."]
 
 [connection signal="pressed" from="CanvasLayer/UI_Management/TextureButton" to="." method="_on_upgrade_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/UI_Management/Percepat" to="." method="_on_speed_button_pressed"]
@@ -1429,8 +1498,9 @@ enemy_Mini_Boss_scene = ExtResource("29_lcaa3")
 [connection signal="pressed" from="CanvasLayer/UI_Management/Victory_Panel/Continue" to="." method="_on_continue_pressed"]
 [connection signal="pressed" from="CanvasLayer/UI_Management/Pause" to="." method="_on_pause_pressed"]
 [connection signal="pressed" from="CanvasLayer/UI_Management/Paused_Panel/VBoxContainer/Resume" to="." method="_on_resume_pressed"]
+[connection signal="pressed" from="CanvasLayer/UI_Management/Paused_Panel/VBoxContainer/Restart" to="." method="_on_pause_restart_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/UI_Management/Paused_Panel/VBoxContainer/MainMenu" to="." method="_on_main_menu_pressed"]
-[connection signal="pressed" from="CanvasLayer/UI_Management/Paused_Panel/VBoxContainer/Setting" to="." method="_on_main_menu_pressed"]
+[connection signal="pressed" from="CanvasLayer/UI_Management/Paused_Panel/VBoxContainer/Setting" to="." method="_on_setting_pressed"]
 [connection signal="pressed" from="CanvasLayer/UI_Management/Paused_Panel/VBoxContainer/Quit" to="." method="_on_quit_pressed"]
 [connection signal="pressed" from="CanvasLayer/UI_Management/Paused_Panel/Panel_Settings/Close_Settings" to="." method="_on_close_settings_pressed"]
 [connection signal="value_changed" from="CanvasLayer/UI_Management/Paused_Panel/Panel_Settings/VBoxContainer/ColorRect/HSlider" to="." method="_on_slider_music_value_changed"]

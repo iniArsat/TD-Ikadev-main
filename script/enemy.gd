@@ -45,6 +45,20 @@ var miss_count: int = 0
 @export var is_blinded := false
 var blind_timer := 0.0
 
+@export var is_boss := false
+@export var bullet_clear_radius := 0.0  # 0 = tidak punya skill
+@export var skill_cooldown := 15.0
+@export var skill_duration := 1000.0
+
+var skill_timer := 0.0
+var is_skill_active := false
+var skill_visual_color: Color = Color(1.0, 0.0, 1.0, 0.3)  # Magenta transparan
+var skill_border_color: Color = Color(1.0, 0.5, 1.0, 0.7)
+
+var is_burning := false
+var burn_timer: Timer = null
+var is_stunned := false
+var stun_timer: Timer = null
 
 func _ready():
 	call_deferred("apply_csv_values")
@@ -79,7 +93,18 @@ func _process(delta: float) -> void:
 		blind_timer -= delta
 		if blind_timer <= 0:
 			remove_blind()
-			
+	if is_boss and bullet_clear_radius > 0:
+		if skill_timer > 0:
+			skill_timer -= delta
+			if skill_timer <= 0 and not is_skill_active:
+				_activate_skill()
+		# Update skill active duration
+		if is_skill_active:
+			skill_duration -= delta
+			if skill_duration <= 0:
+				_deactivate_skill()
+	if is_skill_active and is_boss and bullet_clear_radius > 0:
+		_destroy_bullets_in_range()
 	if not reached_end and not is_frozen:
 		get_parent().set_progress(get_parent().get_progress() + speed * delta)
 		health_bar.rotation = 0
@@ -107,13 +132,82 @@ func _process(delta: float) -> void:
 			tower_attack_timer = tower_attack_cooldown
 	
 	_update_status_display()
+	queue_redraw()
 
+func _destroy_bullets_in_range():
+	var bullets = get_tree().get_nodes_in_group("bullet")
+	
+	for bullet in bullets:
+		if is_instance_valid(bullet):
+			var distance = global_position.distance_to(bullet.global_position)
+			if distance <= bullet_clear_radius:
+				print("💥 Bullet dihancurkan oleh skill")
+				bullet.queue_free()
+				
+func _draw():
+	# NEW: Draw skill circle jika skill aktif
+	if is_skill_active and is_boss and bullet_clear_radius > 0:
+		# Draw filled circle untuk area skill
+		draw_circle(Vector2.ZERO, bullet_clear_radius, skill_visual_color)
+		
+		# Draw border
+		draw_arc(Vector2.ZERO, bullet_clear_radius, 0, TAU, 32, skill_border_color, 3.0)
+		
+		# Draw pulsating effect
+		var pulse = abs(sin(Time.get_ticks_msec() * 0.005)) * 0.2 + 0.8
+		var pulse_color = Color(skill_border_color.r, skill_border_color.g, skill_border_color.b, pulse)
+		draw_arc(Vector2.ZERO, bullet_clear_radius + 5, 0, TAU, 32, pulse_color, 1.0)
+
+func _activate_skill():
+	print("🔥 BOSS menggunakan skill: BULLET CLEAR!")
+	is_skill_active = true
+	
+	# Hapus semua bullet dalam radius
+	_clear_bullets_in_area()
+	
+	# Tampilkan status skill
+	_show_status("BULLET CLEAR!", Color.MAGENTA)
+	
+	# Set timer untuk deaktifasi
+	skill_duration = 4.0  # Reset duration
+
+# NEW: Fungsi untuk deaktivasi skill
+func _deactivate_skill():
+	print("✅ Skill BOSS berakhir")
+	is_skill_active = false
+	
+	# Mulai cooldown skill
+	skill_timer = skill_cooldown
+	
+	# Sembunyikan status
+	if not is_frozen and not is_slowed and not is_blinded:
+		_hide_status()
+
+# NEW: Fungsi untuk menghapus bullet dalam area
+func _clear_bullets_in_area():
+	# Cari semua bullet dalam scene
+	var bullets = get_tree().get_nodes_in_group("bullet")
+	var bullets_cleared = 0
+	
+	for bullet in bullets:
+		if is_instance_valid(bullet):
+			# Cek jika bullet dalam radius skill
+			var distance = global_position.distance_to(bullet.global_position)
+			if distance <= bullet_clear_radius:
+				# Hapus bullet
+				bullet.queue_free()
+				bullets_cleared += 1
+	
+	print("💥 BOSS menghapus " + str(bullets_cleared) + " bullet")
+	
 func apply_blind(duration: float):
 	is_blinded = true
 	blind_timer = duration
 	current_target_tower = null  # Hentikan serangan ke tower
 	towers_in_range.clear()      # Hapus target tower
 	_show_status("BLIND", Color.PURPLE)
+	if is_skill_active:
+		_deactivate_skill()
 
 func remove_blind():
 	is_blinded = false
@@ -144,7 +238,7 @@ func reset_miss():
 		status_miss_label.text = "MISS: 0"
 		
 func _find_tower_targets():
-	if is_blinded:  # Jangan cari target jika blinded
+	if is_blinded or is_skill_active:  # Jangan cari target jika blinded
 		towers_in_range.clear()
 		current_target_tower = null
 		return
@@ -175,7 +269,7 @@ func _find_tower_targets():
 		current_target_tower = null
 
 func _attack_tower():
-	if is_blinded:  # Jangan serang jika blinded
+	if is_blinded or is_skill_active:  # Jangan serang jika blinded
 		return
 	if not current_target_tower or not enemy_bullet_scene:
 		return
@@ -209,12 +303,19 @@ func take_damage(amount: int) -> void:
 	health_bar.visible = true
 	hide_timer = hide_delay
 	
+	if is_boss and bullet_clear_radius > 0 and not is_skill_active and skill_timer <= 0:
+		var health_percentage = (current_health / health) * 100
+		if health_percentage <= 75:  # Aktifkan skill saat HP <= 75%
+			skill_timer = 0.1
+			
 	if current_health <= 0:
 		die()
 
 func apply_freeze(duration: float):
 	if is_frozen:
 		freeze_timer = duration
+	if is_skill_active:
+			_deactivate_skill()
 	else:
 		is_frozen = true
 		freeze_timer = duration
@@ -250,7 +351,68 @@ func remove_slow():
 	speed = original_speed
 	if not is_frozen:
 		_hide_status()
+		
+func apply_burn(duration: float):
+	if is_burning:
+		return
+	
+	print("🔥 Enemy terkena BURN!")
+	is_burning = true
+	_show_status("BURN", Color.ORANGE)
+	
+	# Damage over time: 5 damage per detik
+	var damage_per_second = 5.0
+	var tick_interval = 0.5
+	var ticks = duration / tick_interval
+	var damage_per_tick = damage_per_second * tick_interval
+	
+	var burn_timer = Timer.new()
+	burn_timer.wait_time = tick_interval
+	burn_timer.one_shot = false
+	add_child(burn_timer)
+	
+	burn_timer.timeout.connect(func():
+		if is_instance_valid(self):
+			take_damage(int(damage_per_tick))
+			print("🔥 Burn tick: ", int(damage_per_tick))
+	)
+	
+	burn_timer.start()
+	
+	await get_tree().create_timer(duration).timeout
+	burn_timer.stop()
+	burn_timer.queue_free()
+	is_burning = false
+	
+	if not is_frozen and not is_slowed and not is_blinded:
+		_hide_status()
 
+# Fungsi untuk efek stun
+func apply_stun(duration: float):
+	if is_frozen or is_blinded or is_stunned:
+		return
+	
+	print("😵 Enemy terkena STUN!")
+	is_stunned = true
+	var original_speed_temp = speed
+	speed = 0
+	_show_status("STUN", Color.PURPLE)
+	
+	var stun_timer = Timer.new()
+	stun_timer.wait_time = duration
+	stun_timer.one_shot = true
+	add_child(stun_timer)
+	
+	stun_timer.timeout.connect(func():
+		if is_instance_valid(self):
+			is_stunned = false
+			if not is_frozen and not is_blinded:
+				speed = original_speed_temp
+				_hide_status()
+	)
+	
+	stun_timer.start()
+	
 func _show_status(text: String, color: Color):
 	if status_label:
 		status_label.text = text
@@ -278,6 +440,10 @@ func _update_status_display():
 		var slow_percent = int((1.0 - slow_multiplier) * 100)
 		status_label.text = "SLOW " + str(slow_percent) + "%"
 		status_label.modulate = Color.YELLOW
+		status_label.visible = true
+	elif is_skill_active:  # TAMBAH STATUS SKILL
+		status_label.text = "BULLET CLEAR!"
+		status_label.modulate = Color.MAGENTA
 		status_label.visible = true
 	else:
 		status_label.visible = false

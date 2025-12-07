@@ -30,8 +30,7 @@ extends Node
 @onready var tutorial_input_blocker: Panel = $CanvasLayer/UI_Management/Tutorial_Input_Bloker
 
 @onready var panel_settings: Panel = $CanvasLayer/UI_Management/Paused_Panel/Panel_Settings
-@onready var slider_music: HSlider = $Panel_Settings/VBoxContainer/ColorRect2/HSlider
-
+@onready var slider_music: HSlider = $CanvasLayer/UI_Management/Paused_Panel/Panel_Settings/VBoxContainer/ColorRect/HSlider
 
 var tutorial_wave_completed := false
 var first_wave_finished := false
@@ -54,6 +53,18 @@ var game_started = false
 @onready var star_3_blank: Sprite2D = $CanvasLayer/UI_Management/Victory_Panel/star_3_blank
 @onready var star_3_fill: Sprite2D = $CanvasLayer/UI_Management/Victory_Panel/star_3_fill
 
+@onready var current_damage_label: Label = $CanvasLayer/UI_Management/Ui_Upgrade/Before_Container/DMG_Before
+@onready var current_range_label: Label = $CanvasLayer/UI_Management/Ui_Upgrade/Before_Container/RNG_Before
+@onready var current_cooldown_label: Label = $CanvasLayer/UI_Management/Ui_Upgrade/Before_Container/CD_Before
+@onready var next_damage_label: Label = $CanvasLayer/UI_Management/Ui_Upgrade/After_Container/DMG_After
+@onready var next_range_label: Label = $CanvasLayer/UI_Management/Ui_Upgrade/After_Container/RNG_After
+@onready var next_cooldown_label: Label = $CanvasLayer/UI_Management/Ui_Upgrade/After_Container/CD_After
+@onready var tower_sprite_display: Sprite2D = $CanvasLayer/UI_Management/Ui_Upgrade/tower_sprite
+
+@export var chilli_bomb_panel_scene: PackedScene
+
+@onready var trap_container: HBoxContainer = $CanvasLayer/UI_Management/Panel/HBoxContainer
+@onready var chilli_bomb_panel_instance = null
 
 var tutorial_step := 0  # 0: belum mulai, 1: start wave, 2: drag tower, 3: upgrade, 4: selesai
 var tutorial_completed_steps := {
@@ -63,6 +74,34 @@ var tutorial_completed_steps := {
 }
 
 var current_tower = null
+
+var tower_textures = {
+	"Stove_Cannon": {
+		"level1": preload("res://asset/Stove_Cannon.png"),
+		"level2": preload("res://asset/Stove_Cannon_lv2.png"),
+		"level3": preload("res://asset/Stove_Cannon_lv3.png")
+	},
+	"Chilli_Launcher": {
+		"level1": preload("res://asset/Chilli_Launcher.png"),
+		"level2": preload("res://asset/towerDefense_lvl2.png"),
+		"level3": preload("res://asset/towerDefense_lvl3.png")
+	},
+	"Ice_Chiller": {
+		"level1": preload("res://asset/Ice_Chiller.png"),
+		"level2": preload("res://asset/Ice_Chiller_lv2.png"),
+		"level3": preload("res://asset/Ice_Chiller_lv3.png")
+	},
+	"Garlic_Barrier": {
+		"level1": preload("res://asset/Garlic_Barrier.png"),
+		"level2": preload("res://asset/Garlic_Barrier_lv2.png"),
+		"level3": preload("res://asset/Garlic_Barrier_lv3.png")
+	},
+	"Pepper_Grinder": {
+		"level1": preload("res://asset/Pepper_Grinder.png"),
+		"level2": preload("res://asset/Pepper_Grinder_lv2.png"),
+		"level3": preload("res://asset/Pepper_Grinder_lv3.png")
+	}
+}
 
 func _ready() -> void:
 	GameSpeedManager.set_game_speed(0.0)
@@ -81,8 +120,8 @@ func _ready() -> void:
 		
 	if slider_music:
 		slider_music.value = MusicPlayer.volume
-		slider_music.value_changed.connect(_on_slider_music_value_changed)
-	
+		MusicPlayer.connect("volume_changed", Callable(self, "_on_music_volume_changed"))
+		
 	instruction_panel.instruction_completed.connect(_on_instruction_completed)
 	instruction_panel.skip_instructions.connect(_on_skip_instructions)
 	
@@ -96,6 +135,7 @@ func _ready() -> void:
 	_on_health_changed(GameManager.health_player)
 	GameManager.invalid_drop_areas = get_tree().get_nodes_in_group("invalid_drop_area")
 	GameManager.valid_drop_areas = get_tree().get_nodes_in_group("valid_drop_area")
+	GameManager.valid_trap_areas = get_tree().get_nodes_in_group("valid_trap_area")
 	GameManager.base_damaged.connect(flash_base_simple)
 	
 	GameSpeedManager.game_speed_changed.connect(_on_game_speed_changed)
@@ -116,6 +156,7 @@ func _ready() -> void:
 	wave_manager.all_enemies_defeated.connect(_start_next_wave_countdown)
 	
 	_check_purchased_towers()
+	_load_chilli_bombs()
 
 func _process(delta: float) -> void:
 	if is_countdown_active:
@@ -127,6 +168,50 @@ func _process(delta: float) -> void:
 		#elif tutorial_step == 3 and not tutorial_completed_steps["upgrade_tower"]:
 			#pass
 
+func _load_chilli_bombs():
+	var bomb_count = SaveManager.get_consumable_amount("chilli_bomb")
+	
+	if bomb_count > 0:
+		_add_chilli_bomb_to_ui()
+
+func _add_chilli_bomb_to_ui():
+	if chilli_bomb_panel_scene:
+		# Hapus yang lama jika ada
+		if chilli_bomb_panel_instance:
+			chilli_bomb_panel_instance.queue_free()
+		
+		# Buat instance baru
+		chilli_bomb_panel_instance = chilli_bomb_panel_scene.instantiate()
+		
+		# Tambahkan ke container
+		trap_container.add_child(chilli_bomb_panel_instance)
+		print("✅ Chilli Bomb added to UI")
+
+func use_chilli_bomb():
+	if SaveManager.use_consumable("chilli_bomb", 1):
+		SaveManager.save_game()
+		print("💣 Chilli Bomb used!")
+		
+		# Update UI
+		_update_chilli_bomb_count()
+		
+		# Jika bomb habis, hapus dari UI
+		if SaveManager.get_consumable_amount("chilli_bomb") == 0:
+			_remove_chilli_bomb_from_ui()
+		
+		return true
+	return false
+
+func _update_chilli_bomb_count():
+	if chilli_bomb_panel_instance:
+		var count = SaveManager.get_consumable_amount("chilli_bomb")
+		chilli_bomb_panel_instance.update_count(count)
+
+func _remove_chilli_bomb_from_ui():
+	if chilli_bomb_panel_instance:
+		chilli_bomb_panel_instance.queue_free()
+		chilli_bomb_panel_instance = null
+		
 func _check_purchased_towers():
 	var locked_panels = {
 		"Ice_Chiller": get_node_or_null("CanvasLayer/locked_Ice"),
@@ -330,10 +415,16 @@ func _on_wave_completed(wave_number: int):
 		if wave_number == 1 and not first_wave_finished:
 			first_wave_finished = true
 			print("🎉 Wave 1 selesai! Buka tutorial upgrade...")
-			
+			if GameManager.placed_towers.size() > 0:
+				var first_tower = GameManager.placed_towers[0]
+				if is_instance_valid(first_tower):
+					# Tampilkan tutorial upgrade di atas tower
+					if tutorial_upgrade:
+						tutorial_upgrade.global_position = first_tower.global_position + Vector2(0, -80)
+						tutorial_upgrade.visible = true
 			# Jika masih di tutorial step 2, lanjut ke step 3
-			if tutorial_step == 2:
-				_start_tutorial_step(3)
+				if tutorial_step == 2:
+					_start_tutorial_step(3)
 				
 func check_tower_placed():
 	if GameManager.current_level == 1 and tutorial_step == 2:
@@ -537,6 +628,7 @@ func _reset_game():
 	wave_manager.reset_wave_manager()
 	gameover_panel.visible = false
 	victory_panel.visible = false
+	pause_panel.visible = false
 	
 	if base_sprite:
 		base_sprite.modulate = Color.WHITE
@@ -569,6 +661,11 @@ func _reset_game():
 func _on_restart_button_pressed():
 	_reset_game()
 
+func _on_pause_restart_button_pressed():
+	print("🔄 Restart dari panel pause")
+	_on_pause_pressed()  # Tutup panel pause dulu
+	_reset_game()
+	
 func _on_continue_pressed() -> void:
 	GameManager.reset_game()
 	GameSpeedManager.set_game_speed(1.0)
@@ -650,8 +747,10 @@ func show_stars(stars_count: int):
 			star_3_blank.visible = true
 
 func show_tower_info(tower_reference):
+	GameSpeedManager.set_game_speed(0.0)
 	current_tower = tower_reference
 	ui_upgrade.visible = true
+	_update_tower_sprite_display()
 	update_tower_display()
 	if GameManager.current_level == 1 and tutorial_step == 3:
 		check_tower_clicked()
@@ -669,10 +768,13 @@ func update_tower_display():
 				if upgrade_button:
 					upgrade_button.disabled = true
 					upgrade_button.text = "MAX LEVEL"
+					_show_max_level_stats()
 			else:
 				upgrade_cost_label.text = "Upgrade: " + str(upgrade_cost) + " coins"
 				if upgrade_button:
 					upgrade_button.disabled = false
+					_show_next_upgrade_stats()
+					_update_upgrade_stats_display()
 		if sell_price_label:
 			var sell_price = calculate_sell_price(current_tower)
 			sell_price_label.text = "Sell: " + str(sell_price) + " coins"
@@ -680,7 +782,157 @@ func update_tower_display():
 		# Enable sell button
 		if sell_button:
 			sell_button.disabled = false
+		_update_current_stats_display()
 
+func _update_tower_sprite_display():
+	if current_tower and tower_sprite_display:
+		var tower_type = current_tower.tower_type
+		var tower_level = current_tower.upgrade_level
+		
+		# Dapatkan texture berdasarkan type dan level
+		var texture_key = _get_texture_key_for_level(tower_level)
+		
+		if tower_textures.has(tower_type) and tower_textures[tower_type].has(texture_key):
+			tower_sprite_display.texture = tower_textures[tower_type][texture_key]
+			tower_sprite_display.visible = true
+			print("🖼️ Menampilkan sprite: " + tower_type + " level " + str(tower_level))
+		else:
+			# Fallback: coba ambil dari tower itu sendiri
+			if current_tower.has_node("Head"):
+				var head_sprite = current_tower.get_node("Head") as Sprite2D
+				if head_sprite and head_sprite.texture:
+					tower_sprite_display.texture = head_sprite.texture
+					tower_sprite_display.visible = true
+			else:
+				tower_sprite_display.visible = false
+
+func _get_texture_key_for_level(level: int) -> String:
+	match level:
+		1: return "level1"
+		2: return "level2"
+		3: return "level3"
+		_: return "level1"
+		
+func _show_max_level_stats():
+	if next_damage_label:
+		next_damage_label.text = "MAX"
+		next_damage_label.visible = true
+	if next_range_label:
+		next_range_label.text = "MAX"
+		next_range_label.visible = true
+	if next_cooldown_label:
+		next_cooldown_label.text = "MAX"
+		next_cooldown_label.visible = true
+		
+func _update_current_stats_display():
+	if current_tower:
+		# Format: "Damage: 10" atau "Damage: 10 → 15"
+		current_damage_label.text = str(snapped(current_tower.bullet_damage, 0.1))
+		current_range_label.text = str(snapped(current_tower.range_radius, 0.1))
+		current_cooldown_label.text = str(snapped(current_tower.cooldown, 0.1))
+
+# Fungsi baru untuk update stats setelah upgrade
+func _update_upgrade_stats_display():
+	if current_tower:
+		var current_level = current_tower.upgrade_level
+		
+		if current_level == 1:
+			# Hitung stats untuk level 2
+			var next_damage = _calculate_next_damage(current_tower, 2)
+			var next_range = _calculate_next_range(current_tower, 2)
+			var next_cooldown = _calculate_next_cooldown(current_tower, 2)
+			
+			next_damage_label.text = str(snapped(next_damage, 0.1))
+			next_range_label.text = str(snapped(next_range, 0.1))
+			next_cooldown_label.text = str(snapped(next_cooldown, 0.1))
+			
+		elif current_level == 2:
+			# Hitung stats untuk level 3
+			var next_damage = _calculate_next_damage(current_tower, 3)
+			var next_range = _calculate_next_range(current_tower, 3)
+			var next_cooldown = _calculate_next_cooldown(current_tower, 3)
+			
+			next_damage_label.text = str(snapped(next_damage, 0.1))
+			next_range_label.text = str(snapped(next_range, 0.1))
+			next_cooldown_label.text = str(snapped(next_cooldown, 0.1))
+		else:
+			# Max level
+			next_damage_label.text = "MAX"
+			next_range_label.text = "MAX"
+			next_cooldown_label.text = "MAX"
+
+func _calculate_next_damage(tower, next_level: int) -> float:
+	var damage = tower.bullet_damage
+	
+	match next_level:
+		2:
+			match tower.tower_type:
+				"Stove_Cannon":
+					return damage + 1.0
+				"Chilli_Launcher":
+					return damage * 1.8
+				"Ice_Chiller":
+					return damage * 1.3
+				"Pepper_Grinder":
+					return damage * 1.3
+				_:
+					return damage * 1.2
+		3:
+			match tower.tower_type:
+				"Stove_Cannon":
+					return damage * 1.5
+				"Chilli_Launcher":
+					return damage * 1.8
+				"Ice_Chiller":
+					return damage * 1.3
+				"Pepper_Grinder":
+					return damage * 1.3
+				_:
+					return damage * 1.5
+	return damage
+
+func _calculate_next_range(tower, next_level: int) -> float:
+	var range_val = tower.range_radius
+	
+	match next_level:
+		2, 3:
+			return range_val * 1.2
+	return range_val
+
+func _calculate_next_cooldown(tower, next_level: int) -> float:
+	var cooldown_val = tower.cooldown
+	
+	match next_level:
+		2:
+			match tower.tower_type:
+				"Stove_Cannon":
+					return cooldown_val * 0.9
+				"Ice_Chiller":
+					return cooldown_val * 0.7
+				"Pepper_Grinder":
+					return cooldown_val * 0.7
+				_:
+					return cooldown_val * 0.9
+		3:
+			match tower.tower_type:
+				"Stove_Cannon":
+					return cooldown_val * 0.9
+				"Ice_Chiller":
+					return cooldown_val * 0.7
+				"Pepper_Grinder":
+					return cooldown_val * 0.7
+				_:
+					return cooldown_val * 0.9
+	return cooldown_val
+
+func _show_next_upgrade_stats():
+	if next_damage_label:
+		next_damage_label.visible = true
+	if next_range_label:
+		next_range_label.visible = true
+	if next_cooldown_label:
+		next_cooldown_label.visible = true
+		
 func _on_upgrade_button_pressed():
 	if current_tower:
 		var upgrade_cost = current_tower.get_upgrade_cost()
@@ -691,6 +943,7 @@ func _on_upgrade_button_pressed():
 			
 			current_tower.upgrade_tower()
 			update_tower_display()
+			_update_tower_sprite_display()
 			
 			print("Tower upgraded! Current level: ", current_tower.upgrade_level)
 		else:
@@ -713,6 +966,7 @@ func calculate_sell_price(tower) -> int:
 
 # Tambahkan fungsi untuk handle sell button
 func _on_sell_button_pressed():
+	GameSpeedManager.set_game_speed(1.0)
 	if not current_tower:
 		return
 	
@@ -749,6 +1003,7 @@ func format_tower_name(tower_type: String) -> String:
 			return tower_type.replace("_", " ")
 
 func _on_close_upgrade_panel_pressed():
+	GameSpeedManager.set_game_speed(1.0)
 	ui_upgrade.visible = false
 	current_tower = null
 	

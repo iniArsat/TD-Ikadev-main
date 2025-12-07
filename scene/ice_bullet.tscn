@@ -6,7 +6,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2b2rl"]
 size = Vector2(29, 9)
 
-[node name="IceBullet" type="Area2D"]
+[node name="IceBullet" type="Area2D" groups=["bullet"]]
 script = ExtResource("1_7xboy")
 freeze_duration = 2.0
 

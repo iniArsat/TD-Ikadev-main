@@ -2,7 +2,7 @@ extends Area2D
 
 @export var speed = 0.0
 @export var damage = 0.0
-@export var rotation_speed = 5.0  # semakin tinggi, semakin cepat belok
+@export var rotation_speed = 3.0  # semakin tinggi, semakin cepat belok
 var target: Node2D = null
 @export var freeze_duration = 0.0
 @export var blind_duration = 0.0

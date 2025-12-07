@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://b4lomwvqhr4e0" path="res://asset/coin_cost.png" id="8_6aia2"]
 
 [node name="TowerPanel" type="Panel" groups=["tower_panel"]]
+custom_minimum_size = Vector2(78, 74)
 offset_right = 78.0
 offset_bottom = 74.0
 script = ExtResource("1_1i1gy")

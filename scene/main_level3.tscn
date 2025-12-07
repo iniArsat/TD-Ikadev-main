@@ -1,12 +1,14 @@
-[gd_scene load_steps=8 format=3 uid="uid://bixvp60vsrqbj"]
+[gd_scene load_steps=10 format=3 uid="uid://bixvp60vsrqbj"]
 
 [ext_resource type="PackedScene" uid="uid://cdgqu8jrfmpij" path="res://scene/Main.tscn" id="1_rwjn0"]
 [ext_resource type="PackedScene" uid="uid://6dybxlhnhkt7" path="res://scene/path_lvl3.tscn" id="2_xs3d8"]
 [ext_resource type="PackedScene" uid="uid://c8esaqdnsn7cm" path="res://scene/path_lvl3_1.tscn" id="3_dqdfe"]
-[ext_resource type="Texture2D" uid="uid://7krk64a15ku2" path="res://asset/Locked.png" id="4_dqdfe"]
 [ext_resource type="Texture2D" uid="uid://ctge8shchnikr" path="res://asset/level3_page2.png" id="4_v8ss7"]
 [ext_resource type="PackedScene" uid="uid://dvmwbo4glqd7x" path="res://scene/tower_placement.tscn" id="4_xs3d8"]
 [ext_resource type="Texture2D" uid="uid://ci24oq0gsqjal" path="res://asset/level3_page3.png" id="5_jhkwx"]
+[ext_resource type="Texture2D" uid="uid://bq2gtfjusa0g1" path="res://asset/instruction_lvl3_page4.png" id="6_2lpky"]
+[ext_resource type="Texture2D" uid="uid://bl2fo3otgncbd" path="res://asset/Locked_new.png" id="6_jhkwx"]
+[ext_resource type="PackedScene" uid="uid://dhto2f4pbehk5" path="res://scene/trap_placement.tscn" id="8_jhkwx"]
 
 [node name="Main" instance=ExtResource("1_rwjn0")]
 
@@ -19,20 +21,14 @@ path_scene = ExtResource("2_xs3d8")
 [node name="PathSpawner2" parent="." index="4"]
 path_scene = ExtResource("3_dqdfe")
 
-[node name="TowerPanel4" parent="CanvasLayer/UI_Management/Panel" index="3"]
-visible = true
-offset_left = 360.0
-offset_right = 438.0
+[node name="wave_lbl" parent="CanvasLayer/UI_Management" index="6"]
+text = "1/6"
 
-[node name="TowerPanel5" parent="CanvasLayer/UI_Management/Panel" index="4"]
+[node name="TowerPanel4" parent="CanvasLayer/UI_Management/Panel/HBoxContainer" index="2"]
 visible = true
-offset_left = 512.0
-offset_top = 14.0
-offset_right = 590.0
-offset_bottom = 88.0
 
-[node name="Instruction_Panel" parent="CanvasLayer/UI_Management" index="15"]
-visible = false
+[node name="TowerPanel5" parent="CanvasLayer/UI_Management/Panel/HBoxContainer" index="3"]
+visible = true
 
 [node name="Label" parent="CanvasLayer/UI_Management/Instruction_Panel/Page1" index="0"]
 offset_top = -7.0
@@ -82,9 +78,6 @@ text = "new tower lv 3
 unlock!"
 horizontal_alignment = 1
 
-[node name="Page3" parent="CanvasLayer/UI_Management/Instruction_Panel" index="3"]
-visible = false
-
 [node name="Sprite2D" parent="CanvasLayer/UI_Management/Instruction_Panel/Page3" index="0"]
 position = Vector2(152, 188)
 texture = ExtResource("5_jhkwx")
@@ -95,36 +88,51 @@ text = "LEVEL 3"
 [node name="Label2" parent="CanvasLayer/UI_Management/Instruction_Panel/Page4" index="0"]
 text = "LEVEL 3"
 
+[node name="Label3" parent="CanvasLayer/UI_Management/Instruction_Panel/Page4" index="1"]
+text = "Upgrade Tower"
+
+[node name="Label4" parent="CanvasLayer/UI_Management/Instruction_Panel/Page4" index="2"]
+text = "Use new unlocked tower"
+
+[node name="Label5" parent="CanvasLayer/UI_Management/Instruction_Panel/Page4" index="3"]
+offset_left = 140.0
+offset_top = 202.0
+offset_right = 270.0
+offset_bottom = 237.0
+text = "Protect the base HP"
+
+[node name="Sprite2D" parent="CanvasLayer/UI_Management/Instruction_Panel/Page4" index="4"]
+position = Vector2(159, 128)
+texture = ExtResource("6_2lpky")
+
 [node name="locked_Pepper" type="Panel" parent="CanvasLayer" index="1"]
-visible = false
 self_modulate = Color(1, 1, 1, 0)
-offset_left = 508.0
-offset_top = 592.0
-offset_right = 548.0
-offset_bottom = 632.0
-scale = Vector2(2.7, 2.7)
+offset_left = 469.0
+offset_top = 573.00006
+offset_right = 509.0
+offset_bottom = 613.00006
+scale = Vector2(3.3, 3.3)
 
 [node name="TextureRect" type="TextureRect" parent="CanvasLayer/locked_Pepper" index="0"]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
-texture = ExtResource("4_dqdfe")
+texture = ExtResource("6_jhkwx")
 expand_mode = 1
 
 [node name="locked_Garlic" type="Panel" parent="CanvasLayer" index="2"]
-visible = false
 self_modulate = Color(1, 1, 1, 0)
-offset_left = 354.0
-offset_top = 594.0
-offset_right = 394.0
-offset_bottom = 634.0
-scale = Vector2(2.7, 2.7)
+offset_left = 312.0
+offset_top = 575.0
+offset_right = 352.0
+offset_bottom = 615.0
+scale = Vector2(3.3, 3.3)
 
 [node name="TextureRect" type="TextureRect" parent="CanvasLayer/locked_Garlic" index="0"]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
-texture = ExtResource("4_dqdfe")
+texture = ExtResource("6_jhkwx")
 expand_mode = 1
 
 [node name="Area2D" parent="Tower_Placement" index="0"]
@@ -145,8 +153,50 @@ position = Vector2(1098, 317)
 [node name="Area2D7" parent="Tower_Placement" index="6" instance=ExtResource("4_xs3d8")]
 position = Vector2(484.00003, 269.0001)
 
+[node name="Area2D" parent="Trap_Placement" index="0"]
+position = Vector2(911, 263)
+scale = Vector2(40, 2.88)
+
+[node name="Area2D2" parent="Trap_Placement" index="1"]
+position = Vector2(783, 499)
+scale = Vector2(27, 2.88)
+
+[node name="Area2D3" parent="Trap_Placement" index="2"]
+position = Vector2(43.000008, 146)
+scale = Vector2(6, 2.88)
+
+[node name="Area2D4" parent="Trap_Placement" index="3"]
+position = Vector2(218.00002, 264)
+scale = Vector2(18, 2.88)
+
+[node name="Area2D5" parent="Trap_Placement" index="4"]
+position = Vector2(1585, 382)
+
+[node name="Area2D6" parent="Trap_Placement" index="5"]
+position = Vector2(545, 381)
+scale = Vector2(3, 9)
+
+[node name="Area2D7" parent="Trap_Placement" index="6"]
+position = Vector2(74, 205)
+scale = Vector2(3, 3)
+
+[node name="Area2D8" parent="Trap_Placement" index="7" instance=ExtResource("8_jhkwx")]
+modulate = Color(1, 1, 1, 0)
+position = Vector2(367, 205)
+scale = Vector2(3, 3)
+
+[node name="Area2D9" parent="Trap_Placement" index="8" instance=ExtResource("8_jhkwx")]
+modulate = Color(1, 1, 1, 0)
+position = Vector2(544, 208)
+scale = Vector2(3, 3)
+
+[node name="Area2D10" parent="Trap_Placement" index="9" instance=ExtResource("8_jhkwx")]
+modulate = Color(1, 1, 1, 0)
+position = Vector2(455, 147)
+scale = Vector2(12, 3)
+
 [node name="CollisionPolygon2D" parent="TowerArea/DropArea2" index="0"]
 polygon = PackedVector2Array(975.0001, 128.57144, 976.78577, 225.00003, -289.28564, 221.42856, -283.9286, 541.0714, 555.357, 544.643, 555.357, 442.857, 980.357, 442.857, 978.571, 737.5, 555.357, 735.714, 555.357, 651.786, -396.42853, 641.0714, -396.42853, 14.285736, -603.5714, 12.5, -601.78564, 221.42856, -1235.7142, 221.42856, -1235.7142, 19.642853, -1337.5, 17.8571, -1339.29, -87.5, -1128.1062, -86.422516, -1132.1428, 117.85715, -710.71423, 121.42859, -708.9285, -91.07141, -289.28564, -82.14285, -287.49994, 123.214294)
 
-[node name="WaveManager" parent="." index="9"]
+[node name="WaveManager" parent="." index="10"]
 current_level = 3

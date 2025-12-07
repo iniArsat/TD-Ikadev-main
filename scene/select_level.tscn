@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://dfuhc7hw0sqwj"]
+[gd_scene load_steps=23 format=3 uid="uid://dfuhc7hw0sqwj"]
 
 [ext_resource type="Script" uid="uid://dxw7sb23wfc56" path="res://script/select_level.gd" id="1_62unk"]
 [ext_resource type="Texture2D" uid="uid://d154gfxyg3qxa" path="res://asset/stage.jpeg" id="1_hpupe"]
@@ -17,6 +17,7 @@
 [ext_resource type="Texture2D" uid="uid://cauarbonmyb8j" path="res://asset/Monkey.png" id="11_jsi6v"]
 [ext_resource type="Texture2D" uid="uid://basyrqvioq4uc" path="res://asset/Pepper_Grinder.png" id="11_tvcej"]
 [ext_resource type="Texture2D" uid="uid://cbkftt6ykesia" path="res://asset/Ice_Chiller.png" id="12_op24d"]
+[ext_resource type="Texture2D" uid="uid://dobyni0w3na88" path="res://asset/bomb.png" id="13_tvcej"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vf7qe"]
 bg_color = Color(0.211765, 0.211765, 0.211765, 1)
@@ -220,6 +221,26 @@ offset_bottom = 98.0
 grow_horizontal = 0
 theme_override_font_sizes/font_size = 25
 text = "Setting"
+
+[node name="lock_6" type="Sprite2D" parent="."]
+position = Vector2(704, 104.000015)
+scale = Vector2(0.55200005, 0.55200005)
+texture = ExtResource("5_q7x5q")
+
+[node name="lock_7" type="Sprite2D" parent="."]
+position = Vector2(856.00006, 110.00001)
+scale = Vector2(0.55200005, 0.55200005)
+texture = ExtResource("5_q7x5q")
+
+[node name="lock_8" type="Sprite2D" parent="."]
+position = Vector2(972.00006, 252)
+scale = Vector2(0.55200005, 0.55200005)
+texture = ExtResource("5_q7x5q")
+
+[node name="lock_9" type="Sprite2D" parent="."]
+position = Vector2(930.00006, 436)
+scale = Vector2(0.55200005, 0.55200005)
+texture = ExtResource("5_q7x5q")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 1
@@ -604,6 +625,52 @@ position = Vector2(53.7594, 52.631577)
 scale = Vector2(0.59, 0.59)
 texture = ExtResource("12_op24d")
 
+[node name="ColorRect6" type="ColorRect" parent="Panel_Upgrade/FlowContainer"]
+custom_minimum_size = Vector2(275, 150)
+layout_mode = 2
+color = Color(0.44291076, 0.44291076, 0.44291073, 1)
+
+[node name="ColorRect" type="ColorRect" parent="Panel_Upgrade/FlowContainer/ColorRect6"]
+custom_minimum_size = Vector2(75, 75)
+layout_mode = 0
+offset_left = 17.0
+offset_top = 14.0
+offset_right = 92.0
+offset_bottom = 89.0
+color = Color(0.23392546, 0.23392546, 0.23392543, 1)
+
+[node name="Label" type="Label" parent="Panel_Upgrade/FlowContainer/ColorRect6"]
+layout_mode = 0
+offset_left = 109.0
+offset_top = 17.0
+offset_right = 216.0
+offset_bottom = 40.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "ICE CHILLER"
+
+[node name="count" type="Label" parent="Panel_Upgrade/FlowContainer/ColorRect6"]
+layout_mode = 0
+offset_left = 226.24054
+offset_top = 16.917305
+offset_right = 333.24054
+offset_bottom = 39.917305
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "1"
+
+[node name="Label2" type="Label" parent="Panel_Upgrade/FlowContainer/ColorRect6"]
+layout_mode = 0
+offset_left = 107.89476
+offset_top = 43.60904
+offset_right = 214.89476
+offset_bottom = 66.60904
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "AREA SLOW - DEBUFF"
+
+[node name="Sprite2D" type="Sprite2D" parent="Panel_Upgrade/FlowContainer/ColorRect6"]
+position = Vector2(53.7594, 52.631577)
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("13_tvcej")
+
 [node name="Button_Garlic" type="Button" parent="Panel_Upgrade"]
 layout_mode = 0
 offset_left = 279.00003
@@ -651,8 +718,16 @@ offset_bottom = 464.0
 scale = Vector2(0.835, 0.835)
 text = "BUY ICE"
 
+[node name="Button_Chilli_Bomb" type="Button" parent="Panel_Upgrade"]
+layout_mode = 0
+offset_left = 559.0
+offset_top = 433.0
+offset_right = 669.11
+offset_bottom = 464.0
+scale = Vector2(0.835, 0.835)
+text = "BUY BOMB"
+
 [node name="Panel_Encyclopedia" type="Panel" parent="."]
-visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -678,7 +753,6 @@ scale = Vector2(0.67, 0.67)
 texture = ExtResource("3_vf7qe")
 
 [node name="Panel_Tower" type="Panel" parent="Panel_Encyclopedia"]
-visible = false
 layout_mode = 0
 offset_left = -139.0
 offset_top = -108.0
@@ -724,10 +798,9 @@ layout_mode = 2
 icon = ExtResource("7_uloro")
 
 [node name="Button3" type="Button" parent="Panel_Encyclopedia/Panel_Tower/FlowContainer"]
-modulate = Color(0, 0, 0, 1)
 custom_minimum_size = Vector2(120, 120)
 layout_mode = 2
-icon = ExtResource("8_55kyr")
+icon = ExtResource("10_sag14")
 
 [node name="Button4" type="Button" parent="Panel_Encyclopedia/Panel_Tower/FlowContainer"]
 modulate = Color(0, 0.6862745, 0.8666667, 1)
@@ -759,18 +832,18 @@ text = "TOWER NAME"
 
 [node name="Tower_Desc" type="Label" parent="Panel_Encyclopedia/Panel_Tower/Panel"]
 layout_mode = 0
-offset_left = 14.0
-offset_top = 295.0
-offset_right = 174.0
-offset_bottom = 329.0
+offset_left = 11.0
+offset_top = 250.0
+offset_right = 171.0
+offset_bottom = 284.0
 text = "Description"
 
 [node name="Tower_Stats" type="Label" parent="Panel_Encyclopedia/Panel_Tower/Panel"]
 layout_mode = 0
-offset_left = 305.0
-offset_top = 94.0
-offset_right = 465.0
-offset_bottom = 128.0
+offset_left = 15.0
+offset_top = 86.0
+offset_right = 175.0
+offset_bottom = 120.0
 text = "Status"
 
 [node name="Panel_Enemies" type="Panel" parent="Panel_Encyclopedia"]
@@ -854,18 +927,18 @@ text = "TOWER NAME"
 
 [node name="Tower_Desc" type="Label" parent="Panel_Encyclopedia/Panel_Enemies/Panel"]
 layout_mode = 0
-offset_left = 14.0
-offset_top = 295.0
-offset_right = 174.0
-offset_bottom = 329.0
+offset_left = 11.0
+offset_top = 263.0
+offset_right = 171.0
+offset_bottom = 297.0
 text = "Description"
 
 [node name="Tower_Stats" type="Label" parent="Panel_Encyclopedia/Panel_Enemies/Panel"]
 layout_mode = 0
-offset_left = 305.0
-offset_top = 94.0
-offset_right = 465.0
-offset_bottom = 128.0
+offset_left = 13.0
+offset_top = 84.0
+offset_right = 173.0
+offset_bottom = 118.0
 text = "Status"
 
 [node name="Label" type="Label" parent="Panel_Encyclopedia"]
@@ -990,6 +1063,7 @@ text = "OKE MENGERTI"
 [connection signal="pressed" from="Panel_Upgrade/Button_Garlic" to="." method="_on_buy_garlic_pressed"]
 [connection signal="pressed" from="Panel_Upgrade/Button_Pepper" to="." method="_on_buy_pepper_pressed"]
 [connection signal="pressed" from="Panel_Upgrade/Button_Ice" to="." method="_on_buy_ice_pressed"]
+[connection signal="pressed" from="Panel_Upgrade/Button_Chilli_Bomb" to="." method="_on_buy_chilli_bomb_pressed"]
 [connection signal="pressed" from="Panel_Encyclopedia/Close_Upgrade" to="." method="_on_close_upgrade_pressed"]
 [connection signal="pressed" from="Panel_Encyclopedia/Back_Upgrade" to="." method="_on_back_upgrade_pressed"]
 [connection signal="pressed" from="Panel_Encyclopedia/Select_Container/Button_Tower" to="." method="_on_button_tower_pressed"]

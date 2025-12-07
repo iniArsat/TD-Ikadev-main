@@ -12,6 +12,7 @@ extends Node
 @export var enemy_Squirrel_Fire_scene: PackedScene
 @export var enemy_Monkey_scene: PackedScene
 @export var enemy_Mini_Boss_scene: PackedScene
+@export var enemy_Chef_Baslik_scene: PackedScene
 
 # CSV Configuration
 @export var wave_csv_path: String = "res://data/wave_data.csv"
@@ -191,6 +192,8 @@ func get_enemy_scene_by_type(enemy_type: String) -> PackedScene:
 			return enemy_Monkey_scene
 		"Mini_Boss", "MiniBoss":
 			return enemy_Mini_Boss_scene
+		"Blind_Bat", "Chef_Baslik":  # TAMBAH INI
+			return enemy_Chef_Baslik_scene
 		_:
 			push_error("Unknown enemy type: " + enemy_type)
 			return null
@@ -212,7 +215,7 @@ func set_level(level: int):
 	reset_wave_manager()
 
 func reset_wave_manager():
-	current_wave = 0  # NEW: Reset ke 0, bukan -1
+	current_wave = -1  # NEW: Reset ke 0, bukan -1
 	spawning = false
 	active_enemies.clear()
 	

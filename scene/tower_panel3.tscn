@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://7krk64a15ku2" path="res://asset/Locked.png" id="9_865re"]
 
 [node name="TowerPanel" type="Panel" groups=["tower_panel"]]
+custom_minimum_size = Vector2(78, 74)
 offset_right = 78.0
 offset_bottom = 74.0
 script = ExtResource("1_yy88u")

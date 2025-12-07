@@ -38,6 +38,8 @@ enemies=""
 invalid_drop_area=""
 tower_panel=""
 valid_drop_area=""
+bullet=""
+valid_trap_area=""
 
 [input]
 

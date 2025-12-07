@@ -1,9 +1,12 @@
-[gd_scene load_steps=11 format=3 uid="uid://djajniwnkgmk7"]
+[gd_scene load_steps=14 format=3 uid="uid://djajniwnkgmk7"]
 
 [ext_resource type="Script" uid="uid://bgxcixbtsqnnn" path="res://script/tower_a.gd" id="1_mqf2n"]
 [ext_resource type="PackedScene" uid="uid://bekiniyxqag44" path="res://scene/blind_bullet.tscn" id="2_mqf2n"]
+[ext_resource type="Texture2D" uid="uid://basyrqvioq4uc" path="res://asset/Pepper_Grinder.png" id="3_8vsvq"]
 [ext_resource type="Texture2D" uid="uid://d1ig5rmkg7xln" path="res://asset/Stove_Cannon.png" id="3_snfp2"]
+[ext_resource type="Texture2D" uid="uid://cps18hb8550fn" path="res://asset/Pepper_Grinder_lv2.png" id="4_ogdvh"]
 [ext_resource type="Texture2D" uid="uid://bpdoirv4wlyop" path="res://asset/png_palu.png" id="4_vy50y"]
+[ext_resource type="Texture2D" uid="uid://dlc54kow6dry" path="res://asset/Pepper_Grinder_lv3.png" id="5_8wn57"]
 [ext_resource type="Script" uid="uid://kvis5s4a8808" path="res://script/range_visual.gd" id="5_snfp2"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_om1lo"]
@@ -28,6 +31,9 @@ bg_color = Color(0, 0.72549, 0, 1)
 [node name="TowerPepper" type="Node2D" groups=["tower"]]
 script = ExtResource("1_mqf2n")
 bullet_scene = ExtResource("2_mqf2n")
+head_texture_level1 = ExtResource("3_8vsvq")
+head_texture_level2 = ExtResource("4_ogdvh")
+head_texture_level3 = ExtResource("5_8wn57")
 
 [node name="Head" type="Sprite2D" parent="."]
 modulate = Color(0, 0.6862745, 0.8666667, 1)

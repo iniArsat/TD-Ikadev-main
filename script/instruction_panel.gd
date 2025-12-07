@@ -69,7 +69,19 @@ func _update_buttons():
 		else:
 			if continue_button:
 				continue_button.visible = true
-		
+	if skip_button:
+		match current_page:
+			1:
+				# Page 1: Tampilkan skip button dengan text "SKIP"
+				skip_button.visible = true
+				skip_button.text = "SKIP"
+			2, 3:
+				# Page 2 dan 3: Sembunyikan skip button
+				skip_button.visible = false
+			4:
+				# Page 4: Tampilkan skip button dengan text "GOT IT"
+				skip_button.visible = true
+				skip_button.text = "GOT IT"
 func _on_skip_pressed():
 	GameSpeedManager.set_game_speed(1.0)
 	skip_instructions.emit()

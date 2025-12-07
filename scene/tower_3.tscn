@@ -1,10 +1,12 @@
-[gd_scene load_steps=11 format=3 uid="uid://uewpaduoydcs"]
+[gd_scene load_steps=13 format=3 uid="uid://uewpaduoydcs"]
 
 [ext_resource type="Script" uid="uid://bgxcixbtsqnnn" path="res://script/tower_a.gd" id="1_8e3ky"]
 [ext_resource type="PackedScene" uid="uid://dxb8ugymiu64t" path="res://scene/ice_bullet.tscn" id="2_6m6nm"]
-[ext_resource type="Texture2D" uid="uid://d1ig5rmkg7xln" path="res://asset/Stove_Cannon.png" id="2_d414n"]
 [ext_resource type="Texture2D" uid="uid://bpdoirv4wlyop" path="res://asset/png_palu.png" id="3_6m6nm"]
+[ext_resource type="Texture2D" uid="uid://cbkftt6ykesia" path="res://asset/Ice_Chiller.png" id="3_e133j"]
+[ext_resource type="Texture2D" uid="uid://b88d8ti5hftk1" path="res://asset/Ice_Chiller_lv2.png" id="4_qj4c4"]
 [ext_resource type="Script" uid="uid://kvis5s4a8808" path="res://script/range_visual.gd" id="5_6m6nm"]
+[ext_resource type="Texture2D" uid="uid://dn7y00hkld863" path="res://asset/Ice_Chiller_lv3.png" id="5_8yg52"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_om1lo"]
 radius = 144.184
@@ -28,13 +30,15 @@ bg_color = Color(0, 0.72549, 0, 1)
 [node name="TowerC" type="Node2D" groups=["tower"]]
 script = ExtResource("1_8e3ky")
 bullet_scene = ExtResource("2_6m6nm")
+head_texture_level1 = ExtResource("3_e133j")
+head_texture_level2 = ExtResource("4_qj4c4")
+head_texture_level3 = ExtResource("5_8yg52")
 
 [node name="Head" type="Sprite2D" parent="."]
-modulate = Color(0.866667, 0.388235, 1, 1)
 position = Vector2(-5.96046e-08, 1.42109e-14)
 rotation = 1.5708
 scale = Vector2(0.35, 0.35)
-texture = ExtResource("2_d414n")
+texture = ExtResource("3_e133j")
 
 [node name="Sight" type="Area2D" parent="."]
 

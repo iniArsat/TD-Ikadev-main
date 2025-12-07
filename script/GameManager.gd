@@ -12,12 +12,19 @@ signal base_damaged()
 signal tower_placed(tower_instance)
 signal tower_upgraded(tower_instance)
 var invalid_drop_areas: Array = []
+var invalid_trap_areas: Array = []
 var valid_drop_areas: Array = []
+var valid_trap_areas: Array = []
 var is_game_over = false
 var placed_towers: Array = []  # Menyimpan referensi semua tower yang sudah terpasang
 var min_tower_distance: float = 80.0 
 var current_level: int = 1
 var should_open_store = false
+
+var placed_traps: Array = []  # NEW: Menyimpan referensi trap yang sudah terpasang
+var min_trap_distance: float = 100.0  # NEW: Jarak minimum antar trap
+
+signal trap_placed(trap_instance)
 
 func _ready():
 	# Reset flag setiap game mulai
@@ -29,13 +36,13 @@ func set_level(level: int):
 		1:
 			initial_coin_per_level = 100
 		2:
-			initial_coin_per_level = 150
+			initial_coin_per_level = 120
 		3:
-			initial_coin_per_level = 200
+			initial_coin_per_level = 140
 		4:
-			initial_coin_per_level = 250
+			initial_coin_per_level = 160
 		5:
-			initial_coin_per_level = 300
+			initial_coin_per_level = 180
 		_:
 			initial_coin_per_level = 100  # Default
 	reset_game()

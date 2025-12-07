@@ -37,6 +37,9 @@ extends Control
 @onready var ok_button: Button = $Panel_Locked/Button_Oke
 @onready var message_label: Label = $Panel_Locked/message_label
 
+@onready var button_chilli_bomb: Button = $Panel_Upgrade/Button_Chilli_Bomb
+@onready var chilli_bomb_count_label: Label = $Panel_Upgrade/FlowContainer/ColorRect6/count
+var chilli_bomb_price = 1
 
 # Data untuk setiap tower
 var tower_data = {
@@ -144,12 +147,13 @@ func _ready() -> void:
 	panel_tower_info.visible = false
 	panel_enemy_info.visible = false
 	locked_level_panel.visible = false
+	panel_upgrade.visible = false
 	GameManager.reset_game()
 	GameSpeedManager.reset_speed()
 	_update_level_buttons()
 	_update_total_stars_display()
 	_update_store_buttons()
-	
+	_update_chilli_bomb_display()
 	
 	if GameManager.should_open_store:
 		GameManager.should_open_store = false  # Reset
@@ -233,6 +237,44 @@ func _on_buy_garlic_pressed():
 func _on_buy_pepper_pressed():
 	_buy_tower("Pepper_Grinder", 5)
 
+func _on_buy_chilli_bomb_pressed():
+	var total_stars = SaveManager.get_total_stars()
+	
+	# Cek cukup stars
+	if total_stars >= chilli_bomb_price:
+		# Kurangi stars
+		SaveManager.save_data["total_stars"] -= chilli_bomb_price
+		
+		# Tambahkan chilli bomb
+		SaveManager.add_consumable("chilli_bomb", 1)
+		
+		SaveManager.save_game()
+		
+		print("✅ Purchased Chilli Bomb for " + str(chilli_bomb_price) + " stars")
+		_update_total_stars_display()
+		_update_chilli_bomb_display()
+	else:
+		print("❌ Not enough stars! Need: " + str(chilli_bomb_price) + ", Have: " + str(total_stars))
+
+# Update display chilli bomb
+func _update_chilli_bomb_display():
+	if chilli_bomb_count_label:
+		var count = SaveManager.get_consumable_amount("chilli_bomb")
+		chilli_bomb_count_label.text = "Owned: " + str(count)
+	
+	# Update button state
+	if button_chilli_bomb:
+		var total_stars = SaveManager.get_total_stars()
+		
+		if total_stars < chilli_bomb_price:
+			button_chilli_bomb.text = "💰 " + str(chilli_bomb_price) + " ⭐"
+			button_chilli_bomb.disabled = true
+			button_chilli_bomb.tooltip_text = "Need " + str(chilli_bomb_price) + " stars\nYou have: " + str(total_stars)
+		else:
+			button_chilli_bomb.text = "BUY - " + str(chilli_bomb_price) + " ⭐"
+			button_chilli_bomb.disabled = false
+			button_chilli_bomb.tooltip_text = "Click to buy for " + str(chilli_bomb_price) + " stars"
+			
 func _buy_tower(tower_type: String, price: int):
 	var total_stars = SaveManager.save_data["total_stars"]
 	

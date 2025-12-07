@@ -1,10 +1,12 @@
-[gd_scene load_steps=14 format=3 uid="uid://d2i5gjafy7xtx"]
+[gd_scene load_steps=16 format=3 uid="uid://d2i5gjafy7xtx"]
 
 [ext_resource type="Script" uid="uid://bgxcixbtsqnnn" path="res://script/tower_a.gd" id="1_11wi7"]
 [ext_resource type="PackedScene" uid="uid://805pbpmm4hdd" path="res://scene/Chili_Bullet.tscn" id="2_l8n8j"]
 [ext_resource type="Texture2D" uid="uid://dwghhwpbdd1gl" path="res://asset/Chilli_Launcher.png" id="2_yam0w"]
 [ext_resource type="Texture2D" uid="uid://bpdoirv4wlyop" path="res://asset/png_palu.png" id="3_i4h2n"]
 [ext_resource type="Texture2D" uid="uid://di2dl5tp67x7v" path="res://asset/aura_effect.png" id="3_sapfk"]
+[ext_resource type="Texture2D" uid="uid://2fkst1uxmx8a" path="res://asset/towerDefense_lvl2.png" id="4_56nlu"]
+[ext_resource type="Texture2D" uid="uid://ca8s7pc2paqer" path="res://asset/towerDefense_lvl3.png" id="5_natej"]
 [ext_resource type="Script" uid="uid://kvis5s4a8808" path="res://script/range_visual.gd" id="6_mlk3p"]
 [ext_resource type="Texture2D" uid="uid://utb7wlof3c5" path="res://asset/ui_upgrade.png" id="7_5wmt6"]
 [ext_resource type="Texture2D" uid="uid://bw6huaugv4vry" path="res://asset/close_ui.png" id="8_xg7x1"]
@@ -31,6 +33,9 @@ bg_color = Color(0, 0.72549, 0, 1)
 [node name="TowerA" type="Node2D" groups=["tower"]]
 script = ExtResource("1_11wi7")
 bullet_scene = ExtResource("2_l8n8j")
+head_texture_level1 = ExtResource("2_yam0w")
+head_texture_level2 = ExtResource("4_56nlu")
+head_texture_level3 = ExtResource("5_natej")
 
 [node name="RangeVisual" type="Sprite2D" parent="."]
 visible = false

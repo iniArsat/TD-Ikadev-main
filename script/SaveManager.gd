@@ -11,7 +11,7 @@ var save_data = {
 	"level_stars": {},           # Bintang per level (terbaik)
 	"unlocked_towers": ["Stove_Cannon","Chilli_Launcher"],
 	"settings": {
-		"music_volume": 1.0,
+		"music_volume": 0.5,
 		"sfx_volume": 1.0
 	}
 }
@@ -20,6 +20,8 @@ func _ready():
 	load_game()
 	print("💾 SaveManager loaded - Total Stars: ", save_data["total_stars"])
 	_ensure_unlocked_towers()
+	if MusicPlayer:
+		MusicPlayer.load_volume_settings()
 
 # Save game
 func save_game():
@@ -91,6 +93,37 @@ func buy_tower(tower_name: String):
 		return true
 	return false
 
+func add_consumable(item_name: String, amount: int = 1):
+	if not "consumables" in save_data:
+		save_data["consumables"] = {}
+	
+	if not item_name in save_data["consumables"]:
+		save_data["consumables"][item_name] = 0
+	
+	save_data["consumables"][item_name] += amount
+
+func get_consumable_amount(item_name: String) -> int:
+	if not "consumables" in save_data:
+		save_data["consumables"] = {}
+	
+	if not item_name in save_data["consumables"]:
+		return 0
+	
+	return save_data["consumables"][item_name]
+
+func use_consumable(item_name: String, amount: int = 1) -> bool:
+	if not "consumables" in save_data:
+		save_data["consumables"] = {}
+	
+	if not item_name in save_data["consumables"]:
+		return false
+	
+	if save_data["consumables"][item_name] >= amount:
+		save_data["consumables"][item_name] -= amount
+		return true
+	
+	return false
+	
 func has_tower(tower_name: String) -> bool:
 	return tower_name in save_data["unlocked_towers"]
 	
