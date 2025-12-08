@@ -13,9 +13,8 @@ func _process(delta):
 		queue_free()
 		return
 	var dir = (target.global_position - global_position).normalized()
-	var desired_angle = dir.angle()
-	rotation = lerp_angle(rotation, desired_angle, rotation_speed * delta)
-	position += Vector2.RIGHT.rotated(rotation) * speed * delta
+	rotation = dir.angle()  # Langsung menghadap target
+	position += dir * speed * delta 
 
 func _on_body_entered(body: Node2D) -> void:
 	if body.is_in_group("player"):

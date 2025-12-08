@@ -82,6 +82,9 @@ horizontal_alignment = 1
 position = Vector2(152, 188)
 texture = ExtResource("5_jhkwx")
 
+[node name="Label" parent="CanvasLayer/UI_Management/Instruction_Panel/Page3" index="1"]
+text = "New Tower Available For This Level!"
+
 [node name="Label2" parent="CanvasLayer/UI_Management/Instruction_Panel/Page3" index="2"]
 text = "LEVEL 3"
 

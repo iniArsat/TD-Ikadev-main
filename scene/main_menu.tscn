@@ -539,23 +539,6 @@ grow_horizontal = 2
 theme_override_font_sizes/font_size = 50
 text = "SETTINGS"
 
-[node name="Quit_Game" type="Button" parent="Panel_Settings"]
-custom_minimum_size = Vector2(200, 75)
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -142.0
-offset_top = -109.0
-offset_right = 142.0
-offset_bottom = -32.0
-grow_horizontal = 2
-grow_vertical = 0
-theme_override_font_sizes/font_size = 50
-text = "QUIT GAME"
-
 [node name="Close_Settings" type="Button" parent="Panel_Settings"]
 custom_minimum_size = Vector2(60, 60)
 layout_mode = 0

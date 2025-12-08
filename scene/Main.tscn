@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=3 uid="uid://cdgqu8jrfmpij"]
+[gd_scene load_steps=48 format=3 uid="uid://cdgqu8jrfmpij"]
 
 [ext_resource type="Script" uid="uid://dnepi04ynwh4r" path="res://script/Main.gd" id="1_yiwpq"]
 [ext_resource type="Script" uid="uid://dj4gx2hi8oi4o" path="res://script/path_spawner.gd" id="2_mnmej"]
@@ -25,6 +25,7 @@
 [ext_resource type="Script" uid="uid://cb8tcw2ikdffd" path="res://script/instruction_panel.gd" id="14_08k7p"]
 [ext_resource type="PackedScene" uid="uid://cyu3hmkm8dew0" path="res://scene/enemy_Monkey.tscn" id="14_ob58h"]
 [ext_resource type="PackedScene" uid="uid://djajniwnkgmk7" path="res://scene/tower_Pepper.tscn" id="15_1dr5g"]
+[ext_resource type="Texture2D" uid="uid://b2dnlu128upiv" path="res://asset/pathway.png" id="15_wuire"]
 [ext_resource type="Texture2D" uid="uid://c1m4jm58i0qqg" path="res://asset/fast_forward.png" id="21_pn0cg"]
 [ext_resource type="Texture2D" uid="uid://utb7wlof3c5" path="res://asset/ui_upgrade.png" id="22_72c0u"]
 [ext_resource type="Texture2D" uid="uid://cj0v05cfigw5h" path="res://asset/fast_forward_x2.png" id="22_cqmtw"]
@@ -468,6 +469,82 @@ text = "TEKAN START WAVE
 UNTUK MULAI!"
 horizontal_alignment = 1
 
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/UI_Management/PopUp_StartWave"]
+position = Vector2(10.810852, -162.16222)
+scale = Vector2(0.535, 0.535)
+texture = ExtResource("15_wuire")
+
+[node name="Sprite2D2" type="Sprite2D" parent="CanvasLayer/UI_Management/PopUp_StartWave"]
+position = Vector2(521.08093, -30.27034)
+scale = Vector2(0.535, 0.535)
+texture = ExtResource("15_wuire")
+
+[node name="Sprite2D3" type="Sprite2D" parent="CanvasLayer/UI_Management/PopUp_StartWave"]
+position = Vector2(977.29724, -34.594666)
+scale = Vector2(0.535, 0.535)
+texture = ExtResource("15_wuire")
+
+[node name="Sprite2D6" type="Sprite2D" parent="CanvasLayer/UI_Management/PopUp_StartWave"]
+position = Vector2(1498.3782, -34.594666)
+scale = Vector2(0.535, 0.535)
+texture = ExtResource("15_wuire")
+
+[node name="Sprite2D4" type="Sprite2D" parent="CanvasLayer/UI_Management/PopUp_StartWave"]
+position = Vector2(2324.3242, -34.594666)
+rotation = 3.1415927
+scale = Vector2(0.535, 0.535)
+texture = ExtResource("15_wuire")
+
+[node name="Sprite2D5" type="Sprite2D" parent="CanvasLayer/UI_Management/PopUp_StartWave"]
+position = Vector2(1917.8378, 162.16206)
+rotation = 1.5707964
+scale = Vector2(0.535, 0.535)
+texture = ExtResource("15_wuire")
+
+[node name="Sprite2D7" type="Sprite2D" parent="CanvasLayer/UI_Management/PopUp_StartWave"]
+position = Vector2(1522.1621, 345.9458)
+rotation = 3.1415927
+scale = Vector2(0.535, 0.535)
+texture = ExtResource("15_wuire")
+
+[node name="Sprite2D8" type="Sprite2D" parent="CanvasLayer/UI_Management/PopUp_StartWave"]
+position = Vector2(908.1083, 229.1892)
+rotation = 3.1415927
+scale = Vector2(0.535, 0.535)
+texture = ExtResource("15_wuire")
+
+[node name="Sprite2D9" type="Sprite2D" parent="CanvasLayer/UI_Management/PopUp_StartWave"]
+position = Vector2(482.1622, 216.21616)
+rotation = 3.1415927
+scale = Vector2(0.535, 0.535)
+texture = ExtResource("15_wuire")
+
+[node name="Sprite2D10" type="Sprite2D" parent="CanvasLayer/UI_Management/PopUp_StartWave"]
+position = Vector2(521.0811, 598.9188)
+scale = Vector2(0.535, 0.535)
+texture = ExtResource("15_wuire")
+
+[node name="Sprite2D11" type="Sprite2D" parent="CanvasLayer/UI_Management/PopUp_StartWave"]
+position = Vector2(908.1081, 598.9189)
+scale = Vector2(0.535, 0.535)
+texture = ExtResource("15_wuire")
+
+[node name="Sprite2D12" type="Sprite2D" parent="CanvasLayer/UI_Management/PopUp_StartWave"]
+position = Vector2(1288.6486, 598.9188)
+scale = Vector2(0.535, 0.535)
+texture = ExtResource("15_wuire")
+
+[node name="Sprite2D13" type="Sprite2D" parent="CanvasLayer/UI_Management/PopUp_StartWave"]
+position = Vector2(1641.081, 598.9189)
+scale = Vector2(0.535, 0.535)
+texture = ExtResource("15_wuire")
+
+[node name="Sprite2D14" type="Sprite2D" parent="CanvasLayer/UI_Management/PopUp_StartWave"]
+position = Vector2(265.94592, 393.51343)
+rotation = 1.5707964
+scale = Vector2(0.535, 0.535)
+texture = ExtResource("15_wuire")
+
 [node name="PopUp_Drag" type="Sprite2D" parent="CanvasLayer/UI_Management"]
 visible = false
 position = Vector2(145, 529.00006)
@@ -519,18 +596,18 @@ offset_bottom = 40.0
 scale = Vector2(1.695, 1.695)
 theme_override_constants/separation = 15
 
+[node name="TowerPanel2" parent="CanvasLayer/UI_Management/Panel/HBoxContainer" instance=ExtResource("8_aex65")]
+layout_mode = 2
+chilli_launcher_scene = null
+ice_chiller_scene = null
+garlic_barrier_scene = null
+
 [node name="TowerPanel" parent="CanvasLayer/UI_Management/Panel/HBoxContainer" instance=ExtResource("7_764rb")]
 layout_mode = 2
 stove_cannon_scene = null
 ice_chiller_scene = null
 garlic_barrier_scene = null
 selected_tower_type = "Chilli_Launcher"
-
-[node name="TowerPanel2" parent="CanvasLayer/UI_Management/Panel/HBoxContainer" instance=ExtResource("8_aex65")]
-layout_mode = 2
-chilli_launcher_scene = null
-ice_chiller_scene = null
-garlic_barrier_scene = null
 
 [node name="TowerPanel4" parent="CanvasLayer/UI_Management/Panel/HBoxContainer" instance=ExtResource("9_ob58h")]
 visible = false

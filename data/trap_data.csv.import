@@ -1,15 +1,3 @@
 [remap]
 
-importer="csv_translation"
-type="Translation"
-uid="uid://c8likyxkrjota"
-valid=false
-
-[deps]
-
-source_file="res://data/trap_data.csv"
-
-[params]
-
-compress=true
-delimiter=0
+importer="keep"

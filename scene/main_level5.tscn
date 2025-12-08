@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://c1fmx1yyahx4m"]
+[gd_scene load_steps=9 format=3 uid="uid://c1fmx1yyahx4m"]
 
 [ext_resource type="PackedScene" uid="uid://cdgqu8jrfmpij" path="res://scene/Main.tscn" id="1_nxq6k"]
 [ext_resource type="PackedScene" uid="uid://dvmwbo4glqd7x" path="res://scene/tower_placement.tscn" id="2_6etbt"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://dvgtuinmlr2hk" path="res://scene/path_lvl5.tscn" id="2_upu8s"]
 [ext_resource type="PackedScene" uid="uid://cjnjfv1lt4pal" path="res://scene/path_lvl5_lvl1.tscn" id="3_bh4et"]
 [ext_resource type="Texture2D" uid="uid://bl2fo3otgncbd" path="res://asset/Locked_new.png" id="5_bh4et"]
+[ext_resource type="Texture2D" uid="uid://q72leh8nr1ki" path="res://asset/instruction_page3_lv5.png" id="5_g1w8g"]
 [ext_resource type="PackedScene" uid="uid://dhto2f4pbehk5" path="res://scene/trap_placement.tscn" id="7_bh4et"]
 
 [node name="Main" instance=ExtResource("1_nxq6k")]
@@ -50,7 +51,9 @@ text = "New Rival Boss!"
 text = "LEVEL 5"
 
 [node name="Sprite2D" parent="CanvasLayer/UI_Management/Instruction_Panel/Page3" index="0"]
-visible = false
+position = Vector2(159, 175)
+scale = Vector2(0.38, 0.38)
+texture = ExtResource("5_g1w8g")
 
 [node name="Label" parent="CanvasLayer/UI_Management/Instruction_Panel/Page3" index="1"]
 text = "All Towers Available For This Level!"

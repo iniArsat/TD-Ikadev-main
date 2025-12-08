@@ -98,7 +98,8 @@ var enemy_data = {
 	},
 	"Squirrel_Fire": {
 		"name": "Fire Squirrel", 
-		"description": "Tupai agresif pembawa bara api, ",
+		"description": "Squirrel Fire yang aktif dan memiliki kekuatan lebih
+		Menjadi ancaman saat jumlahnya mulai banyak.",
 		"stats": "HP:  Sedang 
 		SPEED:  Tinggi 
 		DAMAGE: Sedang "
@@ -114,17 +115,21 @@ var enemy_data = {
 	},
 	"Mini_Boss": {
 		"name": "Chef Amber",
-		"description": "Mini Boss",
-		"stats": "HP: Sangat Tinggi  
+		"description": "Chef Amber yang mampu menyerang balikdan dapat memberikan
+		(counter-attack) ketika terkena damage.",
+		"stats": "HP: Tinggi  
 		SPEED: Sedang
 		DAMAGE: Mirror Damage"
 	},
-	"Blind_Bat": {
+	"Chef_Baslik": {
 		"name": "Chef Baslik",
-		"description": "Chef Baslik.",
+		"description": "Musuh utama yang ingin mencuri seluruh rahasia dapur Chef Juno.
+		Ketika hadir, ia memperkuat seluruh pasukannya sehingga 
+		mereka jadi lebih sulit dikalahkan.",
 		"stats": "HP: Sangat Tinggi   
-		SPEED:   
-		DAMAGE:"
+		SPEED: Sedang
+		DAMAGE: Sangat Tinggi
+		Ability: dapat menghilangkan ppeluru di area jangkauan"
 	}
 }
 
@@ -180,7 +185,7 @@ func _ready() -> void:
 	if button_enemy_4:
 		button_enemy_4.pressed.connect(_on_enemy_button_pressed.bind("Mini_Boss"))
 	if button_enemy_5:
-		button_enemy_5.pressed.connect(_on_enemy_button_pressed.bind("Blind_Bat"))
+		button_enemy_5.pressed.connect(_on_enemy_button_pressed.bind("Chef_Baslik"))
 		
 
 func _update_level_buttons():

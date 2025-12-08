@@ -242,6 +242,56 @@ position = Vector2(930.00006, 436)
 scale = Vector2(0.55200005, 0.55200005)
 texture = ExtResource("5_q7x5q")
 
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 440.0
+offset_top = 465.0
+offset_right = 480.0
+offset_bottom = 507.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 30
+text = "1"
+
+[node name="Label2" type="Label" parent="."]
+layout_mode = 0
+offset_left = 316.0
+offset_top = 309.0
+offset_right = 356.0
+offset_bottom = 351.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 30
+text = "2"
+
+[node name="Label3" type="Label" parent="."]
+layout_mode = 0
+offset_left = 501.0
+offset_top = 308.0
+offset_right = 541.0
+offset_bottom = 350.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 30
+text = "3"
+
+[node name="Label4" type="Label" parent="."]
+layout_mode = 0
+offset_left = 704.0
+offset_top = 265.0
+offset_right = 744.0
+offset_bottom = 307.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 30
+text = "4"
+
+[node name="Label5" type="Label" parent="."]
+layout_mode = 0
+offset_left = 550.0
+offset_top = 163.0
+offset_right = 590.0
+offset_bottom = 205.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 30
+text = "5"
+
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 7
@@ -299,33 +349,6 @@ grow_horizontal = 2
 theme_override_font_sizes/font_size = 50
 text = "SETTINGS"
 
-[node name="Quit_Game" type="Button" parent="Panel_Settings"]
-custom_minimum_size = Vector2(200, 75)
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -142.0
-offset_top = -109.0
-offset_right = 142.0
-offset_bottom = -32.0
-grow_horizontal = 2
-grow_vertical = 0
-theme_override_font_sizes/font_size = 50
-text = "QUIT GAME"
-
-[node name="Close_Settings" type="Button" parent="Panel_Settings"]
-custom_minimum_size = Vector2(60, 60)
-layout_mode = 0
-offset_left = 839.0
-offset_top = 1.0
-offset_right = 899.0
-offset_bottom = 61.0
-theme_override_font_sizes/font_size = 35
-text = "X"
-
 [node name="VBoxContainer" type="VBoxContainer" parent="Panel_Settings"]
 layout_mode = 0
 offset_left = 102.0
@@ -380,6 +403,16 @@ offset_left = 250.0
 offset_top = 35.0
 offset_right = 670.0
 offset_bottom = 51.0
+
+[node name="Close_Upgrade" type="Button" parent="Panel_Settings"]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 0
+offset_left = 839.0
+offset_top = 1.0
+offset_right = 899.0
+offset_bottom = 61.0
+theme_override_font_sizes/font_size = 35
+text = "X"
 
 [node name="Panel_Upgrade" type="Panel" parent="."]
 visible = false
@@ -618,7 +651,7 @@ offset_top = 43.60904
 offset_right = 214.89476
 offset_bottom = 66.60904
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-text = "AREA SLOW - DEBUFF"
+text = "FREEZE - DAMAGE"
 
 [node name="Sprite2D" type="Sprite2D" parent="Panel_Upgrade/FlowContainer/ColorRect5"]
 position = Vector2(53.7594, 52.631577)
@@ -646,7 +679,7 @@ offset_top = 17.0
 offset_right = 216.0
 offset_bottom = 40.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-text = "ICE CHILLER"
+text = "CHILLI BOMB"
 
 [node name="count" type="Label" parent="Panel_Upgrade/FlowContainer/ColorRect6"]
 layout_mode = 0
@@ -664,7 +697,7 @@ offset_top = 43.60904
 offset_right = 214.89476
 offset_bottom = 66.60904
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-text = "AREA SLOW - DEBUFF"
+text = "DAMAGE - BURN"
 
 [node name="Sprite2D" type="Sprite2D" parent="Panel_Upgrade/FlowContainer/ColorRect6"]
 position = Vector2(53.7594, 52.631577)
@@ -728,6 +761,7 @@ scale = Vector2(0.835, 0.835)
 text = "BUY BOMB"
 
 [node name="Panel_Encyclopedia" type="Panel" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -753,6 +787,7 @@ scale = Vector2(0.67, 0.67)
 texture = ExtResource("3_vf7qe")
 
 [node name="Panel_Tower" type="Panel" parent="Panel_Encyclopedia"]
+visible = false
 layout_mode = 0
 offset_left = -139.0
 offset_top = -108.0
@@ -785,34 +820,117 @@ offset_right = 446.0
 offset_bottom = 486.0
 scale = Vector2(1.2, 1.1200006)
 theme_override_constants/h_separation = 10
-theme_override_constants/v_separation = 10
+theme_override_constants/v_separation = 40
 
 [node name="Button" type="Button" parent="Panel_Encyclopedia/Panel_Tower/FlowContainer"]
 custom_minimum_size = Vector2(120, 120)
 layout_mode = 2
 icon = ExtResource("8_55kyr")
 
+[node name="ColorRect" type="ColorRect" parent="Panel_Encyclopedia/Panel_Tower/FlowContainer/Button"]
+layout_mode = 0
+offset_top = 120.53565
+offset_right = 136.0
+offset_bottom = 160.53564
+color = Color(0.57045084, 0.33915982, 0, 1)
+
+[node name="Label" type="Label" parent="Panel_Encyclopedia/Panel_Tower/FlowContainer/Button/ColorRect"]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 8.928567
+offset_right = 130.0
+offset_bottom = 31.928566
+theme_override_font_sizes/font_size = 14
+text = "STOVE CANNON"
+horizontal_alignment = 1
+
 [node name="Button2" type="Button" parent="Panel_Encyclopedia/Panel_Tower/FlowContainer"]
 custom_minimum_size = Vector2(120, 120)
 layout_mode = 2
 icon = ExtResource("7_uloro")
+
+[node name="ColorRect" type="ColorRect" parent="Panel_Encyclopedia/Panel_Tower/FlowContainer/Button2"]
+layout_mode = 0
+offset_top = 120.53565
+offset_right = 136.0
+offset_bottom = 160.53564
+color = Color(0.57045084, 0.33915982, 0, 1)
+
+[node name="Label" type="Label" parent="Panel_Encyclopedia/Panel_Tower/FlowContainer/Button2/ColorRect"]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 8.928567
+offset_right = 130.0
+offset_bottom = 31.928566
+theme_override_font_sizes/font_size = 14
+text = "CHILLI LAUNCHER"
+horizontal_alignment = 1
 
 [node name="Button3" type="Button" parent="Panel_Encyclopedia/Panel_Tower/FlowContainer"]
 custom_minimum_size = Vector2(120, 120)
 layout_mode = 2
 icon = ExtResource("10_sag14")
 
+[node name="ColorRect" type="ColorRect" parent="Panel_Encyclopedia/Panel_Tower/FlowContainer/Button3"]
+layout_mode = 0
+offset_top = 120.53565
+offset_right = 136.0
+offset_bottom = 160.53564
+color = Color(0.57045084, 0.33915982, 0, 1)
+
+[node name="Label" type="Label" parent="Panel_Encyclopedia/Panel_Tower/FlowContainer/Button3/ColorRect"]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 8.928567
+offset_right = 130.0
+offset_bottom = 31.928566
+theme_override_font_sizes/font_size = 14
+text = "GARLIC BARRIER"
+horizontal_alignment = 1
+
 [node name="Button4" type="Button" parent="Panel_Encyclopedia/Panel_Tower/FlowContainer"]
-modulate = Color(0, 0.6862745, 0.8666667, 1)
 custom_minimum_size = Vector2(120, 120)
 layout_mode = 2
-icon = ExtResource("8_55kyr")
+icon = ExtResource("11_tvcej")
+
+[node name="ColorRect" type="ColorRect" parent="Panel_Encyclopedia/Panel_Tower/FlowContainer/Button4"]
+layout_mode = 0
+offset_top = 120.53565
+offset_right = 136.0
+offset_bottom = 160.53564
+color = Color(0.57045084, 0.33915982, 0, 1)
+
+[node name="Label" type="Label" parent="Panel_Encyclopedia/Panel_Tower/FlowContainer/Button4/ColorRect"]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 8.928567
+offset_right = 130.0
+offset_bottom = 31.928566
+theme_override_font_sizes/font_size = 14
+text = "PAPPER GRINDER"
+horizontal_alignment = 1
 
 [node name="Button5" type="Button" parent="Panel_Encyclopedia/Panel_Tower/FlowContainer"]
-modulate = Color(0.8666667, 0.3882353, 1, 1)
 custom_minimum_size = Vector2(120, 120)
 layout_mode = 2
-icon = ExtResource("8_55kyr")
+icon = ExtResource("12_op24d")
+
+[node name="ColorRect" type="ColorRect" parent="Panel_Encyclopedia/Panel_Tower/FlowContainer/Button5"]
+layout_mode = 0
+offset_top = 120.53565
+offset_right = 136.0
+offset_bottom = 160.53564
+color = Color(0.57045084, 0.33915982, 0, 1)
+
+[node name="Label" type="Label" parent="Panel_Encyclopedia/Panel_Tower/FlowContainer/Button5/ColorRect"]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 8.928567
+offset_right = 130.0
+offset_bottom = 31.928566
+theme_override_font_sizes/font_size = 14
+text = "ICE CHILLER"
+horizontal_alignment = 1
 
 [node name="Panel" type="Panel" parent="Panel_Encyclopedia/Panel_Tower"]
 layout_mode = 0
@@ -880,31 +998,82 @@ offset_right = 282.0
 offset_bottom = 283.0
 scale = Vector2(1.2, 1.1200006)
 theme_override_constants/h_separation = 10
-theme_override_constants/v_separation = 10
+theme_override_constants/v_separation = 40
 
 [node name="Button" type="Button" parent="Panel_Encyclopedia/Panel_Enemies/FlowContainer"]
 custom_minimum_size = Vector2(120, 120)
 layout_mode = 2
 icon = ExtResource("9_xajdu")
 
+[node name="ColorRect" type="ColorRect" parent="Panel_Encyclopedia/Panel_Enemies/FlowContainer/Button"]
+layout_mode = 0
+offset_top = 120.53565
+offset_right = 136.0
+offset_bottom = 160.53564
+color = Color(0.57045084, 0.33915982, 0, 1)
+
+[node name="Label" type="Label" parent="Panel_Encyclopedia/Panel_Enemies/FlowContainer/Button/ColorRect"]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 8.928567
+offset_right = 130.0
+offset_bottom = 31.928566
+theme_override_font_sizes/font_size = 14
+text = "GREASE RAT"
+horizontal_alignment = 1
+
 [node name="Button2" type="Button" parent="Panel_Encyclopedia/Panel_Enemies/FlowContainer"]
 custom_minimum_size = Vector2(120, 120)
 layout_mode = 2
 icon = ExtResource("10_q7x5q")
+
+[node name="ColorRect" type="ColorRect" parent="Panel_Encyclopedia/Panel_Enemies/FlowContainer/Button2"]
+layout_mode = 0
+offset_top = 120.53565
+offset_right = 136.0
+offset_bottom = 160.53564
+color = Color(0.57045084, 0.33915982, 0, 1)
+
+[node name="Label" type="Label" parent="Panel_Encyclopedia/Panel_Enemies/FlowContainer/Button2/ColorRect"]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 8.928567
+offset_right = 130.0
+offset_bottom = 31.928566
+theme_override_font_sizes/font_size = 14
+text = "SQUIRREL FIRE"
+horizontal_alignment = 1
 
 [node name="Button3" type="Button" parent="Panel_Encyclopedia/Panel_Enemies/FlowContainer"]
 custom_minimum_size = Vector2(120, 120)
 layout_mode = 2
 icon = ExtResource("11_jsi6v")
 
+[node name="ColorRect" type="ColorRect" parent="Panel_Encyclopedia/Panel_Enemies/FlowContainer/Button3"]
+layout_mode = 0
+offset_top = 120.53565
+offset_right = 136.0
+offset_bottom = 160.53564
+color = Color(0.57045084, 0.33915982, 0, 1)
+
+[node name="Label" type="Label" parent="Panel_Encyclopedia/Panel_Enemies/FlowContainer/Button3/ColorRect"]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 8.928567
+offset_right = 130.0
+offset_bottom = 31.928566
+theme_override_font_sizes/font_size = 14
+text = "MONKEY"
+horizontal_alignment = 1
+
 [node name="Button4" type="Button" parent="Panel_Encyclopedia/Panel_Enemies/FlowContainer"]
-modulate = Color(0, 0.6862745, 0.8666667, 1)
+modulate = Color(0, 0, 1, 1)
 custom_minimum_size = Vector2(120, 120)
 layout_mode = 2
 icon = ExtResource("9_xajdu")
 
 [node name="Button5" type="Button" parent="Panel_Encyclopedia/Panel_Enemies/FlowContainer"]
-modulate = Color(0.8666667, 0.3882353, 1, 1)
+modulate = Color(1, 0, 0, 1)
 custom_minimum_size = Vector2(120, 120)
 layout_mode = 2
 icon = ExtResource("9_xajdu")
@@ -940,6 +1109,44 @@ offset_top = 84.0
 offset_right = 173.0
 offset_bottom = 118.0
 text = "Status"
+
+[node name="ColorRect" type="ColorRect" parent="Panel_Encyclopedia/Panel_Enemies"]
+layout_mode = 0
+offset_left = -181.0
+offset_top = 305.0
+offset_right = -45.0
+offset_bottom = 345.0
+scale = Vector2(1.19, 1.19)
+color = Color(0.57045084, 0.33915982, 0, 1)
+
+[node name="Label" type="Label" parent="Panel_Encyclopedia/Panel_Enemies/ColorRect"]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 8.928567
+offset_right = 130.0
+offset_bottom = 31.928566
+theme_override_font_sizes/font_size = 14
+text = "CHEF AMBER"
+horizontal_alignment = 1
+
+[node name="ColorRect2" type="ColorRect" parent="Panel_Encyclopedia/Panel_Enemies"]
+layout_mode = 0
+offset_left = -9.000015
+offset_top = 305.0
+offset_right = 126.999985
+offset_bottom = 345.0
+scale = Vector2(1.19, 1.19)
+color = Color(0.57045084, 0.33915982, 0, 1)
+
+[node name="Label" type="Label" parent="Panel_Encyclopedia/Panel_Enemies/ColorRect2"]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 8.928567
+offset_right = 130.0
+offset_bottom = 31.928566
+theme_override_font_sizes/font_size = 14
+text = "CHEF BASLIK"
+horizontal_alignment = 1
 
 [node name="Label" type="Label" parent="Panel_Encyclopedia"]
 layout_mode = 1
@@ -1056,9 +1263,8 @@ text = "OKE MENGERTI"
 [connection signal="pressed" from="Button_Setting" to="." method="_on_button_setting_pressed"]
 [connection signal="pressed" from="HBoxContainer/Button_Store" to="." method="_on_button_upgrade_pressed"]
 [connection signal="pressed" from="HBoxContainer/Button_Encyclopedia" to="." method="_on_button_encyclopedia_pressed"]
-[connection signal="pressed" from="Panel_Settings/Quit_Game" to="." method="_on_quit_game_pressed"]
-[connection signal="pressed" from="Panel_Settings/Close_Settings" to="." method="_on_close_settings_pressed"]
 [connection signal="value_changed" from="Panel_Settings/VBoxContainer/ColorRect/HSlider" to="." method="_on_slider_bgm_value_changed"]
+[connection signal="pressed" from="Panel_Settings/Close_Upgrade" to="." method="_on_close_settings_pressed"]
 [connection signal="pressed" from="Panel_Upgrade/Close_Upgrade" to="." method="_on_close_settings_pressed"]
 [connection signal="pressed" from="Panel_Upgrade/Button_Garlic" to="." method="_on_buy_garlic_pressed"]
 [connection signal="pressed" from="Panel_Upgrade/Button_Pepper" to="." method="_on_buy_pepper_pressed"]
